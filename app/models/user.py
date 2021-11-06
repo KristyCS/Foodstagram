@@ -21,13 +21,13 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    
+
     followed_id = db.relationship('Follow',backref='followed', primaryjoin=id==Follow.followed_id)
     follower_id = db.relationship('Follow',backref='follower', primaryjoin=id==Follow.follower_id )
- 
-    # posts = db.relationship("Post", back_populates="users", cascade = 'all, delete')
-    # comments = db.relationship("Comment", back_populates="users", cascade = 'all, delete')
-    # likes = db.relationship("Like", back_populates="users", cascade = 'all, delete')
+
+    posts = db.relationship("Post", back_populates="user", cascade = 'all, delete')
+    comments = db.relationship("Comment", back_populates="user", cascade = 'all, delete')
+    likes = db.relationship("Like", back_populates="user", cascade = 'all, delete')
 
     # followers = db.relationship(
     #     "User",
@@ -54,9 +54,12 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            "posts": [post.to_dict() for post in self.posts],
-            "comments": [comment.to_dict() for comment in self.comments],
-            "likes": [like.to_dict() for like in self.likes],
+            "posts": [{"user_id": post.user_id, "description": post.description} for post in self.posts],
+            # "comments": [comment.to_dict() for comment in self.comments],
+            # "likes": [like.to_dict() for like in self.likes],
+            # "posts": self.posts,
+            # "comments": self.comments,
+            # "likes": self.likes,
             'profile_photo':self.profile_photo,
             'full_name':self.full_name,
             'about':self.about,
