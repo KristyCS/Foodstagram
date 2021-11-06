@@ -1,5 +1,4 @@
 from .db import db
-from .user import User
 
 class Photo(db.Model):
     __tablename__ = 'photos'
@@ -13,6 +12,6 @@ class Photo(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'post': self.post,
+            'post': self.post.to_dict(),
             'photo_url': self.photo_url,
         }

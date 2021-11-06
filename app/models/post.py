@@ -1,5 +1,5 @@
 from .db import db
-from .user import User
+
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -14,7 +14,7 @@ class Post(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'user': self.user,
+            'user': self.user.to_dict(),
             'description': self.email,
-            'photo': self.photo 
+            'photo': self.photo
         }
