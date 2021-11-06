@@ -1,7 +1,7 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
+from .follow import Follow
 # follows = db.Table(
 #     "follows",
 #     db.Column("follower_id", db.Integer, db.ForeignKey("users.id")),
@@ -21,8 +21,10 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    followers = db.relationship("Follow", back_populates="users", cascade = 'all, delete')
-    following = db.relationship("Follow", back_populates="users", cascade = 'all, delete')
+    
+    followed_id = db.relationship('Follow',backref='followed', primaryjoin=id==Follow.followed_id)
+    follower_id = db.relationship('Follow',backref='follower', primaryjoin=id==Follow.follower_id )
+ 
     # posts = db.relationship("Post", back_populates="users", cascade = 'all, delete')
     # comments = db.relationship("Comment", back_populates="users", cascade = 'all, delete')
     # likes = db.relationship("Like", back_populates="users", cascade = 'all, delete')
