@@ -9,12 +9,16 @@ class Post(db.Model):
     description = db.Column(db.String(2200), nullable=True)
 
     user = db.relationship("User", back_populates="posts")
-    photo = db.relationship("Photo", back_populates="posts")
+    photos = db.relationship("Photo", back_populates="posts", cascade = 'all, delete')
+    comments = db.relationship("Comment", back_populates="posts", cascade = 'all, delete')
+    likes = db.relationship("Like", back_populates="posts", cascade = 'all, delete')
 
     def to_dict(self):
         return {
             'id': self.id,
-            'user': self.user.to_dict(),
-            'description': self.email,
-            'photo': self.photo
+            'user': self.user.to_simple_dict(),
+            'description': self.description,
+            "photos": [photo.to_dict() for photo in self.photos],
+            "comments": [comment.to_dict() for comment in self.comments],
+            "likes": len(self.likes),
         }

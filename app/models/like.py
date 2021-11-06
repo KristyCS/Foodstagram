@@ -17,4 +17,5 @@ class Like(db.Model):
             'id': self.id,
             'post': self.post.to_dict(),
             'comment': self.comment.to_dict(),
+            'user': self.user.to_simple_dict()
         }
