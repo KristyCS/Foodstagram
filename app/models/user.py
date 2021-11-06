@@ -50,16 +50,14 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
     def to_dict(self):
+        print(self.posts[0].__dict__)
         return {
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            "posts": [{"user_id": post.user_id, "description": post.description} for post in self.posts],
-            # "comments": [comment.to_dict() for comment in self.comments],
-            # "likes": [like.to_dict() for like in self.likes],
-            # "posts": self.posts,
-            # "comments": self.comments,
-            # "likes": self.likes,
+            "posts": [{"description": post.description} for post in self.posts],
+            "comments": [{"post_id": comment.post_id, "content": comment.content} for comment in self.comments],
+            "likes": [{"comment_id": like.comment_id} if like.comment_id else {"post_id": like.post_id} for like in self.likes],
             'profile_photo':self.profile_photo,
             'full_name':self.full_name,
             'about':self.about,
