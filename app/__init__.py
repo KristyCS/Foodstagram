@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
 
-from .models import db, User
+from .models import db, User, Follow
 from .api import (auth_routes, user_routes, post_routes)
 
 from .seeds import seed_commands
@@ -70,5 +70,11 @@ def react_root(path):
     if path == 'favicon.ico':
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')
+
+@app.route("/")
+def index():
+    followers = Follow.query.filter(Follow.user_id == 2).all()
+    print(followers)
+    return {"followers": [follower.to_dict() for follower in followers]}
 
 

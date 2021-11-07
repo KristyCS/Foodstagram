@@ -21,7 +21,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
 
-    followed_id = db.relationship('Follow',backref='followed', primaryjoin=id==Follow.followed_id)
+    user_id = db.relationship('Follow',backref='followed', primaryjoin=id==Follow.user_id)
     follower_id = db.relationship('Follow',backref='follower', primaryjoin=id==Follow.follower_id )
 
     posts = db.relationship("Post", back_populates="user", cascade = 'all, delete')
