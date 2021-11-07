@@ -18,7 +18,14 @@ class Post(db.Model):
             'id': self.id,
             'user': self.user.to_simple_dict(),
             'description': self.description,
-            "photos": [photo.to_dict() for photo in self.photos],
-            "comments": [comment.to_dict() for comment in self.comments],
+            "photos": [photo.to_simple_dict() for photo in self.photos],
+            "comments": [comment.to_simple_dict() for comment in self.comments],
             "likes": len(self.likes),
+        }
+
+    def to_simple_dict(self):
+        return {
+            'id': self.id,
+            'description': self.description,
+            'likes': len(self.likes)
         }
