@@ -13,6 +13,11 @@ const NavBar = () => {
         sessionLinks = (
             <>
                 <div>
+                <NavLink id="home-link" to='/' exact={true} activeClassName='active'>
+                    <i class="fas fa-home"></i>
+                </NavLink>
+                </div>
+                <div>
                     <NavLink to='/users' exact={true} activeClassName='active'>
                         Users
                     </NavLink>
