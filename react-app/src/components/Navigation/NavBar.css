@@ -1,0 +1,14 @@
+#nav-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+#nav-buttons {
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+}
