@@ -13,9 +13,12 @@ const NavBar = () => {
         sessionLinks = (
             <>
                 <div>
-                <NavLink id="home-link" to='/' exact={true} activeClassName='active'>
+                <NavLink className="home-link" to='/' exact={true} activeClassName='active'>
                     <i class="fas fa-home"></i>
                 </NavLink>
+                </div>
+                <div id="frnds">
+                    <i class="fas fa-user-plus"></i>
                 </div>
                 <div>
                     <NavLink to='/users' exact={true} activeClassName='active'>
@@ -46,7 +49,7 @@ const NavBar = () => {
   return (
     <nav id="nav-container">
         <div>
-          <NavLink id="home-link" to='/' exact={true} activeClassName='active'>
+          <NavLink className="home-link" to='/' exact={true} activeClassName='active'>
             Foodstagram
           </NavLink>
         </div>

@@ -22,7 +22,7 @@
 }
 
 
-#home-link {
+.home-link {
     font-family: 'Lobster Two', cursive;
     text-decoration: none;
     color: black;
@@ -52,4 +52,9 @@
     color: rgb(84, 178, 241);
     font-weight: bold;
     font-size: 18px;
+}
+
+#frnds {
+    font-size: 30px;
+    cursor: pointer;
 }
