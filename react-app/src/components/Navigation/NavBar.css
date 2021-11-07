@@ -1,8 +1,16 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+}
+
 #nav-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 50px;
+    height: 60px;
     width: 100%;
     border-bottom: 1px solid black;
 }
@@ -11,4 +19,37 @@
     width: 350px;
     display: flex;
     justify-content: space-between;
+}
+
+
+#home-link {
+    font-family: 'Lobster Two', cursive;
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+}
+
+#login-nav {
+    background-color: rgb(84, 178, 241);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#signup-nav {
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+#nav-lbtn {
+    color: white;
+}
+
+#nav-sbtn {
+    color: rgb(84, 178, 241);
+    font-weight: bold;
+    font-size: 18px;
 }

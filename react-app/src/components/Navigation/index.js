@@ -8,13 +8,13 @@ const NavBar = () => {
 
    let sessionLinks = (
         <>
-            <div>
-                <NavLink to='/login' exact={true} activeClassName='active'>
-                    Login
+            <div id="login-nav">
+                <NavLink id="nav-lbtn" to='/login' exact={true} activeClassName='active'>
+                    Log In
                 </NavLink>
             </div>
-            <div>
-                <NavLink to='/sign-up' exact={true} activeClassName='active'>
+            <div id="signup-nav">
+                <NavLink id="nav-sbtn" to='/sign-up' exact={true} activeClassName='active'>
                     Sign Up
                 </NavLink>
             </div>
@@ -33,8 +33,8 @@ const NavBar = () => {
   return (
     <nav id="nav-container">
         <div>
-          <NavLink to='/' exact={true} activeClassName='active'>
-            Home
+          <NavLink id="home-link" to='/' exact={true} activeClassName='active'>
+            Foodstagram
           </NavLink>
         </div>
         <div id="nav-buttons">
