@@ -2,7 +2,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import LogoutButton from '../auth/LogoutButton';
+import ProfileButton from './ProfileButton';
 import './NavBar.css';
 
 const NavBar = () => {
@@ -17,9 +17,7 @@ const NavBar = () => {
                         Users
                     </NavLink>
                 </div>
-                <div>
-                    <LogoutButton />
-                </div>
+                <ProfileButton />
             </>
         )
     } else {

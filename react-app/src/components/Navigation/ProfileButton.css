@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#profile-div {
+    display: flex;
+    flex-direction: column;
+}
+
+#profile-button {
+    cursor: pointer;
+    padding: 7px;
+    border-radius: 20px;
+
+}
+
+#profile-dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: blanchedalmond;
+    top: 70px;
+}
+
+.prof-list-item {
+    color: black;
+    list-style-type: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 200ms ease-in-out;
+}
+
+.prof-list-item:hover {
+    background-color: whitesmoke;
+}
+
+#logout-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+    color: darkblue;
+}
