@@ -15,7 +15,10 @@ class Like(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'post': self.post.to_dict(),
-            'comment': self.comment.to_dict(),
+            'post': self.post.to_simple_dict(),
+            'comment': self.comment.to_simple_dict(),
             'user': self.user.to_simple_dict()
         }
+
+    def to_simple_dict(self):
+        return {'id': self.id, "post_id": self.post_id} if self.post_id else {'id': self.id, "comment_id": self.comment_id}

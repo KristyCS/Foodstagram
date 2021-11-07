@@ -8,7 +8,6 @@ from .follow import Follow
 #     db.Column("followed_id", db.Integer, db.ForeignKey("users.id")),
 #     db.Column("confirmed", db.Boolean, nullable=False, default=False)
 # )
-
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -54,9 +53,9 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            "posts": [{"description": post.description} for post in self.posts],
-            "comments": [{"post_id": comment.post_id, "content": comment.content} for comment in self.comments],
-            "likes": [{"comment_id": like.comment_id} if like.comment_id else {"post_id": like.post_id} for like in self.likes],
+            "posts": [post.to_simple_dict() for post in self.posts],
+            "comments": [comment.to_simple_dict() for comment in self.comments],
+            "likes": [like.to_simple_dict() for like in self.likes],
             'profile_photo':self.profile_photo,
             'full_name':self.full_name,
             'about':self.about,
@@ -66,7 +65,12 @@ class User(db.Model, UserMixin):
     def to_simple_dict(self):
         return {
             'id': self.id,
-            'username': self.username
+            'username': self.username,
+            'full_name': self.full_name,
+            'email': self.email,
+            'profile_photo': self.profile_photo,
+            'about': self.about,
+            'private': self.private
         }
 
 
