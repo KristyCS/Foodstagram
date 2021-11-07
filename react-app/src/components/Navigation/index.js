@@ -1,12 +1,17 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../../store/session';
 import ProfileButton from './ProfileButton';
 import './NavBar.css';
 
 const NavBar = () => {
+    const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
+    const credential = "demo@demo.com";
+    const password = "password";
+
     let sessionLinks;
 
     if (user) {
@@ -42,6 +47,10 @@ const NavBar = () => {
                     <NavLink id="nav-sbtn" to='/sign-up' exact={true} activeClassName='active'>
                         Sign Up
                     </NavLink>
+                </div>
+                <div id="demo-btn"
+                    onClick={() => dispatch(login(credential,password))}>
+                    Demo User
                 </div>
             </>
         )

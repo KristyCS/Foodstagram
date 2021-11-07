@@ -53,6 +53,14 @@
     font-size: 18px;
 }
 
+#demo-btn {
+    color: rgb(27, 51, 189);
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 7px;
+    cursor: pointer;
+}
+
 #frnds {
     font-size: 30px;
     cursor: pointer;
