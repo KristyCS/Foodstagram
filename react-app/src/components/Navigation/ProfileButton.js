@@ -33,16 +33,31 @@ function ProfileButton() {
     dispatch(logout());
   };
 
+  let profileDisplay;
+  if(user.profile_photo) {
+    profileDisplay = (
+      <>
+        <img id = "prof-pic" src = {user.profile_photo} />
+      </>
+    )
+  } else {
+    profileDisplay = (
+      <>
+        <i className="fas fa-user-circle" />
+      </>
+    )
+  }
+
   return (
       <div id="profile-div">
-        <button id="profile-button" onClick={openMenu}>
-          <i className="fas fa-user-circle" />
-        </button>
+        <div id="profile-button" onClick={openMenu}>
+          { profileDisplay }
+        </div>
         {showMenu && (
           <ul id="profile-dropdown">
             <li className="prof-list-item">
-              <NavLink className="story-link" to={`/user/dashboard`}>
-              <i className="fas fa-user-circle" /> Profile
+              <NavLink className="prof-link" to={`/user/dashboard`}>
+                <i className="far fa-user-circle" /> Profile
               </NavLink>
             </li>
             <li className="prof-list-item">
