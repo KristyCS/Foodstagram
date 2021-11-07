@@ -1,92 +1,92 @@
 [
     {
-        "follower_id": 1,
-        "followed_id": 2,
-        "confirmed": true
-    },
-    {
+        "user_id": 1,
         "follower_id": 2,
-        "followed_id": 3,
         "confirmed": true
     },
     {
-        "follower_id": 4,
-        "followed_id": 3,
-        "confirmed": true
-    },
-    {
-        "follower_id": 2,
-        "followed_id": 1,
-        "confirmed": true
-    },
-    {
-        "follower_id": 5,
-        "followed_id": 6,
-        "confirmed": true
-    },
-    {
-        "follower_id": 6,
-        "followed_id": 7,
-        "confirmed": true
-    },
-    {
-        "follower_id": 7,
-        "followed_id": 8,
-        "confirmed": true
-    },
-    {
-        "follower_id": 9,
-        "followed_id": 4,
-        "confirmed": false
-    },
-    {
+        "user_id": 2,
         "follower_id": 3,
-        "followed_id": 8,
-        "confirmed": false
+        "confirmed": true
     },
     {
-        "follower_id": 4,
-        "followed_id": 2,
-        "confirmed": false
+        "user_id": 4,
+        "follower_id": 3,
+        "confirmed": true
     },
     {
-        "follower_id": 10,
-        "followed_id": 9,
-        "confirmed": false
+        "user_id": 2,
+        "follower_id": 1,
+        "confirmed": true
     },
     {
-        "follower_id":7,
-        "followed_id": 3,
-        "confirmed": false
-    },
-    {
-        "follower_id": 2,
-        "followed_id": 10,
-        "confirmed": false
-    },
-    {
-        "follower_id": 9,
-        "followed_id": 6,
-        "confirmed": false
-    },
-    {
-        "follower_id": 10,
-        "followed_id": 4,
-        "confirmed": false
-    },
-    {
-        "follower_id":2,
-        "followed_id": 9,
-        "confirmed": false
-    },
-    {
-        "follower_id": 5,
-        "followed_id": 1,
-        "confirmed": false
-    },
-    {
+        "user_id": 5,
         "follower_id": 6,
-        "followed_id": 4,
+        "confirmed": true
+    },
+    {
+        "user_id": 6,
+        "follower_id": 7,
+        "confirmed": true
+    },
+    {
+        "user_id": 7,
+        "follower_id": 8,
+        "confirmed": true
+    },
+    {
+        "user_id": 9,
+        "follower_id": 4,
+        "confirmed": false
+    },
+    {
+        "user_id": 3,
+        "follower_id": 8,
+        "confirmed": false
+    },
+    {
+        "user_id": 4,
+        "follower_id": 2,
+        "confirmed": false
+    },
+    {
+        "user_id": 10,
+        "follower_id": 9,
+        "confirmed": false
+    },
+    {
+        "user_id":7,
+        "follower_id": 3,
+        "confirmed": false
+    },
+    {
+        "user_id": 2,
+        "follower_id": 10,
+        "confirmed": false
+    },
+    {
+        "user_id": 9,
+        "follower_id": 6,
+        "confirmed": false
+    },
+    {
+        "user_id": 10,
+        "follower_id": 4,
+        "confirmed": false
+    },
+    {
+        "user_id":2,
+        "follower_id": 9,
+        "confirmed": false
+    },
+    {
+        "user_id": 5,
+        "follower_id": 1,
+        "confirmed": false
+    },
+    {
+        "user_id": 6,
+        "follower_id": 4,
         "confirmed": false
     }
 ]
