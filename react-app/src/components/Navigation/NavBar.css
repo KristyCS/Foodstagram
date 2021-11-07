@@ -24,7 +24,6 @@
 
 .home-link {
     font-family: 'Lobster Two', cursive;
-    text-decoration: none;
     color: black;
     font-size: 30px;
 }
@@ -57,4 +56,8 @@
 #frnds {
     font-size: 30px;
     cursor: pointer;
+}
+
+#frnds-btn {
+    color: black;
 }

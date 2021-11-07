@@ -18,7 +18,9 @@ const NavBar = () => {
                 </NavLink>
                 </div>
                 <div id="frnds">
-                    <i class="fas fa-user-plus"></i>
+                    <NavLink id="frnds-btn" to='/user/friend-requests' exact={true} activeClassName='active'>
+                        <i class="fas fa-user-plus"></i>
+                    </NavLink>
                 </div>
                 <div>
                     <NavLink to='/users' exact={true} activeClassName='active'>
