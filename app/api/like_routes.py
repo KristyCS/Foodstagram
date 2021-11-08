@@ -23,7 +23,7 @@ def post_likes():
     db.session.commit()
     return new_like
 
-@like_routes.route('/<int:id>', methods=['POST'])
+@like_routes.route('/<int:id>', methods=['PUT'])
 def update_likes(id):
     data = request.json
     like = Like.query.get(id)
