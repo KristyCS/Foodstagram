@@ -17,3 +17,10 @@ def users():
 def user(id):
     user = User.query.get(id)
     return user.to_dict()
+
+
+@user_routes.route('/dashboard/<string:username>')
+# @login_required
+def selected_user(username):
+    user = User.query.filter(User.username == username).first()
+    return user.to_dict()

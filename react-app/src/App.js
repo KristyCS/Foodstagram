@@ -36,9 +36,6 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path='/users/:username' exact={true} >
-          <UserProfile/>
-        </ProtectedRoute>
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
@@ -48,6 +45,9 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <HomePage />
         </ProtectedRoute>
+        <Route path='/users/dashboard/:username' exact={true} >
+          <UserProfile/>
+        </Route>
       </Switch>
     </BrowserRouter>
   );
