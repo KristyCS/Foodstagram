@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import {NavLink} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 // import {Like} from "../images/empty_heart.svg"
 import { ImHeart } from "react-icons/im";
-
+import "./SinglePostCard.css";
 const SinglePostCard = ({ singlePost }) => {
   const [imageIndex, setImageIndex] = useState(0);
+  const number_of_all_comments = 5
   return (
     <div className="single_post_container">
       <div className="single_post_user">
@@ -30,8 +32,11 @@ const SinglePostCard = ({ singlePost }) => {
         <p>3 likes</p>
       </div>
       <div className="description">
-        <p className="description_user_name">{singlePost.user.username}</p>
+        <NavLink to="" className="description_user_name"><p>{singlePost.user.username}</p></NavLink>
         <p className="description_content">{singlePost.description}</p>
+      </div>
+      <div className="view_all_comments">
+       <span>view all {number_of_all_comments} comments</span>
       </div>
     </div>
   );
