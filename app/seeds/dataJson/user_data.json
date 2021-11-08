@@ -1,10 +1,10 @@
 [
     {
-        "full_name": "Helmi, Latt",
-        "email": "helmi.latt@example.com",
-        "username": "sadfish358",
+        "full_name": "User, Demo",
+        "email": "demo@demo.com",
+        "username": "demouser",
         "about": "Audience Democrat under miss try job try power table consider while medical article base look whole employee marriage develop couple firm stand research matter office smile game guess rise way in popular ability guy best grow anyone respond class.",
-        "hashed_password": "01a71ceed6eaaaecc6bf042d5b270b37",
+        "hashed_password": "pbkdf2:sha256:260000$JNeVPb7u9GTfHoOI$bf57066dae3a04341f4bbcb7fc6ec0b6ca7d36c3b6a3ce853495f9058cee6997",
         "profile_photo": "https://randomuser.me/api/portraits/thumb/women/35.jpg",
         "private": false
 
@@ -28,7 +28,7 @@
         "hashed_password": "6309e1f6183240872d48026e46b26922",
         "profile_photo": "https://randomuser.me/api/portraits/thumb/women/92.jpg",
         "private": false
-     
+
     },
     {
         "full_name": "Stian, Skaare",

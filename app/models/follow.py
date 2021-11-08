@@ -3,15 +3,22 @@ from .db import db
 class Follow(db.Model):
     __tablename__ = 'follows'
 
-    follower_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-    followed_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    follower_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'follower_id': self.follower_id,
+            'confirmed': self.confirmed
+        }
+
     @classmethod
-    def create(cls, follower_id, followed_id, confirmed):
-        follow = cls(follower_id=follower_id, followed_id=followed_id, confirmed=confirmed)
+    def create(cls, user_id, follower_id, confirmed):
+        follow = cls(user_id=user_id, follower_id=follower_id, confirmed=confirmed)
         db.session.add(follow)
         db.session.commit()
         return follow
-
-

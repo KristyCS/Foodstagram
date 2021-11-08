@@ -12,6 +12,13 @@ class Photo(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'post': self.post.to_dict(),
+            'post': self.post.to_simple_dict(),
             'photo_url': self.photo_url,
+        }
+
+    def to_simple_dict(self):
+        return {
+            'id': self.id,
+            'post_id': self.post_id,
+            'photo_url': self.photo_url
         }

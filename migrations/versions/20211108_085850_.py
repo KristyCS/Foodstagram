@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d8852824eeaa
-Revises: 599176471b4f
-Create Date: 2021-11-06 16:48:36.279509
+Revision ID: dfecf2d9672d
+Revises: b76cc355621d
+Create Date: 2021-11-08 08:58:50.171540
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd8852824eeaa'
-down_revision = '599176471b4f'
+revision = 'dfecf2d9672d'
+down_revision = 'b76cc355621d'
 branch_labels = None
 depends_on = None
 
@@ -32,12 +32,13 @@ def upgrade():
     sa.UniqueConstraint('username')
     )
     op.create_table('follows',
-    sa.Column('follower_id', sa.Integer(), nullable=False),
-    sa.Column('followed_id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('follower_id', sa.Integer(), nullable=True),
     sa.Column('confirmed', sa.Boolean(), nullable=False),
-    sa.ForeignKeyConstraint(['followed_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['follower_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('follower_id', 'followed_id')
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('posts',
     sa.Column('id', sa.Integer(), nullable=False),
