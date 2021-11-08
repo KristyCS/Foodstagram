@@ -22,6 +22,9 @@ const UserProfile = () => {
             const userPosts = fetchedUser.posts.length;
             setpostsCount(userPosts);
 
+            const userfollowers = fetchedUser.followers.length;
+            setfollowersCount(userfollowers);
+
             const userfollowing = fetchedUser.following.length;
             setfollowingCount(userfollowing);
 
