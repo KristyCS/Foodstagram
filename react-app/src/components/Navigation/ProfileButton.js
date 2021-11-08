@@ -56,7 +56,7 @@ function ProfileButton() {
         {showMenu && (
           <ul id="profile-dropdown">
             <li className="prof-list-item">
-              <NavLink className="prof-link" to={`/user/dashboard`}>
+              <NavLink className="prof-link" to={`/users/${user.username}`}>
                 <i className="far fa-user-circle" /> Profile
               </NavLink>
             </li>

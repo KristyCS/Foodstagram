@@ -1,0 +1,9 @@
+
+.prof-cont {
+    display: flex;
+    flex-direction: column;
+}
+
+.prof-details {
+    display: flex;
+}
