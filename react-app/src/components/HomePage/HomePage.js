@@ -1,27 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SinglePostCard from "../SinglePostCard/SinglePostCard";
-
+import { getPosts } from "../../store/posts";
 const HomePage = () => {
-  const singlePost = {
-    user: {
-      username: "Kristy",
-      profile_photo: "https://randomuser.me/api/portraits/thumb/men/63.jpg",
-    },
-    photos: [
-      {
-        photo_url:
-          "https://foodstagramdev.s3.amazonaws.com/Food+pics/IMG_20181121_174332.jpg",
-      },
-    ],
-    description: "HAhahahahahhahah",
-  };
+  const despatch = useDispatch();
+  const postsObjs = useSelector(state=> state.posts.allPosts);
+  const postLists = Object.values(postsObjs)
+  useEffect(() => {
+    despatch(getPosts());
+  });
+
   return (
     <>
       <h1>My Home Page</h1>
-      <div className="posts_containers">
-        <SinglePostCard singlePost={singlePost} />
-      </div>
+      {postLists && (
+        <div className="posts_containers">
+          {postLists.map(post => (
+            <SinglePostCard key={post.id} singlePost={post} />
+          ))}
+        </div>
+      )}
     </>
   );
 };
