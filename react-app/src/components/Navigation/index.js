@@ -23,7 +23,7 @@ const NavBar = () => {
                 </NavLink>
                 </div>
                 <div id="frnds">
-                    <NavLink id="frnds-btn" to='/user/friend-requests' exact={true} activeClassName='active'>
+                    <NavLink id="frnds-btn" to='/user/follow-requests' exact={true} activeClassName='active'>
                         <i class="fas fa-user-plus"></i>
                     </NavLink>
                 </div>

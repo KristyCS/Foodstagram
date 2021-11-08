@@ -13,7 +13,7 @@ const UserProfile = () => {
     return (
         <div className = "prof-cont">
             <div className = "dis-pic-cont">
-                <img id = "prof-pic" src = {user.profile_photo} />
+                <img id = "dis-pic" src = {user.profile_photo} />
             </div>
             <div className = "prof-details">
                 <div>

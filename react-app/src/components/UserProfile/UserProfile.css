@@ -1,7 +1,18 @@
 
 .prof-cont {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dis-pic-cont {
+  margin: 50px;
+}
+
+#dis-pic {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
 }
 
 .prof-details {
