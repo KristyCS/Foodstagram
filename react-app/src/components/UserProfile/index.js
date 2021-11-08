@@ -13,7 +13,11 @@ const UserProfile = () => {
     const [followersCount, setfollowersCount] = useState(0);
     const [followingCount, setfollowingCount] = useState(0);
 
+
     useEffect(() => {
+        let userfollowers = 0;
+        let userfollowing = 0;
+
         (async () => {
             const response = await fetch(`/api/users/dashboard/${username}`);
             const fetchedUser = await response.json();
@@ -22,22 +26,28 @@ const UserProfile = () => {
             const userPosts = fetchedUser.posts.length;
             setpostsCount(userPosts);
 
-            const userfollowers = fetchedUser.followers.length;
+            const followers = fetchedUser.followers;
+            for (let i = 0; i < followers.length; i++) {
+                let follower = followers[i];
+                if(follower.confirmed === true) userfollowers++;
+            }
             setfollowersCount(userfollowers);
 
-            const userfollowing = fetchedUser.following.length;
+            const following = fetchedUser.following;
+            for (let i = 0; i < following.length; i++) {
+                let follow = following[i];
+                if(follow.confirmed === true) userfollowing++;
+            }
             setfollowingCount(userfollowing);
 
 
         })();
     }, [username]);
 
-    console.log(selectedUser)
-
     return (
         <div className = "prof-cont">
             <div className = "dis-pic-cont">
-                <img id = "dis-pic" src = {selectedUser.profile_photo} />
+                <img id = "dis-pic" src = {selectedUser.profile_photo} alt="user dp"/>
             </div>
             <div className = "prof-details">
                 <div>
