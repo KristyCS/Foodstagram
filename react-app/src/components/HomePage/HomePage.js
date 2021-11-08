@@ -8,7 +8,7 @@ const HomePage = () => {
   const postLists = Object.values(postsObjs)
   useEffect(() => {
     despatch(getPosts());
-  });
+  },[]);
 
   return (
     <>
