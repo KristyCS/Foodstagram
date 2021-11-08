@@ -22,5 +22,3 @@ class Follow(db.Model):
         db.session.add(follow)
         db.session.commit()
         return follow
-
-

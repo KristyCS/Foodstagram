@@ -21,21 +21,11 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
 
-    user_id = db.relationship('Follow',backref='followed', primaryjoin=id==Follow.user_id)
-    follower_id = db.relationship('Follow',backref='follower', primaryjoin=id==Follow.follower_id )
 
+    followers = db.relationship('Follow', primaryjoin=id==Follow.follower_id )
     posts = db.relationship("Post", back_populates="user", cascade = 'all, delete')
     comments = db.relationship("Comment", back_populates="user", cascade = 'all, delete')
     likes = db.relationship("Like", back_populates="user", cascade = 'all, delete')
-
-    # followers = db.relationship(
-    #     "User",
-    #     secondary=follows,
-    #     primaryjoin=(follows.c.follower_id == id),
-    #     secondaryjoin=(follows.c.followed_id == id),
-    #     backref=db.backref("following", lazy="dynamic"),
-    #     lazy="dynamic"
-    # )
 
     @property
     def password(self):
@@ -56,6 +46,7 @@ class User(db.Model, UserMixin):
             "posts": [post.to_simple_dict() for post in self.posts],
             "comments": [comment.to_simple_dict() for comment in self.comments],
             "likes": [like.to_simple_dict() for like in self.likes],
+            "followers": [follower.to_dict() for follower in self.followers],
             'profile_photo':self.profile_photo,
             'full_name':self.full_name,
             'about':self.about,
