@@ -29,3 +29,7 @@ class Post(db.Model):
             'description': self.description,
             'likes': len(self.likes)
         }
+
+    def update(self, description=None):
+        self.description = description if description else self.description
+        return self
