@@ -22,3 +22,12 @@ def post_likes():
     db.session.add(new_like)
     db.session.commit()
     return new_like
+
+@like_routes.route('/<int:id>', methods=['POST'])
+def update_likes(id):
+    data = request.json
+    like = Like.query.get(id)
+    like.update(**data)
+    db.session.add(like)
+    db.session.commit()
+    return "like"

@@ -22,4 +22,14 @@ class Like(db.Model):
         }
 
     def to_simple_dict(self):
-        return {'id': self.id, "post_id": self.post_id} if self.post_id else {'id': self.id, "comment_id": self.comment_id}
+        return {
+            'id': self.id,
+            "user_id": self.user_id,
+            "post_id": self.post_id,
+            "comment_id": self.comment_id
+            }
+
+    def update(self, post_id=None, comment_id=None):
+        self.post_id = post_id
+        self.comment_id = comment_id
+        return self

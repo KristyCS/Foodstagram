@@ -64,6 +64,8 @@ class User(db.Model, UserMixin):
             'private': self.private
         }
 
+    
+
 
     @classmethod
     def create(cls, username, email, full_name, profile_photo, about, private, hashed_password):
