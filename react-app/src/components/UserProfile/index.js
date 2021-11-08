@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import FollowersModal from '../FollowersModal';
+import FollowingModal from '../FollowingModal';
 import './UserProfile.css';
 
 
@@ -63,7 +64,8 @@ const UserProfile = () => {
                         <FollowersModal followersCount={followersCount}/>
                     </p>
                     <p>
-                        {followingCount} following
+                        {/* {followingCount} following */}
+                        <FollowingModal followingCount={followingCount}/>
                     </p>
                 </div>
                 <div>

@@ -3,7 +3,7 @@ import React from 'react';
 
 function Followers() {
     return (
-        <p>MODAL WORKING</p>
+        <p>FOLLOWERS MODAL WORKING</p>
     );
 
 }
