@@ -1,0 +1,22 @@
+.single_post_container{
+    border: solid rgb(177, 177, 177) 1px;
+    width:600px;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    margin:0 auto;
+}
+
+.single_post_user{
+    display: flex;
+    flex-direction: row;
+}
+
+/* .profile_photo{
+
+} */
+
+.display_image{
+    max-width:100%;
+    max-height:100%;
+}
