@@ -9,14 +9,27 @@ const UserProfile = () => {
     const user = useSelector(state => state.session.user);
     const { username } = useParams();
     const [selectedUser, setselectedUser] = useState({});
+    const [postsCount, setpostsCount] = useState(0);
+    const [followersCount, setfollowersCount] = useState(0);
+    const [followingCount, setfollowingCount] = useState(0);
 
     useEffect(() => {
         (async () => {
             const response = await fetch(`/api/users/dashboard/${username}`);
             const fetchedUser = await response.json();
             setselectedUser(fetchedUser);
+
+            const userPosts = fetchedUser.posts.length;
+            setpostsCount(userPosts);
+
+            const userfollowing = fetchedUser.following.length;
+            setfollowingCount(userfollowing);
+
+
         })();
     }, [username]);
+
+    console.log(selectedUser)
 
     return (
         <div className = "prof-cont">
@@ -27,8 +40,16 @@ const UserProfile = () => {
                 <div>
                     <p>{selectedUser.username}</p>
                 </div>
-                <div>
-
+                <div className="tot-count">
+                    <p>
+                        {postsCount} posts
+                    </p>
+                    <p>
+                        {followersCount} followers
+                    </p>
+                    <p>
+                        {followingCount} following
+                    </p>
                 </div>
                 <div>
 

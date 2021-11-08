@@ -17,4 +17,12 @@
 
 .prof-details {
     display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.tot-count {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
 }
