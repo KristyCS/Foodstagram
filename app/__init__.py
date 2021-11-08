@@ -73,8 +73,6 @@ def react_root(path):
 
 @app.route("/")
 def index():
-    followers = Follow.query.filter(Follow.user_id == 2).all()
-    print(followers)
-    return {"followers": [follower.to_dict() for follower in followers]}
+    user = User.query.get(2)
 
-
+    return user.to_dict()
