@@ -1,10 +1,14 @@
-const SET_POSTS = "posts/SET_ALLPOSTS";
-const ADD_POST = "posts/ADD_NEWPOST";
+const SET_POSTS = "SET_ALLPOSTS";
+const ADD_POST = "ADD_NEWPOST";
+const REMOVE_POST = "DELETE_POST";
 const setPosts = (posts) => ({
   type: SET_POSTS,
   posts,
 });
-
+const removePost = (post) => ({
+  type: REMOVE_POST,
+  post,
+});
 const addPost = (post) => ({
   type: ADD_POST,
   post,
@@ -70,21 +74,21 @@ export const createPost = (post) => async (dispatch) => {
 //   }
 // };
 
-// export const deletePost = (postId) => async (dispatch) => {
-//   try {
-//     const res = await fetch(`/api/posts/${postId}`, {
-//       method: "DELETE",
-//     });
-//     if (!res.ok) throw res;
-//     const post = await res.json();
-//     if (!post.errors) {
-//       dispatch(setPost(post));
-//     }
-//     return post;
-//   } catch (e) {
-//     return e;
-//   }
-// };
+export const deletePost = (postId) => async (dispatch) => {
+  try {
+    const res = await fetch(`/api/posts/${postId}`, {
+      method: "DELETE",
+    });
+    if (!res.ok) throw res;
+    const post = await res.json();
+    if (!post.errors) {
+      dispatch(removePost(post));
+    }
+    return post;
+  } catch (e) {
+    return e;
+  }
+};
 
 export const getPosts = () => async (dispatch) => {
   try {
@@ -107,7 +111,17 @@ export default function reducer(state = initialState, action) {
     case SET_POSTS:
       return { ...state, allPosts: { ...action.posts } };
     case ADD_POST:
-      return { ...state, allPosts: { ...state.allPosts, [action.post.id]: action.post } };
+      return {
+        ...state,
+        allPosts: { ...state.allPosts, [action.post.id]: action.post },
+      };
+    // case REMOVE_POST:
+    //   newAllPosts = {}
+      
+      return {
+        ...state,
+        allPosts: { ...state.allPosts },
+      };
     default:
       return state;
   }
