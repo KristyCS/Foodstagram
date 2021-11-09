@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink } from "react-router-dom";
 
 
-function Following({ username }) {
+function Following({ username, setShowModal }) {
     const [followingList, setfollowingList] = useState([]);
 
     useEffect(() => {
@@ -22,9 +23,12 @@ function Following({ username }) {
                     <ul>
                         {followingList.map((following, idx) => (
                                 <li key={idx} className="follow-list">
-                                <img src={following.profile_photo} alt="user dp"/>
-                                <p>{following.username}</p>
-                                <p>{following.full_name}</p>
+                                    <NavLink to={`/users/dashboard/${following.username}`}
+                                        onClick={() => setShowModal(false)}>
+                                        <img src={following.profile_photo} alt="user dp"/>
+                                        <p>{following.username}</p>
+                                        <p>{following.full_name}</p>
+                                    </NavLink>
                                 </li>
                             ))}
                     </ul>
