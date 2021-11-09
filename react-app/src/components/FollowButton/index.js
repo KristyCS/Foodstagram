@@ -7,7 +7,6 @@ import './FollowButton.css'
 const FollowButton = () => {
     const user = useSelector(state => state.session.user);
     const { username } = useParams();
-    console.log(username)
 
     const [followingList, setfollowingList] = useState([]);
     const [followersList, setfollowersList] = useState([]);
@@ -49,15 +48,15 @@ const FollowButton = () => {
 
       };
 
-    if(inFollowing.length || inFollowers.length) {
-        console.log("Following", inFollowing)
-        console.log("Followers", inFollowers)
+    if(inFollowing.length) {
 
         if(username === inFollowing[0].username) {
            return buttonType = (
                 <button className="follow-btn" onClick={unfollowUser}>Unfollow</button>
             )
-        } else if(username === inFollowers[0].username) {
+        }
+    } else if (inFollowers.length) {
+        if(username === inFollowers[0].username) {
             return buttonType = (
                  <button className="follow-btn" onClick={followUser}>Follow Back</button>
              )
