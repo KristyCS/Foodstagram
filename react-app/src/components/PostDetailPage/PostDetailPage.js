@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import {Modal} from "../../context/Modal"
+import CreateEditPostPage from "../CreateEditPostPage/CreateEditPostPage";
 import {
   IoArrowForwardCircleOutline,
   IoArrowBackCircleOutline,
 } from "react-icons/io5";
+import { deletePost } from "../../store/posts";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { GrEdit } from "react-icons/gr";
 import "./PostDetailPage.css";
-function PostDetailPage({ singlePost }) {
+function PostDetailPage({ setPostDetailModal, singlePost }) {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user);
   const [imageIdx, setImageIdx] = useState(0);
   const [showPreImgIcon, setShowPreImgIcon] = useState(false);
   const [showNxtImgIcon, setShowNxtImgIcon] = useState(true);
+  const [showEditPostModal, setShowEditPostModal] = useState(false);
   const [errors, setErrors] = useState([]);
   let photoObjs = singlePost.photos;
   let photoList = Object.values(photoObjs);
+  const deletePostHandler = () => {
+    dispatch(deletePost(singlePost.id));
+    setPostDetailModal(false);
+  };
 
   useEffect(() => {
     console.log(imageIdx);
@@ -63,6 +74,20 @@ function PostDetailPage({ singlePost }) {
           <NavLink to="">{singlePost.user.username}</NavLink>
           <p> · </p>
           <p>following</p>
+          {singlePost.user.id === user.id && (
+            <>
+              <GrEdit onClick={() => setShowEditPostModal(true)} />
+              <RiDeleteBin5Line onClick={deletePostHandler} />
+            </>
+          )}
+          {showEditPostModal && (
+            <Modal onClose={() => setShowEditPostModal(false)}>
+              <CreateEditPostPage
+                setShowEditPostModal={setShowEditPostModal}
+                singlePost={singlePost}
+              />
+            </Modal>
+          )}
         </div>
         <div className="description_info">
           <img
