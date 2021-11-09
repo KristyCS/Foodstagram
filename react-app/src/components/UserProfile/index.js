@@ -60,21 +60,21 @@ const UserProfile = () => {
                     <p>{selectedUser.username}</p>
                 </div>
                 <div className="tot-count">
-                    <p>
+                    <div>
                         {postsCount} posts
-                    </p>
-                    <p>
+                    </div>
+                    <div>
                         <FollowersModal
                             followersCount={followersCount}
                             followersList={followersList}
                         />
-                    </p>
-                    <p>
+                    </div>
+                    <div>
                         <FollowingModal
                             followingCount={followingCount}
                             followingList={followingList}
                         />
-                    </p>
+                    </div>
                 </div>
                 <div>
 

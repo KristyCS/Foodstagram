@@ -10,7 +10,7 @@ function Following({followingList}) {
                 <ul>
                     {followList.map((follow, idx) => (
                         <li key={idx}>
-                            {follow.id}
+                            {follow.user_id}
                         </li>
                     ))}
                 </ul>

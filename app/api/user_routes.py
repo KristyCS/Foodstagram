@@ -24,3 +24,18 @@ def user(id):
 def selected_user(username):
     user = User.query.filter(User.username == username).first()
     return user.to_dict()
+
+
+@user_routes.route('/<string:username>/followers')
+# @login_required
+def user_followers(username):
+    user = User.query.filter(User.username == username).first()
+    followers = user.followers_dict()["followers"]
+    followers_list = []
+    for follower in followers:
+        if follower["confirmed"] == True:
+            user = User.query.get(follower["follower_id"])
+            follower = user.to_simple_dict()
+            followers_list.append(follower)
+
+    return {"followers": followers_list}

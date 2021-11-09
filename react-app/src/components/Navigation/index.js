@@ -19,12 +19,12 @@ const NavBar = () => {
             <>
                 <div>
                 <NavLink className="home-link" to='/' exact={true} activeClassName='active'>
-                    <i class="fas fa-home"></i>
+                    <i className="fas fa-home"></i>
                 </NavLink>
                 </div>
                 <div id="frnds">
                     <NavLink id="frnds-btn" to='/user/follow-requests' exact={true} activeClassName='active'>
-                        <i class="fas fa-user-plus"></i>
+                        <i className="fas fa-user-plus"></i>
                     </NavLink>
                 </div>
                 <div>

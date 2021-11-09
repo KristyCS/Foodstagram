@@ -66,6 +66,12 @@ class User(db.Model, UserMixin):
         }
 
 
+    def followers_dict(self):
+        return {
+            "followers": [follow.to_dict() for follow in self.followers]
+        }
+
+
     @classmethod
     def create(cls, username, email, full_name, profile_photo, about, private, hashed_password):
         user = cls(username=username, email=email,  hashed_password=hashed_password, \

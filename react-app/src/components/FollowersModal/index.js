@@ -8,11 +8,11 @@ function FollowersModal({followersCount, followersList}) {
   return (
     <>
       <p onClick={() => setShowModal(true)}>{followersCount} followers</p>
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
-          <Followers followersList={followersList}/>
-        </Modal>
-      )}
+        {showModal && (
+          <Modal onClose={() => setShowModal(false)}>
+            <Followers followersList={followersList}/>
+          </Modal>
+        )}
     </>
   );
 }

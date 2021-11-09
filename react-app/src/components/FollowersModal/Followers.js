@@ -11,7 +11,7 @@ function Followers({followersList}) {
                 <ul>
                     {followers.map((follower, idx) => (
                         <li key={idx}>
-                            {follower.id}
+                            {follower.follower_id}
                         </li>
                     ))}
                 </ul>
