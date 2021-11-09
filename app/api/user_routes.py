@@ -2,8 +2,19 @@ from flask import Blueprint, request
 from flask.wrappers import Request
 from flask_login import login_required
 from app.models import db, User
+from app.forms import EditUserForm
 
 user_routes = Blueprint('users', __name__)
+
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f'{field} : {error}')
+    return errorMessages
 
 
 @user_routes.route('')
@@ -23,14 +34,18 @@ def user(id):
 @user_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def update_user(id):
-    data = request.json
-    user = User.query.get(id)
-    user.update(*data)
-    db.session.add(user)
-    db.session.commit()
-    return user.to_dict()
+    form = EditUserForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        user = User.query.get(id)
+        print(form.data)
+        user.update(**form.data)
+        db.session.add(user)
+        db.session.commit()
+        return user.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-    
+
 @user_routes.route('/dashboard/<string:username>')
 # @login_required
 def selected_user(username):
