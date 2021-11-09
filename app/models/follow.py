@@ -16,6 +16,10 @@ class Follow(db.Model):
             'confirmed': self.confirmed
         }
 
+    def update(self, confirmed=None):
+        self.confirmed = confirmed if confirmed else self.confirmed
+        return self
+
     @classmethod
     def create(cls, user_id, follower_id, confirmed):
         follow = cls(user_id=user_id, follower_id=follower_id, confirmed=confirmed)
