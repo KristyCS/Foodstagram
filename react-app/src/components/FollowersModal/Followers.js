@@ -27,9 +27,13 @@ function Followers({ username, setShowModal }) {
                             <li key={idx} className="follow-list">
                                 <NavLink to={`/users/dashboard/${follower.username}`}
                                     onClick={() => setShowModal(false)}>
-                                    <img src={follower.profile_photo} alt="user dp"/>
-                                    <p>{follower.username}</p>
-                                    <p>{follower.full_name}</p>
+                                    <div className="f-l-c">
+                                        <img className="f-img" src={follower.profile_photo} alt="user dp"/>
+                                        <div className="f-d-c">
+                                            <p className="f-d-u">{follower.username}</p>
+                                            <p className="f-d-f">{follower.full_name}</p>
+                                        </div>
+                                    </div>
                                 </NavLink>
                             </li>
                         ))}
