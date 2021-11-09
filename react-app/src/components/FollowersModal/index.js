@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import Followers from './Followers';
 
-function FollowersModal({followersCount, followersList}) {
+function FollowersModal({followersCount, followersList, username}) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -10,7 +10,7 @@ function FollowersModal({followersCount, followersList}) {
       <p onClick={() => setShowModal(true)}>{followersCount} followers</p>
         {showModal && (
           <Modal onClose={() => setShowModal(false)}>
-            <Followers followersList={followersList}/>
+            <Followers followersList={followersList} username={username}/>
           </Modal>
         )}
     </>

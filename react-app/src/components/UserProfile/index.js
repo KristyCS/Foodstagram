@@ -67,6 +67,7 @@ const UserProfile = () => {
                         <FollowersModal
                             followersCount={followersCount}
                             followersList={followersList}
+                            username={username}
                         />
                     </div>
                     <div>

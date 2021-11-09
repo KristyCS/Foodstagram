@@ -1,20 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import './Followers.css';
 
 
-function Followers({followersList}) {
-    const followers = followersList.filter(follower => follower.confirmed === true)
+function Followers({ username }) {
+    // const followers = followersList.filter(follower => follower.confirmed === true)
+    const [followersList, setfollowersList] = useState([]);
+
+    useEffect(() => {
+
+        (async () => {
+            const response = await fetch(`/api/users/${username}/followers`);
+            const fetchedUsers = await response.json();
+            setfollowersList(fetchedUsers.followers);
+        })();
+
+    }, [username]);
+
 
     return (
         <>
-            <div>FOLLOWERS</div>
-            <div>
-                <ul>
-                    {followers.map((follower, idx) => (
-                        <li key={idx}>
-                            {follower.follower_id}
-                        </li>
-                    ))}
-                </ul>
+            <div className="follow-cont">
+                <div className="follow-div">Followers</div>
+                <div>
+                    <ul>
+                        {followersList.map((follower, idx) => (
+                            <li key={idx} className="follow-list">
+                            <img src={follower.profile_photo} alt="user dp"/>
+                            <p>{follower.username}</p>
+                            <p>{follower.full_name}</p>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </>
     );
