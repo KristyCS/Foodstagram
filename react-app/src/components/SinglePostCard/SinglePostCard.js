@@ -47,7 +47,7 @@ const SinglePostCard = ({ singlePost }) => {
       </div>
       {postDetailModal && (
         <Modal onClose={() => setPostDetailModal(false)}>
-          <PostDetailPage singlePost={singlePost}/>
+          <PostDetailPage setPostDetailModal = {setPostDetailModal} singlePost={singlePost}/>
         </Modal>
       )}
     </div>
