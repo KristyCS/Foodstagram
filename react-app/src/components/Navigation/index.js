@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../store/session';
 import ProfileButton from './ProfileButton';
+import FollowRequests from '../FollowRequests';
 import './NavBar.css';
 
 const NavBar = () => {
@@ -23,14 +24,7 @@ const NavBar = () => {
                 </NavLink>
                 </div>
                 <div id="frnds">
-                    <NavLink id="frnds-btn" to='/user/follow-requests' exact={true} activeClassName='active'>
-                        <i className="fas fa-user-plus"></i>
-                    </NavLink>
-                </div>
-                <div>
-                    <NavLink to='/users' exact={true} activeClassName='active'>
-                        Users
-                    </NavLink>
+                    <FollowRequests />
                 </div>
                 <ProfileButton />
             </>
