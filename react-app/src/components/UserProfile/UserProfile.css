@@ -1,0 +1,28 @@
+
+.prof-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dis-pic-cont {
+  margin: 50px;
+}
+
+#dis-pic {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+}
+
+.prof-details {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.tot-count {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}

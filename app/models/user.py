@@ -21,8 +21,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
 
-
-    followers = db.relationship('Follow', primaryjoin=id==Follow.follower_id )
+    followers = db.relationship('Follow', primaryjoin=id==Follow.user_id )
+    following = db.relationship('Follow', primaryjoin=id==Follow.follower_id )
     posts = db.relationship("Post", back_populates="user", cascade = 'all, delete')
     comments = db.relationship("Comment", back_populates="user", cascade = 'all, delete')
     likes = db.relationship("Like", back_populates="user", cascade = 'all, delete')
@@ -46,7 +46,8 @@ class User(db.Model, UserMixin):
             "posts": [post.to_simple_dict() for post in self.posts],
             "comments": [comment.to_simple_dict() for comment in self.comments],
             "likes": [like.to_simple_dict() for like in self.likes],
-            "followers": [follower.to_dict() for follower in self.followers],
+            "followers": [follow.to_dict() for follow in self.followers],
+            "following": [follow.to_dict() for follow in self.following],
             'profile_photo':self.profile_photo,
             'full_name':self.full_name,
             'about':self.about,
@@ -76,6 +77,18 @@ class User(db.Model, UserMixin):
 
 
 
+
+
+    def followers_dict(self):
+        return {
+            "followers": [follow.to_dict() for follow in self.followers]
+        }
+
+
+    def following_dict(self):
+        return {
+            "following": [follow.to_dict() for follow in self.following]
+        }
 
 
     @classmethod
