@@ -1,0 +1,13 @@
+.follow-cont {
+    display: flex;
+    flex-direction: column;
+}
+
+.follow-div {
+    margin: 20px;
+    border-bottom: 1px solid black;
+}
+
+.follow-list {
+    margin: 20px;
+}
