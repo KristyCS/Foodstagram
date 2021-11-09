@@ -30,4 +30,4 @@ def update_likes(id):
     like.update(**data)
     db.session.add(like)
     db.session.commit()
-    return "like"
+    return like.to_dict()

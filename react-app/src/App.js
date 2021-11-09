@@ -9,6 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import HomePage from './components/HomePage/index';
 import { authenticate } from './store/session';
+import UserProfile from './components/UserProfile';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -44,6 +45,9 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <HomePage />
         </ProtectedRoute>
+        <Route path='/users/dashboard/:username' exact={true} >
+          <UserProfile/>
+        </Route>
       </Switch>
     </BrowserRouter>
   );

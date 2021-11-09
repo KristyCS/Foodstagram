@@ -31,13 +31,14 @@ function ProfileButton() {
   const onLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    history.push("/");
   };
 
   let profileDisplay;
   if(user.profile_photo) {
     profileDisplay = (
       <>
-        <img id = "prof-pic" src = {user.profile_photo} />
+        <img id = "prof-pic" src = {user.profile_photo} alt="user dp small"/>
       </>
     )
   } else {
@@ -56,7 +57,7 @@ function ProfileButton() {
         {showMenu && (
           <ul id="profile-dropdown">
             <li className="prof-list-item">
-              <NavLink className="prof-link" to={`/user/dashboard`}>
+              <NavLink className="prof-link" to={`/users/dashboard/${user.username}`}>
                 <i className="far fa-user-circle" /> Profile
               </NavLink>
             </li>
