@@ -9,7 +9,7 @@ const SinglePostCard = ({ singlePost }) => {
   const [imageIndex, setImageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
   const number_of_all_comments = 5;
-  
+
   return (
     <div className="single_post_container">
       <div className="single_post_user">

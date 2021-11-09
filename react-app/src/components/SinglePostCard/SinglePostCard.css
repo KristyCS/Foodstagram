@@ -4,16 +4,18 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 
 .single_post_user {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .profile_photo {
   border-radius: 50%;
+  padding: 10px;
 }
 
 .display_image {
