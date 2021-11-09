@@ -25,7 +25,9 @@ export default function SinglePostDetails() {
   return (
     <div className="single_post_wrapper">
       <div className="single_post_container">
-        <div className="single_post_left"></div>
+        <div className="single_post_left">
+          {user && <img src={post.photos[0].photo_url}></img>}
+        </div>
         <div className="single_post_right">
           <div className="single_post_right_header"></div>
           <div className="single_post_right_body"></div>
