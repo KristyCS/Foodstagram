@@ -22,3 +22,7 @@ class Photo(db.Model):
             'post_id': self.post_id,
             'photo_url': self.photo_url
         }
+
+    def update(self, photo_url=None):
+        self.photo_url = photo_url if photo_url else self.photo_url
+        return self

@@ -64,6 +64,19 @@ class User(db.Model, UserMixin):
             'private': self.private
         }
 
+    def update(self, username=None, email=None, full_name=None, about=None, profile_photo=None, private=None):
+        self.username = username if username else self.username
+        self.email = email if email else self.email
+        self.full_name = full_name if full_name else self.full_name
+        self.about = about if about else self.about
+        self.profile_photo = profile_photo if profile_photo else self.profile_photo
+        self.private = private if private else self.private
+        return self
+
+
+
+
+
 
     @classmethod
     def create(cls, username, email, full_name, profile_photo, about, private, hashed_password):
