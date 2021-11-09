@@ -26,3 +26,8 @@
     display: flex;
     justify-content: space-between;
 }
+
+.name-fol {
+    display: flex;
+}
+
