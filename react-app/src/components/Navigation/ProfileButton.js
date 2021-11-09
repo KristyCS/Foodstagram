@@ -31,13 +31,14 @@ function ProfileButton() {
   const onLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    history.push("/");
   };
 
   let profileDisplay;
   if(user.profile_photo) {
     profileDisplay = (
       <>
-        <img id = "prof-pic" src = {user.profile_photo} />
+        <img id = "prof-pic" src = {user.profile_photo} alt="user dp small"/>
       </>
     )
   } else {
