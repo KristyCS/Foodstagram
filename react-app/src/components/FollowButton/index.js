@@ -31,6 +31,7 @@ const FollowButton = () => {
     let inFollowing = followingList.filter(following => following.username === username)
     let inFollowers = followersList.filter(follower => follower.username === username)
 
+
     let buttonType;
 
     const followUser = (e) => {
@@ -48,12 +49,11 @@ const FollowButton = () => {
 
       };
 
-    if(user) {
-        if(user.username === username) {
-           return buttonType = (
-                <button className="edit-btn" onClick={editUser}>Edit Profile</button>
-            )
-        } else if(username === inFollowing[0].username) {
+    if(inFollowing.length || inFollowers.length) {
+        console.log("Following", inFollowing)
+        console.log("Followers", inFollowers)
+
+        if(username === inFollowing[0].username) {
            return buttonType = (
                 <button className="follow-btn" onClick={unfollowUser}>Unfollow</button>
             )
@@ -61,12 +61,16 @@ const FollowButton = () => {
             return buttonType = (
                  <button className="follow-btn" onClick={followUser}>Follow Back</button>
              )
-        } else {
+        }
+    } else {
+        if(user.username === username) {
+            return buttonType = (
+                 <button className="edit-btn" onClick={editUser}>Edit Profile</button>
+        )} else {
             return buttonType = (
                 <button className="follow-btn" onClick={followUser}>Follow</button>
             )
         }
-
     }
 
 
