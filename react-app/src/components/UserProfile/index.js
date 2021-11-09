@@ -12,7 +12,6 @@ const UserProfile = () => {
     const { username } = useParams();
     const [selectedUser, setselectedUser] = useState({});
     const [postsCount, setpostsCount] = useState(0);
-    const [followersList, setfollowersList] = useState([]);
     const [followingList, setfollowingList] = useState([]);
     const [followersCount, setfollowersCount] = useState(0);
     const [followingCount, setfollowingCount] = useState(0);
@@ -31,7 +30,6 @@ const UserProfile = () => {
             setpostsCount(userPosts);
 
             const followers = fetchedUser.followers;
-            setfollowersList(followers)
             for (let i = 0; i < followers.length; i++) {
                 let follower = followers[i];
                 if(follower.confirmed === true) userfollowers++;
@@ -66,7 +64,6 @@ const UserProfile = () => {
                     <div>
                         <FollowersModal
                             followersCount={followersCount}
-                            followersList={followersList}
                             username={username}
                         />
                     </div>

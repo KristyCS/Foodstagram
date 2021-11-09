@@ -39,3 +39,18 @@ def user_followers(username):
             followers_list.append(follower)
 
     return {"followers": followers_list}
+
+
+@user_routes.route('/<string:username>/following')
+# @login_required
+def user_following(username):
+    user = User.query.filter(User.username == username).first()
+    following = user.following_dict()["following"]
+    following_list = []
+    for follow in following:
+        if follow["confirmed"] == True:
+            user = User.query.get(follow["user_id"])
+            following = user.to_simple_dict()
+            following_list.append(following)
+
+    return {"following": following_list}
