@@ -3,7 +3,6 @@ import './Followers.css';
 
 
 function Followers({ username }) {
-    // const followers = followersList.filter(follower => follower.confirmed === true)
     const [followersList, setfollowersList] = useState([]);
 
     useEffect(() => {

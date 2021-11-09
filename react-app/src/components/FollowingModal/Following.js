@@ -1,19 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 
-function Following({followingList}) {
-    const followList = followingList.filter(follow => follow.confirmed === true)
+function Following({ username }) {
+    const [followingList, setfollowingList] = useState([]);
+
+    useEffect(() => {
+
+        (async () => {
+            const response = await fetch(`/api/users/${username}/following`);
+            const fetchedUsers = await response.json();
+            setfollowingList(fetchedUsers.following);
+        })();
+
+    }, [username]);
+
     return (
         <>
-            <div>FOLLOWING</div>
-            <div>
-                <ul>
-                    {followList.map((follow, idx) => (
-                        <li key={idx}>
-                            {follow.user_id}
-                        </li>
-                    ))}
-                </ul>
+            <div className="follow-cont">
+                <div className="follow-div">Following</div>
+                <div>
+                    <ul>
+                        {followingList.map((following, idx) => (
+                                <li key={idx} className="follow-list">
+                                <img src={following.profile_photo} alt="user dp"/>
+                                <p>{following.username}</p>
+                                <p>{following.full_name}</p>
+                                </li>
+                            ))}
+                    </ul>
+                </div>
             </div>
         </>
     );
