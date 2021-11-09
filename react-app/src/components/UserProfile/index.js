@@ -12,6 +12,8 @@ const UserProfile = () => {
     const { username } = useParams();
     const [selectedUser, setselectedUser] = useState({});
     const [postsCount, setpostsCount] = useState(0);
+    const [followersList, setfollowersList] = useState([]);
+    const [followingList, setfollowingList] = useState([]);
     const [followersCount, setfollowersCount] = useState(0);
     const [followingCount, setfollowingCount] = useState(0);
 
@@ -29,6 +31,7 @@ const UserProfile = () => {
             setpostsCount(userPosts);
 
             const followers = fetchedUser.followers;
+            setfollowersList(followers)
             for (let i = 0; i < followers.length; i++) {
                 let follower = followers[i];
                 if(follower.confirmed === true) userfollowers++;
@@ -36,6 +39,7 @@ const UserProfile = () => {
             setfollowersCount(userfollowers);
 
             const following = fetchedUser.following;
+            setfollowingList(following);
             for (let i = 0; i < following.length; i++) {
                 let follow = following[i];
                 if(follow.confirmed === true) userfollowing++;
@@ -60,12 +64,16 @@ const UserProfile = () => {
                         {postsCount} posts
                     </p>
                     <p>
-                        {/* {followersCount} followers */}
-                        <FollowersModal followersCount={followersCount}/>
+                        <FollowersModal
+                            followersCount={followersCount}
+                            followersList={followersList}
+                        />
                     </p>
                     <p>
-                        {/* {followingCount} following */}
-                        <FollowingModal followingCount={followingCount}/>
+                        <FollowingModal
+                            followingCount={followingCount}
+                            followingList={followingList}
+                        />
                     </p>
                 </div>
                 <div>

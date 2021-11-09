@@ -1,9 +1,21 @@
 import React from 'react';
 
 
-function Following() {
+function Following({followingList}) {
+    const followList = followingList.filter(follow => follow.confirmed === true)
     return (
-        <p>FOLLOWING MODAL WORKING</p>
+        <>
+            <div>FOLLOWING</div>
+            <div>
+                <ul>
+                    {followList.map((follow, idx) => (
+                        <li key={idx}>
+                            {follow.id}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </>
     );
 
 }
