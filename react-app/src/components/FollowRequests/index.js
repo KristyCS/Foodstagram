@@ -43,13 +43,17 @@ function FollowRequests() {
             <i className="fas fa-user-plus" />
         </div>
         {showMenu && (
-          <ul id="profile-dropdown">
+          <ul id="follow-dropdown">
               {requests.map((follower, idx) => (
                     <li key={idx} className="follow-list">
                          <NavLink to={`/users/dashboard/${follower.username}`}>
-                            <img src={follower.profile_photo} alt="user dp"/>
-                            <p>{follower.username}</p>
-                            <p>{follower.full_name}</p>
+                          <div className="f-l-c">
+                            <img className="f-img" src={follower.profile_photo} alt="user dp"/>
+                            <div className="f-d-c">
+                              <p className="f-d-u">{follower.username}</p>
+                              <p className="f-d-f">{follower.full_name}</p>
+                            </div>
+                          </div>
                         </NavLink>
                     </li>
                 ))}
