@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SinglePostCard from "../SinglePostCard/SinglePostCard";
 import { getPosts, deletePost} from "../../store/posts";
-import { Modal } from "../../contex/Modal";
+import { Modal } from "../../context/Modal";
 import {AiOutlinePlusSquare} from "react-icons/ai";
 import CreatePostPage from "../CreatePostPage/CreatePostPage";
 const HomePage = () => {
