@@ -69,42 +69,6 @@ export const editPost = (post) => async (dispatch) => {
       });
     }
   }
-  export const createComment = (comment) => async (dispatch) => {
-    const { post_id } = comment;
-
-    try {
-      const res = await fetch(`/api/posts/${post_id}/comments`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(comment),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        dispatch(addComment(data));
-      } else {
-        throw console.error("Creation error!");
-      }
-    } catch (event) {
-      return event;
-    }
-  };
-
-  // export const updatePost = (post) => async (dispatch) => {
-  //   const { title, body, images, postId, userId, communityId } = post;
-  //   const formData = new FormData();
-  //   formData.append("title", title);
-  //   formData.append("body", body);
-  //   formData.append("user_id", userId);
-  //   formData.append("community_id", communityId);
-  //   if (images) {
-  //     for (const list of images) {
-  //       for (let i = 0; i < list.length; i++) {
-  //         formData.append("images", list[i]);
-  //       }
-  //     }
-  //   }
 
   const formData = new FormData();
   formData.append("description", description);
@@ -131,6 +95,27 @@ export const editPost = (post) => async (dispatch) => {
     return post;
   } catch (e) {
     return e;
+  }
+};
+export const createComment = (comment) => async (dispatch) => {
+  const { post_id } = comment;
+
+  try {
+    const res = await fetch(`/api/posts/${post_id}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(comment),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(addComment(data));
+    } else {
+      throw console.error("Creation error!");
+    }
+  } catch (event) {
+    return event;
   }
 };
 
