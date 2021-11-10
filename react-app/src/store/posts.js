@@ -61,24 +61,23 @@ export const editPost = (post) => async (dispatch) => {
   formData.append("description", description);
   formData.append("post_id", postId);
   formData.append("user_id", userId);
-  formData.append("images", updatedExistImages);
+  formData.append("photos", updatedExistImages);
   console.log(updatedExistImages, "updatedExistImages");
   console.log(newAddedImages, "newAddedImages");
-  return "hhhhhhhhhh";
-  // try {
-  //   const res = await fetch(`/api/posts/${postId}`, {
-  //     method: "PUT",
-  //     body: formData,
-  //   });
-  //   if (!res.ok) throw res;
-  //   const post = await res.json();
-  //   if (!post.errors) {
-  //     dispatch(setPost(post));
-  //   }
-  //   return post;
-  // } catch (e) {
-  //   return e;
-  // }
+  try {
+    const res = await fetch(`/api/posts/${postId}`, {
+      method: "PUT",
+      body: formData,
+    });
+    if (!res.ok) throw res;
+    const post = await res.json();
+    if (!post.errors) {
+      // dispatch(setPost(post));
+    }
+    return post;
+  } catch (e) {
+    return e;
+  }
 };
 
 export const deletePost = (postId) => async (dispatch) => {
