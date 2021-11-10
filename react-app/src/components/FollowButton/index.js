@@ -2,10 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+
 import './FollowButton.css'
 
-const FollowButton = ({selectedUserId}) => {
-    const user = useSelector(state => state.session.user);
+const FollowButton = ({selectedUserId, setRerender, rerender}) => {
+    let user = useSelector(state => state.session.user);
     const { username } = useParams();
 
     const [followingList, setfollowingList] = useState([]);
@@ -13,6 +14,7 @@ const FollowButton = ({selectedUserId}) => {
     const [requests, setRequests] = useState([]);
     const [followingId, setfollowingId] = useState(0);
     const [unfollowId, setunfollowId] = useState(0);
+    const [followBoolean, setFollowBoolean] = useState(false);
 
     useEffect(() => {
 
@@ -34,7 +36,7 @@ const FollowButton = ({selectedUserId}) => {
             setRequests(fetchedUsers.followers);
         })();
 
-    }, [username]);
+    }, [username, followBoolean]);
 
 
     useEffect(() => {
@@ -55,6 +57,8 @@ const FollowButton = ({selectedUserId}) => {
             if (response.ok) {
               const data = await response.json();
               setfollowingId(0);
+              setRerender(!rerender);
+              setFollowBoolean(!followBoolean);
             };
          })();
         }
@@ -78,6 +82,8 @@ const FollowButton = ({selectedUserId}) => {
             if (response.ok) {
               const data = await response.json();
               setunfollowId(0);
+              setRerender(!rerender);
+              setFollowBoolean(!followBoolean);
             };
          })();
         }

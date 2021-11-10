@@ -9,6 +9,7 @@ import './UserProfile.css';
 
 const UserProfile = () => {
     const { username } = useParams();
+    const [rerender, setRerender] = useState(false);
     const [selectedUser, setselectedUser] = useState({});
     const [postsCount, setpostsCount] = useState(0);
     const [followersCount, setfollowersCount] = useState(0);
@@ -60,7 +61,8 @@ const UserProfile = () => {
 
 
         })();
-    }, [username]);
+
+    }, [username, rerender]);
 
 
 
@@ -72,7 +74,11 @@ const UserProfile = () => {
             <div className = "prof-details">
                 <div className="name-fol">
                     <p>{selectedUser.username}</p>
-                    <FollowButton selectedUserId={selectedUser.id}/>
+                    <FollowButton
+                    selectedUserId={selectedUser.id}
+                    setRerender={setRerender}
+                    rerender={rerender}
+                    />
                 </div>
                 <div className="tot-count">
                     <div>
