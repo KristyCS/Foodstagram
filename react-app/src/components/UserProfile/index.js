@@ -57,7 +57,7 @@ const UserProfile = () => {
             <div className = "prof-details">
                 <div className="name-fol">
                     <p>{selectedUser.username}</p>
-                    <FollowButton />
+                    <FollowButton selectedUserId={selectedUser.id}/>
                 </div>
                 <div className="tot-count">
                     <div>

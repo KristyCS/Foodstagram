@@ -4,13 +4,14 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import './FollowButton.css'
 
-const FollowButton = () => {
+const FollowButton = ({selectedUserId}) => {
     const user = useSelector(state => state.session.user);
     const { username } = useParams();
 
     const [followingList, setfollowingList] = useState([]);
     const [followersList, setfollowersList] = useState([]);
     const [requests, setRequests] = useState([]);
+    const [followingId, setfollowingId] = useState(0);
 
     useEffect(() => {
 
@@ -33,6 +34,31 @@ const FollowButton = () => {
         })();
 
     }, [username]);
+
+
+    useEffect(() => {
+        if(followingId !== 0) {
+          (async () => {
+            const response = await fetch(`/api/follows/addFollow`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                user_id: followingId,
+                follower_id: user.id,
+                confirmed: false
+              })
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              setfollowingId(0);
+            };
+         })();
+        }
+    }, [followingId]);
+
 
     let inFollowing = followingList.filter(following => following.username === username)
     let inFollowers = followersList.filter(follower => follower.username === username)
@@ -87,7 +113,9 @@ const FollowButton = () => {
                  <button className="edit-btn" onClick={editUser}>Edit Profile</button>
         )} else {
             return buttonType = (
-                <button className="follow-btn" onClick={followUser}>Follow</button>
+                <button className="follow-btn" onClick={ () =>
+                    setfollowingId(selectedUserId)
+                }>Follow</button>
             )
         }
     }
