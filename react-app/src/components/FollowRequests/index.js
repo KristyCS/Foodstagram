@@ -18,24 +18,26 @@ function FollowRequests() {
 
     }, [user.username]);
 
-    useEffect(async () => {
+    useEffect(() => {
       if(followerId != 0) {
-        const response = await fetch(`/api/follows/confirmRequest`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            user_id: user.id,
-            follower_id: followerId,
-            confirmed: true
-          })
-        });
+        (async () => {
+          const response = await fetch(`/api/follows/confirmRequest`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              user_id: user.id,
+              follower_id: followerId,
+              confirmed: true
+            })
+          });
 
-        if (response.ok) {
-          const data = await response.json();
-          setfollowerId(0);
-        };
+          if (response.ok) {
+            const data = await response.json();
+            setfollowerId(0);
+          };
+       })();
       }
   }, [followerId]);
 
