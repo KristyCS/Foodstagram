@@ -10,7 +10,7 @@ function FollowingModal({followingCount, username}) {
       <p onClick={() => setShowModal(true)}>{followingCount} following</p>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <Following username={username}/>
+          <Following username={username} setShowModal={setShowModal}/>
         </Modal>
       )}
     </>

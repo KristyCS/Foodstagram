@@ -6,9 +6,9 @@ const setPosts = (posts) => ({
   type: SET_POSTS,
   posts,
 });
-const removePost = (post) => ({
+const removePost = (postId) => ({
   type: REMOVE_POST,
-  post,
+  postId,
 });
 const addPost = (post) => ({
   type: ADD_POST,
@@ -109,7 +109,7 @@ export const deletePost = (postId) => async (dispatch) => {
     if (!res.ok) throw res;
     const post = await res.json();
     if (!post.errors) {
-      dispatch(removePost(post));
+      dispatch(removePost(postId));
     }
     return post;
   } catch (e) {
@@ -142,12 +142,12 @@ export default function reducer(state = initialState, action) {
         ...state,
         allPosts: { ...state.allPosts, [action.post.id]: action.post },
       };
-      // case REMOVE_POST:
-      //   newAllPosts = {}
-
+    case REMOVE_POST:
+      const newAllPosts = { ...state.allPosts }
+      delete newAllPosts[action.postId]
       return {
         ...state,
-        allPosts: { ...state.allPosts },
+        allPosts: { ...newAllPosts },
       };
     case ADD_COMMENT:
       state.allPosts[action.comment.post.id].comments.push({ content: action.comment.content, id: action.comment.id })

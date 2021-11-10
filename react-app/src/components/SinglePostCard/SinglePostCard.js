@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createComment } from "../../store/posts";
 import { Modal } from "../../context/Modal";
-import { ImHeart } from "react-icons/im";
+import { ImHeart, ImBubble2 } from "react-icons/im";
 import "./SinglePostCard.css";
 import PostDetailPage from "../PostDetailPage/PostDetailPage"
 const SinglePostCard = ({ singlePost }) => {
@@ -136,7 +136,7 @@ const SinglePostCard = ({ singlePost }) => {
         />
       </div>
       <div className="operation">
-        <ImHeart />
+        <ImHeart /> <ImBubble2 onClick={() => test} />
         {/* <img src={Like} alt="empty heart"className="empty_heart"/> */}
       </div>
       <div className="likes">
@@ -165,7 +165,7 @@ const SinglePostCard = ({ singlePost }) => {
       </div>
       {postDetailModal && (
         <Modal onClose={() => setPostDetailModal(false)}>
-          <PostDetailPage singlePost={singlePost} />
+          <PostDetailPage setPostDetailModal={setPostDetailModal} singlePost={singlePost} />
         </Modal>
       )}
     </div>

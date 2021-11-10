@@ -37,6 +37,15 @@ def update_user(id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
+@user_routes.route('/<int:id>', methods=['DELETE'])
+# @login_required
+def delete_user(id):
+    user = User.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return "success"
+
+
 @user_routes.route('/dashboard/<string:username>')
 # @login_required
 def selected_user(username):
@@ -72,3 +81,18 @@ def user_following(username):
             following_list.append(following)
 
     return {"following": following_list}
+
+
+@user_routes.route('/<string:username>/followRequests')
+# @login_required
+def follow_requests(username):
+    user = User.query.filter(User.username == username).first()
+    followers = user.followers_dict()["followers"]
+    followers_list = []
+    for follower in followers:
+        if follower["confirmed"] == False:
+            user = User.query.get(follower["follower_id"])
+            follower = user.to_simple_dict()
+            followers_list.append(follower)
+
+    return {"followers": followers_list}
