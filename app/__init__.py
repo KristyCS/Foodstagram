@@ -14,9 +14,9 @@ from flask_login import LoginManager
 from app.api import comment_routes, like_routes
 
 from .models import db, User, Follow
-<< << << < HEAD
-== == == =
->>>>>> > main
+from .api import (auth_routes, user_routes, post_routes, like_routes, photo_routes)
+
+from .seeds import seed_commands
 
 
 app = Flask(__name__)
@@ -39,6 +39,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(post_routes, url_prefix='/api/posts')
 app.register_blueprint(like_routes, url_prefix='/api/likes')
+app.register_blueprint(photo_routes, url_prefix='/api/photos' )
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
 app.register_blueprint(follow_routes, url_prefix='/api/follows')
 db.init_app(app)
