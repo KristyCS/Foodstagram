@@ -6,7 +6,7 @@ import ProfileButton from "./ProfileButton";
 import "./NavBar.css";
 import { Modal } from "../../context/Modal";
 import { AiOutlinePlusSquare } from "react-icons/ai";
-import CreateEditPostPage from "../CreateEditPostPage/CreateEditPostPage";
+import CreatePostPage from "../CreatePostPage/CreatePostPage";
 const NavBar = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
@@ -37,7 +37,7 @@ const NavBar = () => {
 
           {showCreatePostModal && (
             <Modal onClose={() => setShowCreatePostModal(false)}>
-              <CreateEditPostPage
+              <CreatePostPage
                 setShowCreatePostModal={setShowCreatePostModal}
               />
             </Modal>

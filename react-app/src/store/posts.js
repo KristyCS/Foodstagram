@@ -16,7 +16,6 @@ const addPost = (post) => ({
 
 export const createPost = (post) => async (dispatch) => {
   const { userId, description, images } = post;
-  console.log(images + "!!!!!!!!!!!!!!");
   const formData = new FormData();
   formData.append("user_id", userId);
   formData.append("description", description);
@@ -43,36 +42,44 @@ export const createPost = (post) => async (dispatch) => {
   }
 };
 
-// export const updatePost = (post) => async (dispatch) => {
-//   const { title, body, images, postId, userId, communityId } = post;
-//   const formData = new FormData();
-//   formData.append("title", title);
-//   formData.append("body", body);
-//   formData.append("user_id", userId);
-//   formData.append("community_id", communityId);
-//   if (images) {
-//     for (const list of images) {
-//       for (let i = 0; i < list.length; i++) {
-//         formData.append("images", list[i]);
-//       }
-//     }
-//   }
-
-//   try {
-//     const res = await fetch(`/api/posts/${postId}`, {
-//       method: "PUT",
-//       body: formData,
-//     });
-//     if (!res.ok) throw res;
-//     const post = await res.json();
-//     if (!post.errors) {
-//       dispatch(setPost(post));
-//     }
-//     return post;
-//   } catch (e) {
-//     return e;
-//   }
-// };
+export const editPost = (post) => async (dispatch) => {
+  const {
+    description,
+    existImages,
+    postId,
+    userId,
+    existImageCheckIn,
+    newAddedImages,
+  } = post;
+  const updatedExistImages = [];
+  for (let idx = 0; idx < existImageCheckIn.length; idx++) {
+    if (existImageCheckIn[idx]) {
+      updatedExistImages.push(existImages[idx]);
+    }
+  }
+  const formData = new FormData();
+  formData.append("description", description);
+  formData.append("post_id", postId);
+  formData.append("user_id", userId);
+  formData.append("images", updatedExistImages);
+  console.log(updatedExistImages, "updatedExistImages");
+  console.log(newAddedImages, "newAddedImages");
+  return "hhhhhhhhhh";
+  // try {
+  //   const res = await fetch(`/api/posts/${postId}`, {
+  //     method: "PUT",
+  //     body: formData,
+  //   });
+  //   if (!res.ok) throw res;
+  //   const post = await res.json();
+  //   if (!post.errors) {
+  //     dispatch(setPost(post));
+  //   }
+  //   return post;
+  // } catch (e) {
+  //   return e;
+  // }
+};
 
 export const deletePost = (postId) => async (dispatch) => {
   try {
@@ -116,8 +123,8 @@ export default function reducer(state = initialState, action) {
         allPosts: { ...state.allPosts, [action.post.id]: action.post },
       };
     case REMOVE_POST:
-      const newAllPosts = {...state.allPosts}
-      delete newAllPosts[action.postId]
+      const newAllPosts = { ...state.allPosts };
+      delete newAllPosts[action.postId];
       return {
         ...state,
         allPosts: { ...newAllPosts },
