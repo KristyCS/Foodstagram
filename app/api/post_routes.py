@@ -7,11 +7,22 @@ from ..config import Config
 
 post_routes = Blueprint('posts', __name__)
 
+@post_routes.route("/<int:id>",methods=["DELETE"])
+def deletePost(id):
+    post = Post.query.get(id)
+    db.session.delete(post)
+    db.session.commit()
+    return {"message": "Delete Successful"}
 
 @post_routes.route('/')
 def get_all_posts():
     posts = Post.query.limit(20).all()
     return {post.id: post.to_dict() for post in posts}
+
+@post_routes.route('/<int:id>')
+def get_single_post(id):
+    post = Post.query.get(id)
+    return post.to_dict()
 
 @post_routes.route('/', methods=["POST"])
 def create_new_post():
@@ -29,24 +40,16 @@ def create_new_post():
     # return {'errors': validation_errors_to_error_messages(form.errors)}
 
 def createImagesByPostId(photos, postId):
-    print("^^^^^^^^^^^")
     if photos:
         for photo in photos:
         # image.filename = get_unique_filename(image.filename)
-            print(photo)
-            print("@@@@@@@@@@@@@@@@@@Before aws")
             photo_url = upload_file_to_s3(photo, 'foodstagramdev')
-            print(photo_url)
-            photo_url = "https://foodstagramdev.s3.amazonaws.com/"+photo.filename
-            print(photo_url)
-            print("@@@@@@@@@@@@@@@@@@After aws")
+            photo_url = "https://foodstagramdev.s3.amazonaws.com/"+photo.filename    
             photo = Photo( post_id=postId, photo_url=photo_url)
-            print("@@@@@@@@@@@@@@@@@@")
-            print(photo.to_simple_dict())
             db.session.add(photo)
             db.session.commit()
-    
-        
+
+
 
 # @post_routes.route('')
 # def get_paginated_posts():
@@ -64,4 +67,3 @@ def createImagesByPostId(photos, postId):
 #     else:
 #         posts = Post.query.paginate(page=page, per_page=20)
 #     return {post.id: post.to_dict() for post in posts.items}
-

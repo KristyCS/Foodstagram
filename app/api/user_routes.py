@@ -37,6 +37,15 @@ def update_user(id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
+@user_routes.route('/<int:id>', methods=['DELETE'])
+# @login_required
+def delete_user(id):
+    user = User.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return "success"
+
+
 @user_routes.route('/dashboard/<string:username>')
 # @login_required
 def selected_user(username):
