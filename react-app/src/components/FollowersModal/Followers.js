@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink } from "react-router-dom";
 import './Followers.css';
 
 
-function Followers({ username }) {
+function Followers({ username, setShowModal }) {
     const [followersList, setfollowersList] = useState([]);
 
     useEffect(() => {
@@ -24,9 +25,16 @@ function Followers({ username }) {
                     <ul>
                         {followersList.map((follower, idx) => (
                             <li key={idx} className="follow-list">
-                            <img src={follower.profile_photo} alt="user dp"/>
-                            <p>{follower.username}</p>
-                            <p>{follower.full_name}</p>
+                                <NavLink to={`/users/dashboard/${follower.username}`}
+                                    onClick={() => setShowModal(false)}>
+                                    <div className="f-l-c">
+                                        <img className="f-img" src={follower.profile_photo} alt="user dp"/>
+                                        <div className="f-d-c">
+                                            <p className="f-d-u">{follower.username}</p>
+                                            <p className="f-d-f">{follower.full_name}</p>
+                                        </div>
+                                    </div>
+                                </NavLink>
                             </li>
                         ))}
                     </ul>

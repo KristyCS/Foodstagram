@@ -1,6 +1,7 @@
 .follow-cont {
     display: flex;
     flex-direction: column;
+    margin: 50px;
 }
 
 .follow-div {
@@ -10,4 +11,33 @@
 
 .follow-list {
     margin: 20px;
+    border-bottom: 1px solid black;
+}
+
+
+.f-l-c {
+    display: flex;
+}
+
+.f-img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.f-d-c {
+    margin-left: 20px;
+}
+
+.f-d-u {
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+}
+
+.f-d-f {
+    font-size: 16px;
+    color: gray;
+    margin-top: 7px;
+    margin-bottom: 7px;
 }
