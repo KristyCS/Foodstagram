@@ -21,7 +21,7 @@ def post_likes():
     new_like = Like(**data)
     db.session.add(new_like)
     db.session.commit()
-    return new_like
+    return new_like.to_dict()
 
 @like_routes.route('/<int:id>', methods=['PUT'])
 def update_likes(id):
@@ -31,3 +31,10 @@ def update_likes(id):
     db.session.add(like)
     db.session.commit()
     return like.to_dict()
+
+@like_routes.route('/<int:id>', methods=['DELETE'])
+def delete_likes(id):
+    like = Like.query.get(id)
+    db.session.delete(like)
+    db.session.commit()
+    return "success"
