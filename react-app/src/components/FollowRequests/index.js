@@ -8,6 +8,7 @@ function FollowRequests() {
   const [requests, setRequests] = useState([]);
   const [followerId, setfollowerId] = useState(0);
   const [deleteReqId, setdeleteReqId] = useState(0);
+  const [requestBoolean, setRequestBoolean] = useState(false);
 
     useEffect(() => {
 
@@ -17,7 +18,7 @@ function FollowRequests() {
             setRequests(fetchedUsers.followers);
         })();
 
-    }, [user.username]);
+    }, [user.username, requestBoolean]);
 
     useEffect(() => {
       if(followerId !== 0) {
@@ -37,6 +38,7 @@ function FollowRequests() {
           if (response.ok) {
             const data = await response.json();
             setfollowerId(0);
+            setRequestBoolean(!requestBoolean)
           };
        })();
       }
@@ -60,6 +62,7 @@ function FollowRequests() {
         if (response.ok) {
           const data = await response.json();
           setdeleteReqId(0);
+          setRequestBoolean(!requestBoolean)
         };
      })();
     }
