@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import './FollowRequests.css';
 
-function FollowRequests() {
+function FollowRequests({confirmBoolean, setConfirmBoolean}) {
   const user = useSelector(state => state.session.user);
   const [requests, setRequests] = useState([]);
   const [followerId, setfollowerId] = useState(0);
@@ -39,6 +39,7 @@ function FollowRequests() {
             const data = await response.json();
             setfollowerId(0);
             setRequestBoolean(!requestBoolean)
+            setConfirmBoolean(!confirmBoolean)
           };
        })();
       }

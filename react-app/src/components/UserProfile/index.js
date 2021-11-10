@@ -7,7 +7,7 @@ import FollowButton from '../FollowButton';
 import './UserProfile.css';
 
 
-const UserProfile = () => {
+const UserProfile = ({confirmBoolean}) => {
     const { username } = useParams();
     const [rerender, setRerender] = useState(false);
     const [selectedUser, setselectedUser] = useState({});
@@ -62,7 +62,7 @@ const UserProfile = () => {
 
         })();
 
-    }, [username, rerender]);
+    }, [username, rerender, confirmBoolean]);
 
 
 
