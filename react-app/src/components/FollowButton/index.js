@@ -130,7 +130,9 @@ const FollowButton = ({selectedUserId}) => {
     } else if (inFollowers.length) {
         if(username === inFollowers[0].username) {
             return buttonType = (
-                 <button className="follow-btn" onClick={followUser}>Follow Back</button>
+                 <button className="follow-btn" onClick={() =>
+                    setfollowingId(selectedUserId)
+                }>Follow Back</button>
              )
         }
     } else {
