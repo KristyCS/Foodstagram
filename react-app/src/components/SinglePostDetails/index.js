@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+import "./SinglePostDetails.css";
+
 import React from "react";
 
 export default function SinglePostDetails() {
@@ -23,15 +25,18 @@ export default function SinglePostDetails() {
   }, [post]);
 
   return (
-    <div className="single_post_wrapper">
-      <div className="single_post_container">
-        <div className="single_post_left">
+    <div className="single_post_wrapper2">
+      <div className="single_post_container2">
+        <div className="single_post_left2">
           {user && <img src={post.photos[0].photo_url}></img>}
         </div>
-        <div className="single_post_right">
-          <div className="single_post_right_header"></div>
-          <div className="single_post_right_body"></div>
-          <div className="single_post_right_footer"></div>
+        <div className="single_post_right2">
+          <div className="single_post_right_header2">
+            {user && <img src={post.user.profile_photo} className="single_post_right_photo2" />}
+            <p>{user && post.user.username}</p>
+          </div>
+          <div className="single_post_right_body2"></div>
+          <div className="single_post_right_footer2"></div>
         </div>
       </div>
     </div>
