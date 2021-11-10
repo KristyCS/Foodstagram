@@ -16,6 +16,23 @@ const UserProfile = () => {
     const [followersCount, setfollowersCount] = useState(0);
     const [followingCount, setfollowingCount] = useState(0);
 
+    let profileDisplay;
+    if(selectedUser.profile_photo) {
+        profileDisplay = (
+        <>
+            <img id = "dis-pic" src = {selectedUser.profile_photo} alt="user dp"/>
+        </>
+        )
+    } else {
+        profileDisplay = (
+        <>
+            <img id = "dis-pic"
+            src = "https://res.cloudinary.com/lpriya/image/upload/v1636533183/Foodstagram/default_dp_dcd3ao.png"
+            alt="user dp"
+            />
+        </>
+        )
+    }
 
     useEffect(() => {
         let userfollowers = 0;
@@ -52,7 +69,7 @@ const UserProfile = () => {
     return (
         <div className = "prof-cont">
             <div className = "dis-pic-cont">
-                <img id = "dis-pic" src = {selectedUser.profile_photo} alt="user dp"/>
+                { profileDisplay }
             </div>
             <div className = "prof-details">
                 <div className="name-fol">
