@@ -42,7 +42,6 @@ def create_new_post():
 def createImagesByPostId(photos, postId):
     if photos:
         for photo in photos:
-        # image.filename = get_unique_filename(image.filename)
             photo_url = upload_file_to_s3(photo, 'foodstagramdev')
             photo_url = "https://foodstagramdev.s3.amazonaws.com/"+photo.filename    
             photo = Photo( post_id=postId, photo_url=photo_url)
@@ -52,35 +51,13 @@ def createImagesByPostId(photos, postId):
 @post_routes.route('/<int:id>', methods=["PUT"])
 def updatePost(id):
     photos = request.files.getlist('images')
-    post = Post.query.get(id)
-    print("Before populate@@@@@@@@@@@")
-    print(post)
+    post = Post.query.get(id) 
     form = PostForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         form.populate_obj(post)
-        print("After populate@@@@@@@@@@@")
-        print(post)
-
         db.session.commit()
-        # createImagesByPostId(photos, post_id)
-        return post.id
+        createImagesByPostId(photos, id)
+        # post = Post.query.get(id)
+        return post.to_dict()
     return "error~!!!!!!!!!!!!!!!!!!!"
-            
-         
-# @post_routes.route('')
-# def get_paginated_posts():
-#     page = int(request.args.get('page', 0))
-#     community_name = request.args.get('community_name', '')
-#     if community_name:
-#         community = Community.query.filter(
-#             Community.name.ilike(community_name)).first()
-#         if community:
-#             posts = Post.query.filter(
-#                 Post.community_id == community.id).paginate(page=page,
-#                                                             per_page=20)
-#         else:
-#             return {"errors": ["Invalid Community Name."]}
-#     else:
-#         posts = Post.query.paginate(page=page, per_page=20)
-#     return {post.id: post.to_dict() for post in posts.items}

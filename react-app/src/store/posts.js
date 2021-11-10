@@ -1,9 +1,15 @@
 const SET_POSTS = "SET_ALLPOSTS";
 const ADD_POST = "ADD_NEWPOST";
 const REMOVE_POST = "DELETE_POST";
+const UPDATE_POST = "UPDATE_POST";
 const setPosts = (posts) => ({
   type: SET_POSTS,
   posts,
+});
+
+const setPost = (post) => ({
+  type: UPDATE_POST,
+  post,
 });
 const removePost = (postId) => ({
   type: REMOVE_POST,
@@ -51,19 +57,26 @@ export const editPost = (post) => async (dispatch) => {
     existImageCheckIn,
     newAddedImages,
   } = post;
-  const updatedExistImages = [];
   for (let idx = 0; idx < existImageCheckIn.length; idx++) {
-    if (existImageCheckIn[idx]) {
-      updatedExistImages.push(existImages[idx]);
+    if (!existImageCheckIn[idx]) {
+      await fetch(`/api/photos/${existImages[idx].id}`, {
+        method: "DELETE",
+      });
     }
   }
+
   const formData = new FormData();
   formData.append("description", description);
   formData.append("post_id", postId);
   formData.append("user_id", userId);
-  formData.append("photos", updatedExistImages);
-  console.log(updatedExistImages, "updatedExistImages");
-  console.log(newAddedImages, "newAddedImages");
+  console.log(newAddedImages+"!!!!*************************")
+  if (newAddedImages) {
+    for (const list of newAddedImages) {
+      for (let i = 0; i < list.length; i++) {
+        formData.append("images", list[i]);
+      }
+    }
+  }
   try {
     const res = await fetch(`/api/posts/${postId}`, {
       method: "PUT",
@@ -72,7 +85,7 @@ export const editPost = (post) => async (dispatch) => {
     if (!res.ok) throw res;
     const post = await res.json();
     if (!post.errors) {
-      // dispatch(setPost(post));
+      dispatch(setPost(post));
     }
     return post;
   } catch (e) {
@@ -116,6 +129,15 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_POSTS:
       return { ...state, allPosts: { ...action.posts } };
+    case UPDATE_POST:
+      newAllPosts = { ...state.allPosts };
+      for (const post in newAllPosts) {
+        if (post.id === action.post.id) {
+          post = action.post;
+        }
+      }
+      return { ...state, allPosts: newAllPosts };
+
     case ADD_POST:
       return {
         ...state,
