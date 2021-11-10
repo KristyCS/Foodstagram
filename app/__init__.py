@@ -14,9 +14,7 @@ from flask_login import LoginManager
 from app.api import comment_routes, like_routes
 
 from .models import db, User, Follow
-<< << << < HEAD
-== == == =
->>>>>> > main
+
 
 
 app = Flask(__name__)

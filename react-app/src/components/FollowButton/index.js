@@ -34,7 +34,7 @@ const FollowButton = ({selectedUserId}) => {
             setRequests(fetchedUsers.followers);
         })();
 
-    }, [username]);
+    }, [user.username, username]);
 
 
     useEffect(() => {
@@ -53,12 +53,12 @@ const FollowButton = ({selectedUserId}) => {
             });
 
             if (response.ok) {
-              const data = await response.json();
+              // const data = await response.json();
               setfollowingId(0);
             };
          })();
         }
-    }, [followingId]);
+    }, [followingId, user.id]);
 
     useEffect(() => {
         if(unfollowId !== 0) {
@@ -76,12 +76,12 @@ const FollowButton = ({selectedUserId}) => {
             });
 
             if (response.ok) {
-              const data = await response.json();
+              // const data = await response.json();
               setunfollowId(0);
             };
          })();
         }
-    }, [unfollowId]);
+    }, [unfollowId, user.id]);
 
 
     let inFollowing = followingList.filter(following => following.username === username)

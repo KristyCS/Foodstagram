@@ -6,7 +6,7 @@ import ProfileButton from "./ProfileButton";
 import FollowRequests from '../FollowRequests';
 import "./NavBar.css";
 import { Modal } from "../../context/Modal";
-import { AiOutlinePlusSquare } from "react-icons/ai";
+// import { AiOutlinePlusSquare } from "react-icons/ai";
 import CreateEditPostPage from "../CreateEditPostPage/CreateEditPostPage";
 const NavBar = () => {
   const dispatch = useDispatch();

@@ -18,7 +18,7 @@ function PostDetailPage({ setPostDetailModal, singlePost }) {
   const [showPreImgIcon, setShowPreImgIcon] = useState(false);
   const [showNxtImgIcon, setShowNxtImgIcon] = useState(true);
   const [showEditPostModal, setShowEditPostModal] = useState(false);
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
   let photoObjs = singlePost.photos;
   let photoList = Object.values(photoObjs);
   const deletePostHandler = () => {
@@ -36,7 +36,7 @@ function PostDetailPage({ setPostDetailModal, singlePost }) {
     if (imageIdx === 0) {
       setShowPreImgIcon(false);
     }
-  }, [imageIdx]);
+  }, [imageIdx, photoList.length]);
   return (
     <div className="post_detail_container">
       <div className="images_container">

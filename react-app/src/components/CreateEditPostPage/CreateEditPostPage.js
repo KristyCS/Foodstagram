@@ -7,8 +7,9 @@ function CreateNewPostPage({ setShowCreatePostModal, singlePost }) {
   const [description, setDescription] = useState("");
   const initImages = singlePost? singlePost.photos:[]
   const [images, setImages] = useState(initImages);
-  const [errors, setErrors] = useState([]);
+  const [errors] = useState([]);
   const user = useSelector((state) => state.session.user);
+
   const createPostHandler = (e) => {
     e.preventDefault();
     const payload = {

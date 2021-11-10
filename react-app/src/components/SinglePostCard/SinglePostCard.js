@@ -6,13 +6,13 @@ import { Modal } from "../../context/Modal";
 import { ImHeart, ImBubble2 } from "react-icons/im";
 import "./SinglePostCard.css";
 import PostDetailPage from "../PostDetailPage/PostDetailPage"
+
 const SinglePostCard = ({ singlePost }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
-  const [imageIndex, setImageIndex] = useState(0);
+  const [imageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
   const [showMore, setShowMore] = useState(false)
-
   const [inputComment, setinputComment] = useState('')
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
@@ -20,14 +20,14 @@ const SinglePostCard = ({ singlePost }) => {
 
 
   useEffect(() => {
-    const res = fetch(`/api/posts/${singlePost.id}/comments`)
+    fetch(`/api/posts/${singlePost.id}/comments`)
       .then(res => res.json())
       .then(
         (result) => {
           setItems(result);
           setIsLoaded(true);
         })
-  }, [number_of_all_comments])
+  }, [number_of_all_comments, singlePost.id])
 
   const correspondingComments = () => {
     if (!isLoaded) {
@@ -46,7 +46,7 @@ const SinglePostCard = ({ singlePost }) => {
         return (
           sessionComments.map((comment) => {
             return (
-              <div>
+              <div key={comment.id}>
                 {!showMore && hideShowComment(false, comment)}
                 {showMore && hideShowComment(true, comment)}
               </div>
@@ -56,9 +56,9 @@ const SinglePostCard = ({ singlePost }) => {
       } else {
         const commentId = Object.keys(items)
         const firstComment = items[commentId[0]]
-        let shortener = ''
+        // let shortener = ''
         if (firstComment.content.length > 50) {
-          shortener = firstComment.content.slice(0, 50) + '...'
+          // shortener = firstComment.content.slice(0, 50) + '...'
         }
         return (
           <div>

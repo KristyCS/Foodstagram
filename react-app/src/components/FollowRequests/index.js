@@ -35,12 +35,12 @@ function FollowRequests() {
           });
 
           if (response.ok) {
-            const data = await response.json();
+            // const data = await response.json();
             setfollowerId(0);
           };
        })();
       }
-  }, [followerId]);
+  }, [followerId, user.id]);
 
   useEffect(() => {
     if(deleteReqId !== 0) {
@@ -58,12 +58,12 @@ function FollowRequests() {
         });
 
         if (response.ok) {
-          const data = await response.json();
+          // const data = await response.json();
           setdeleteReqId(0);
         };
      })();
     }
-}, [deleteReqId]);
+}, [deleteReqId, user.id]);
 
   const [showMenu, setShowMenu] = useState(false);
 
