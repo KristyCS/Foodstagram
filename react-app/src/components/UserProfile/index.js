@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import FollowersModal from '../FollowersModal';
 import FollowingModal from '../FollowingModal';
@@ -9,7 +8,6 @@ import './UserProfile.css';
 
 
 const UserProfile = () => {
-    const user = useSelector(state => state.session.user);
     const { username } = useParams();
     const [selectedUser, setselectedUser] = useState({});
     const [postsCount, setpostsCount] = useState(0);

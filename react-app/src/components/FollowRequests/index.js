@@ -85,11 +85,6 @@ function FollowRequests() {
   }, [showMenu]);
 
 
-  const onDelete = (e) => {
-    e.preventDefault();
-
-  };
-
   return (
       <div id="profile-div">
         <div id="profile-button" onClick={openMenu}>
