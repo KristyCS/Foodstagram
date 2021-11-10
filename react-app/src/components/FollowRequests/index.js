@@ -7,6 +7,7 @@ function FollowRequests() {
   const user = useSelector(state => state.session.user);
   const [requests, setRequests] = useState([]);
   const [followerId, setfollowerId] = useState(0);
+  const [deleteReqId, setdeleteReqId] = useState(0);
 
     useEffect(() => {
 
@@ -19,7 +20,7 @@ function FollowRequests() {
     }, [user.username]);
 
     useEffect(() => {
-      if(followerId != 0) {
+      if(followerId !== 0) {
         (async () => {
           const response = await fetch(`/api/follows/confirmRequest`, {
             method: 'PUT',
@@ -41,6 +42,29 @@ function FollowRequests() {
       }
   }, [followerId]);
 
+  useEffect(() => {
+    if(deleteReqId !== 0) {
+      (async () => {
+        const response = await fetch(`/api/follows/unfollow`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            user_id: user.id,
+            follower_id: deleteReqId,
+            confirmed: false
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setdeleteReqId(0);
+        };
+     })();
+    }
+}, [deleteReqId]);
+
   const [showMenu, setShowMenu] = useState(false);
 
   const openMenu = () => {
@@ -61,11 +85,6 @@ function FollowRequests() {
   }, [showMenu]);
 
 
-  const onDelete = (e) => {
-    e.preventDefault();
-
-  };
-
   return (
       <div id="profile-div">
         <div id="profile-button" onClick={openMenu}>
@@ -73,6 +92,7 @@ function FollowRequests() {
         </div>
         {showMenu && (
           <ul id="follow-dropdown">
+            {!requests.length && <li className="no-list">No pending requests</li> }
               {requests.map((follower, idx) => (
                     <li key={idx} className="follow-list">
                       <div className="f-l-d">
@@ -88,7 +108,7 @@ function FollowRequests() {
                           <button id="conf-btn" onClick={ () => {setfollowerId(follower.id)}}>
                             Confirm
                           </button>
-                          <button id="del-btn" onClick={onDelete}>Delete</button>
+                          <button id="del-btn" onClick={() => {setdeleteReqId(follower.id)}}>Delete</button>
                       </div>
                     </li>
                 ))}
