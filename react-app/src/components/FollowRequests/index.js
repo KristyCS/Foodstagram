@@ -19,7 +19,7 @@ function FollowRequests() {
     }, [user.username]);
 
     useEffect(() => {
-      if(followerId != 0) {
+      if(followerId !== 0) {
         (async () => {
           const response = await fetch(`/api/follows/confirmRequest`, {
             method: 'PUT',
@@ -73,6 +73,7 @@ function FollowRequests() {
         </div>
         {showMenu && (
           <ul id="follow-dropdown">
+            {!requests.length && <li className="no-list">No pending requests</li> }
               {requests.map((follower, idx) => (
                     <li key={idx} className="follow-list">
                       <div className="f-l-d">

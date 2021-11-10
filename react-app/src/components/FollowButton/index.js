@@ -10,6 +10,7 @@ const FollowButton = () => {
 
     const [followingList, setfollowingList] = useState([]);
     const [followersList, setfollowersList] = useState([]);
+    const [requests, setRequests] = useState([]);
 
     useEffect(() => {
 
@@ -25,10 +26,17 @@ const FollowButton = () => {
             setfollowersList(fetchedUsers.followers);
         })();
 
+        (async () => {
+            const response = await fetch(`/api/users/${username}/followRequests`);
+            const fetchedUsers = await response.json();
+            setRequests(fetchedUsers.followers);
+        })();
+
     }, [username]);
 
     let inFollowing = followingList.filter(following => following.username === username)
     let inFollowers = followersList.filter(follower => follower.username === username)
+    let inRequests = requests.filter(request => request.username === user.username)
 
 
     let buttonType;
@@ -48,12 +56,24 @@ const FollowButton = () => {
 
       };
 
+    const followRequest = (e) => {
+        e.preventDefault();
+
+      };
+
+
     if(inFollowing.length) {
 
         if(username === inFollowing[0].username) {
            return buttonType = (
                 <button className="follow-btn" onClick={unfollowUser}>Unfollow</button>
             )
+        }
+    } else if (inRequests.length) {
+        if(user.username === inRequests[0].username) {
+            return buttonType = (
+                 <button className="edit-btn" onClick={followRequest}>Requested</button>
+             )
         }
     } else if (inFollowers.length) {
         if(username === inFollowers[0].username) {
