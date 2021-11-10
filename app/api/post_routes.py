@@ -1,7 +1,7 @@
-from flask import Blueprint, jsonify,request
+from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from ..forms import PostForm
-from ..models import db, Post, Photo
+from ..models import db, Post, Photo, Comment
 from ..aws_s3 import upload_file_to_s3
 from ..config import Config
 
@@ -12,6 +12,7 @@ post_routes = Blueprint('posts', __name__)
 def get_all_posts():
     posts = Post.query.limit(20).all()
     return {post.id: post.to_dict() for post in posts}
+
 
 @post_routes.route('/', methods=["POST"])
 def create_new_post():
@@ -28,11 +29,12 @@ def create_new_post():
     return "error~!!!!!!!!!!!!!!!!!!!"
     # return {'errors': validation_errors_to_error_messages(form.errors)}
 
+
 def createImagesByPostId(photos, postId):
     print("^^^^^^^^^^^")
     if photos:
         for photo in photos:
-        # image.filename = get_unique_filename(image.filename)
+            # image.filename = get_unique_filename(image.filename)
             print(photo)
             print("@@@@@@@@@@@@@@@@@@Before aws")
             photo_url = upload_file_to_s3(photo, 'foodstagramdev')
@@ -40,13 +42,12 @@ def createImagesByPostId(photos, postId):
             photo_url = "https://foodstagramdev.s3.amazonaws.com/"+photo.filename
             print(photo_url)
             print("@@@@@@@@@@@@@@@@@@After aws")
-            photo = Photo( post_id=postId, photo_url=photo_url)
+            photo = Photo(post_id=postId, photo_url=photo_url)
             print("@@@@@@@@@@@@@@@@@@")
             print(photo.to_simple_dict())
             db.session.add(photo)
             db.session.commit()
-    
-        
+
 
 # @post_routes.route('')
 # def get_paginated_posts():
@@ -65,3 +66,20 @@ def createImagesByPostId(photos, postId):
 #         posts = Post.query.paginate(page=page, per_page=20)
 #     return {post.id: post.to_dict() for post in posts.items}
 
+
+@post_routes.route('/<id>/comments', methods=['GET', 'POST'])
+def get_some_comments(id):
+    if request.method == 'GET':
+        comments = Comment.query.filter_by(post_id=id).all()
+        return {comment.id: comment.to_dict() for comment in comments}
+    if request.method == 'POST':
+        payload = request.get_json()
+        print(payload)
+        new_comment = Comment(
+            post_id=id,
+            user_id=payload['user_id'],
+            content=payload['content']
+        )
+        db.session.add(new_comment)
+        db.session.commit()
+        return new_comment.to_dict()
