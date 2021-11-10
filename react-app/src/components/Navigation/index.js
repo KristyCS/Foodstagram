@@ -33,7 +33,7 @@ const NavBar = () => {
         <div>
           <i
             onClick={() => setShowCreatePostModal(true)}
-            className="fa-solid fa-square-plus"
+            className="far fa-plus-square plus-btn"
           />
 
           {showCreatePostModal && (

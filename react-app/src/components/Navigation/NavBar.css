@@ -1,72 +1,73 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Montserrat', sans-serif;
-    text-decoration: none;
-    list-style-type: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+  text-decoration: none;
+  list-style-type: none;
 }
 
 #nav-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 60px;
-    width: 100%;
-    border-bottom: 1px solid black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  border-bottom: 1px solid black;
 }
-
 #nav-buttons {
-    width: 350px;
-    display: flex;
-    justify-content: space-evenly;
+  width: 350px;
+  display: flex;
+  justify-content: space-evenly;
 }
-
+.plus-btn {
+  font-size: 30px;
+}
 
 .home-link {
-    font-family: 'Lobster Two', cursive;
-    color: black;
-    font-size: 30px;
+  font-family: "Lobster Two", cursive;
+  color: black;
+  font-size: 30px;
 }
 
 #login-nav {
-    background-color: rgb(84, 178, 241);
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    padding: 8px;
-    font-size: 18px;
-    font-weight: bold;
+  background-color: rgb(84, 178, 241);
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 #signup-nav {
-    margin-top: 5px;
-    cursor: pointer;
+  margin-top: 5px;
+  cursor: pointer;
 }
 
 #nav-lbtn {
-    color: white;
+  color: white;
 }
 
 #nav-sbtn {
-    color: rgb(84, 178, 241);
-    font-weight: bold;
-    font-size: 18px;
+  color: rgb(84, 178, 241);
+  font-weight: bold;
+  font-size: 18px;
 }
 
 #demo-btn {
-    color: rgb(27, 51, 189);
-    font-weight: bold;
-    font-size: 18px;
-    margin-top: 7px;
-    cursor: pointer;
+  color: rgb(27, 51, 189);
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 7px;
+  cursor: pointer;
 }
 
 #frnds {
-    font-size: 30px;
-    cursor: pointer;
+  font-size: 30px;
+  cursor: pointer;
 }
 
 #frnds-btn {
-    color: black;
+  color: black;
 }
