@@ -44,7 +44,10 @@ function ProfileButton() {
   } else {
     profileDisplay = (
       <>
-        <i className="fas fa-user-circle" />
+        <img id = "prof-pic"
+        src = "https://res.cloudinary.com/lpriya/image/upload/v1636533183/Foodstagram/default_dp_dcd3ao.png"
+        alt="user dp small"
+        />
       </>
     )
   }
