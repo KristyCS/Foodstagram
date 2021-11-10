@@ -6,6 +6,7 @@ import './FollowRequests.css';
 function FollowRequests() {
   const user = useSelector(state => state.session.user);
   const [requests, setRequests] = useState([]);
+  const [followerId, setfollowerId] = useState(0);
 
     useEffect(() => {
 
@@ -16,6 +17,27 @@ function FollowRequests() {
         })();
 
     }, [user.username]);
+
+    useEffect(async () => {
+      if(followerId != 0) {
+        const response = await fetch(`/api/follows/confirmRequest`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            user_id: user.id,
+            follower_id: followerId,
+            confirmed: true
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setfollowerId(0);
+        };
+      }
+  }, [followerId]);
 
   const [showMenu, setShowMenu] = useState(false);
 
@@ -37,6 +59,11 @@ function FollowRequests() {
   }, [showMenu]);
 
 
+  const onDelete = (e) => {
+    e.preventDefault();
+
+  };
+
   return (
       <div id="profile-div">
         <div id="profile-button" onClick={openMenu}>
@@ -46,15 +73,21 @@ function FollowRequests() {
           <ul id="follow-dropdown">
               {requests.map((follower, idx) => (
                     <li key={idx} className="follow-list">
+                      <div className="f-l-d">
                          <NavLink to={`/users/dashboard/${follower.username}`}>
-                          <div className="f-l-c">
-                            <img className="f-img" src={follower.profile_photo} alt="user dp"/>
-                            <div className="f-d-c">
-                              <p className="f-d-u">{follower.username}</p>
-                              <p className="f-d-f">{follower.full_name}</p>
+                            <div className="f-l-c">
+                              <img className="f-img" src={follower.profile_photo} alt="user dp"/>
+                              <div className="f-d-c">
+                                <p className="f-d-u">{follower.username}</p>
+                                <p className="f-d-f">{follower.full_name}</p>
+                              </div>
                             </div>
-                          </div>
-                        </NavLink>
+                          </NavLink>
+                          <button id="conf-btn" onClick={ () => {setfollowerId(follower.id)}}>
+                            Confirm
+                          </button>
+                          <button id="del-btn" onClick={onDelete}>Delete</button>
+                      </div>
                     </li>
                 ))}
           </ul>
