@@ -91,25 +91,12 @@ const FollowButton = ({selectedUserId}) => {
 
     let buttonType;
 
-    const followUser = (e) => {
-        e.preventDefault();
-
-      };
 
     const editUser = (e) => {
         e.preventDefault();
 
       };
 
-    const unfollowUser = (e) => {
-        e.preventDefault();
-
-      };
-
-    const followRequest = (e) => {
-        e.preventDefault();
-
-      };
 
 
     if(inFollowing.length) {
