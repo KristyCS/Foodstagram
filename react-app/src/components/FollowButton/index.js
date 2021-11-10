@@ -12,6 +12,7 @@ const FollowButton = ({selectedUserId}) => {
     const [followersList, setfollowersList] = useState([]);
     const [requests, setRequests] = useState([]);
     const [followingId, setfollowingId] = useState(0);
+    const [unfollowId, setunfollowId] = useState(0);
 
     useEffect(() => {
 
@@ -59,6 +60,29 @@ const FollowButton = ({selectedUserId}) => {
         }
     }, [followingId]);
 
+    useEffect(() => {
+        if(unfollowId !== 0) {
+          (async () => {
+            const response = await fetch(`/api/follows/unfollow`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                user_id: unfollowId,
+                follower_id: user.id,
+                confirmed: true
+              })
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              setunfollowId(0);
+            };
+         })();
+        }
+    }, [unfollowId]);
+
 
     let inFollowing = followingList.filter(following => following.username === username)
     let inFollowers = followersList.filter(follower => follower.username === username)
@@ -92,7 +116,9 @@ const FollowButton = ({selectedUserId}) => {
 
         if(username === inFollowing[0].username) {
            return buttonType = (
-                <button className="follow-btn" onClick={unfollowUser}>Unfollow</button>
+                <button className="follow-btn" onClick={() =>
+                    setunfollowId(selectedUserId)
+                }>Unfollow</button>
             )
         }
     } else if (inRequests.length) {
