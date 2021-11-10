@@ -124,7 +124,9 @@ const FollowButton = ({selectedUserId}) => {
     } else if (inRequests.length) {
         if(user.username === inRequests[0].username) {
             return buttonType = (
-                 <button className="edit-btn" onClick={followRequest}>Requested</button>
+                 <button className="edit-btn" onClick={() =>
+                    setunfollowId(selectedUserId)
+                }>Requested</button>
              )
         }
     } else if (inFollowers.length) {
