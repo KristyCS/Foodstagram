@@ -1,0 +1,20 @@
+
+.follow-btn {
+    margin-left: 30px;
+    background-color: rgb(84, 178, 241);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 7px;
+    font-weight: bold;
+    color: white;
+}
+
+.edit-btn {
+    margin-left: 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 7px;
+    font-weight: bold;
+}

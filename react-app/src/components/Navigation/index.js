@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../store/session";
 import ProfileButton from "./ProfileButton";
+import FollowRequests from '../FollowRequests';
 import "./NavBar.css";
 import { Modal } from "../../context/Modal";
 import { AiOutlinePlusSquare } from "react-icons/ai";
@@ -32,7 +33,7 @@ const NavBar = () => {
         <div>
           <i
             onClick={() => setShowCreatePostModal(true)}
-            className="fa-solid fa-square-plus"
+            className="far fa-plus-square plus-btn"
           />
 
           {showCreatePostModal && (
@@ -44,19 +45,7 @@ const NavBar = () => {
           )}
         </div>
         <div id="frnds">
-          <NavLink
-            id="frnds-btn"
-            to="/user/follow-requests"
-            exact={true}
-            activeClassName="active"
-          >
-            <i className="fas fa-user-plus"></i>
-          </NavLink>
-        </div>
-        <div>
-          <NavLink to="/users" exact={true} activeClassName="active">
-            Users
-          </NavLink>
+          <FollowRequests />
         </div>
         <ProfileButton />
       </>

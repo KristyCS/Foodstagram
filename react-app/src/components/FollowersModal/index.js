@@ -10,7 +10,7 @@ function FollowersModal({followersCount, username}) {
       <p onClick={() => setShowModal(true)}>{followersCount} followers</p>
         {showModal && (
           <Modal onClose={() => setShowModal(false)}>
-            <Followers username={username}/>
+            <Followers username={username} setShowModal={setShowModal}/>
           </Modal>
         )}
     </>

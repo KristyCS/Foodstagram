@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import FollowersModal from '../FollowersModal';
 import FollowingModal from '../FollowingModal';
+import FollowButton from '../FollowButton';
 import './UserProfile.css';
 
 
@@ -12,7 +13,6 @@ const UserProfile = () => {
     const { username } = useParams();
     const [selectedUser, setselectedUser] = useState({});
     const [postsCount, setpostsCount] = useState(0);
-    const [followingList, setfollowingList] = useState([]);
     const [followersCount, setfollowersCount] = useState(0);
     const [followingCount, setfollowingCount] = useState(0);
 
@@ -37,7 +37,6 @@ const UserProfile = () => {
             setfollowersCount(userfollowers);
 
             const following = fetchedUser.following;
-            setfollowingList(following);
             for (let i = 0; i < following.length; i++) {
                 let follow = following[i];
                 if(follow.confirmed === true) userfollowing++;
@@ -48,14 +47,17 @@ const UserProfile = () => {
         })();
     }, [username]);
 
+
+
     return (
         <div className = "prof-cont">
             <div className = "dis-pic-cont">
                 <img id = "dis-pic" src = {selectedUser.profile_photo} alt="user dp"/>
             </div>
             <div className = "prof-details">
-                <div>
+                <div className="name-fol">
                     <p>{selectedUser.username}</p>
+                    <FollowButton />
                 </div>
                 <div className="tot-count">
                     <div>
