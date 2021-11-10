@@ -150,8 +150,6 @@ export default function reducer(state = initialState, action) {
         allPosts: { ...state.allPosts },
       };
     case ADD_COMMENT:
-      console.log(action.comment.post.id, action.comment.content, action.comment.id)
-      console.log(state.allPosts[action.comment.post.id].comments)
       state.allPosts[action.comment.post.id].comments.push({ content: action.comment.content, id: action.comment.id })
       return {
         ...state,

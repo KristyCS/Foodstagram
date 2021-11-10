@@ -11,6 +11,7 @@ const SinglePostCard = ({ singlePost }) => {
   const user = useSelector((state) => state.session.user);
   const [imageIndex, setImageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
+  const [showMore, setShowMore] = useState(false)
 
   const [inputComment, setinputComment] = useState('')
   const [isLoaded, setIsLoaded] = useState(false);
@@ -34,7 +35,7 @@ const SinglePostCard = ({ singlePost }) => {
     } else {
       let sessionComments = []
       for (const comment in items) {
-        if (sessionComments.length > 3) {
+        if (sessionComments.length > 0) {
           break
         }
         if (items[comment].user.id === user.id) {
@@ -44,13 +45,10 @@ const SinglePostCard = ({ singlePost }) => {
       if (sessionComments.length) {
         return (
           sessionComments.map((comment) => {
-            let shortener = ''
-            if (comment.content.length > 50) {
-              shortener = comment.content.slice(0, 50) + '...'
-            }
             return (
-              <div id={comment.id}>
-                {comment.user.username}: {shortener ? shortener : comment.content}
+              <div>
+                {!showMore && hideShowComment(false, comment)}
+                {showMore && hideShowComment(true, comment)}
               </div>
             )
           })
@@ -64,13 +62,40 @@ const SinglePostCard = ({ singlePost }) => {
         }
         return (
           <div>
-            {firstComment.user.username} : {shortener ? shortener : firstComment.content}
+            {!showMore && hideShowComment(false, firstComment)}
+            {showMore && hideShowComment(true, firstComment)}
           </div>
         )
       }
     }
   }
 
+  const hideShowComment = (show, comment) => {
+    if (comment.content.length < 50) {
+      return (
+        <>
+          {comment.user.username}:  {comment.content}
+        </>
+      )
+    }
+    if (show) {
+      return (
+        <>
+          {comment.user.username}:  {comment.content} <button onClick={(event) => setShowMore(false)}>Less</button>
+        </>
+      )
+    } else {
+      let shortener = ''
+      if (comment.content.length >= 50) {
+        shortener = comment.content.slice(0, 50) + '...'
+      }
+      return (
+        <>
+          {comment.user.username}:  {shortener} <button onClick={(event) => setShowMore(true)}>Show</button>
+        </>
+      )
+    }
+  }
 
 
   const isThereAnyComments = () => {
