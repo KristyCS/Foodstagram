@@ -1,6 +1,7 @@
 const SET_POSTS = "SET_ALLPOSTS";
 const ADD_POST = "ADD_NEWPOST";
 const REMOVE_POST = "DELETE_POST";
+const ADD_COMMENT = 'ADD_NEWCOMMENT'
 const setPosts = (posts) => ({
   type: SET_POSTS,
   posts,
@@ -12,6 +13,10 @@ const removePost = (postId) => ({
 const addPost = (post) => ({
   type: ADD_POST,
   post,
+});
+const addComment = (comment) => ({
+  type: ADD_COMMENT,
+  comment,
 });
 
 export const createPost = (post) => async (dispatch) => {
@@ -42,6 +47,28 @@ export const createPost = (post) => async (dispatch) => {
     return e;
   }
 };
+
+export const createComment = (comment) => async (dispatch) => {
+  const { post_id } = comment;
+
+  try {
+    const res = await fetch(`/api/posts/${post_id}/comments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(comment)
+    })
+    if (res.ok) {
+      const data = await res.json()
+      dispatch(addComment(data))
+    } else {
+      throw console.error('Creation error!');
+    }
+  } catch (event) {
+    return event
+  }
+}
 
 // export const updatePost = (post) => async (dispatch) => {
 //   const { title, body, images, postId, userId, communityId } = post;
@@ -116,11 +143,17 @@ export default function reducer(state = initialState, action) {
         allPosts: { ...state.allPosts, [action.post.id]: action.post },
       };
     case REMOVE_POST:
-      const newAllPosts = {...state.allPosts}
+      const newAllPosts = { ...state.allPosts }
       delete newAllPosts[action.postId]
       return {
         ...state,
         allPosts: { ...newAllPosts },
+      };
+    case ADD_COMMENT:
+      state.allPosts[action.comment.post.id].comments.push({ content: action.comment.content, id: action.comment.id })
+      return {
+        ...state,
+        allPosts: { ...state.allPosts }
       };
     default:
       return state;
