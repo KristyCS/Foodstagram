@@ -88,6 +88,8 @@ const UserProfile = ({confirmBoolean}) => {
                         <FollowersModal
                             followersCount={followersCount}
                             username={username}
+                            setRerender={setRerender}
+                            rerender={rerender}
                         />
                     </div>
                     <div>
