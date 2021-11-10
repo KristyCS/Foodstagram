@@ -30,6 +30,6 @@ class Like(db.Model):
             }
 
     def update(self, post_id=None, comment_id=None):
-        self.post_id = post_id 
+        self.post_id = post_id
         self.comment_id = comment_id
         return self

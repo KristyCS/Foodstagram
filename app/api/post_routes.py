@@ -19,6 +19,11 @@ def get_all_posts():
     posts = Post.query.limit(20).all()
     return {post.id: post.to_dict() for post in posts}
 
+@post_routes.route('/<int:id>')
+def get_single_post(id):
+    post = Post.query.get(id)
+    return post.to_dict()
+
 @post_routes.route('/', methods=["POST"])
 def create_new_post():
     photos = request.files.getlist('images')
@@ -43,8 +48,8 @@ def createImagesByPostId(photos, postId):
             photo = Photo( post_id=postId, photo_url=photo_url)
             db.session.add(photo)
             db.session.commit()
-    
-        
+
+
 
 # @post_routes.route('')
 # def get_paginated_posts():
@@ -62,4 +67,3 @@ def createImagesByPostId(photos, postId):
 #     else:
 #         posts = Post.query.paginate(page=page, per_page=20)
 #     return {post.id: post.to_dict() for post in posts.items}
-
