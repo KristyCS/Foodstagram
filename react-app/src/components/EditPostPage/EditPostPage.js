@@ -18,36 +18,35 @@ function CreateNewPostPage({
   const user = useSelector((state) => state.session.user);
 
   const checks = [];
-  // console.log(newAddedImages);
-  // for (const image in existImages) {
-  //   checks.push(true);
-  // }
+  for (const image in existImages) {
+    checks.push(true);
+  }
   const [existImageCheckIn, setExistImageCheckIn] = useState(checks);
-  
+
   const editPostHandler = (e) => {
     e.preventDefault();
     if (!(existImageCheckIn.includes(true) || newAddedImages.length > 0)) {
       setErrors(["Please choose at least one photo."]);
+    } else {
+      const payload = {
+        userId: user.id,
+        postId: singlePost.id,
+        description,
+        existImages,
+        existImageCheckIn,
+        newAddedImages,
+      };
+      dispatch(editPost(payload));
+      setShowEditPostModal(false);
     }
-    if (errors.length === 0) {
-      setErrors(["No error"]);
-    //   const payload = {
-    //     userId: user.id,
-    //     postId: singlePost.id,
-    //     description,
-    //     existImages,
-    //     existImageCheckIn,
-    //     newAddedImages,
-    //   };
-    //   dispatch(editPost(payload));
-      // setShowEditPostModal(false);
-    }
-    setPostDetailModal(false);
   };
   const changeCheckInHandler = (e) => {
     const newCheckIn = [...existImageCheckIn];
     newCheckIn[e.target.id] = !newCheckIn[e.target.id];
     setExistImageCheckIn(newCheckIn);
+    if (newCheckIn.includes(true) || newAddedImages.length > 0) {
+      setErrors([]);
+    }
   };
 
   return (
