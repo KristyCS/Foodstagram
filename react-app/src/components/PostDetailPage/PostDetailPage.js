@@ -179,7 +179,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
             </>
           )}
           {showEditPostModal && (
-            <Modal onClose={() => setShowEditPostModal(false)}>
+            <Modal type='edit' onClose={() => setShowEditPostModal(false)}>
               <EditPostPage
                 setPostDetailModal={setPostDetailModal}
                 setShowEditPostModal={setShowEditPostModal}
