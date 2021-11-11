@@ -78,10 +78,12 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
     if (Object.keys(comments).length) {
       const commentsArr = Object.values(comments)
       return (
-        commentsArr.map((comment) => {
-          if (comment.user.id === user.id) {
+
+        commentsArr.map((comment,idx) => {
+          if (comment.user.id == user.id) {
+
             return (
-              <li className='single-comment'>
+              <li key={idx} className='single-comment'>
                 <div className='comment-container'>
                   <img className='comment-pfp' src={`${comment.user.profile_photo}`} alt=""/>
                   <div>
@@ -168,7 +170,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
             alt=""
           />
           <NavLink to="">{singlePost.user.username}</NavLink>
-          <p> · </p>
+          <p> {"  ·  "} </p>
           <p>following</p>
           {singlePost.user.id === user.id && (
             <>
@@ -198,7 +200,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
         <div className='detailed-comment-area'>
           {commentLoader(comments)}
         </div>
-        <div>
+        <div className="comment-input-container">
           <input className='comment-input-bar' placeholder='Add a comment...' value={inputComment} onChange={(event) => { setinputComment(event.target.value) }}>
           </input>
           <button className='comment-submit-btn' disabled={!inputComment} onClick={(event) => handleSubmit()}>Post</button>

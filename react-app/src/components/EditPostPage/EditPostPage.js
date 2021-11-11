@@ -8,9 +8,10 @@ function CreateNewPostPage({
   singlePostId,
 }) {
   const dispatch = useDispatch();
-  const [description, setDescription] = useState("");
   const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
-  const [existImages] = useState(singlePost.photos);
+
+  const [description, setDescription] = useState(singlePost.description);
+  const [existImages, setExistImages] = useState(singlePost.photos);
   const [newAddedImages, setNewAddedImages] = useState([]);
   const [errors] = useState([]);
   const [src, setSrc] = useState([]);
@@ -91,7 +92,7 @@ function CreateNewPostPage({
         <textarea
           name="description"
           placeholder="Write a caption..."
-          defaultValue={singlePost ? singlePost.description : ""}
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows="10"
           cols="50"

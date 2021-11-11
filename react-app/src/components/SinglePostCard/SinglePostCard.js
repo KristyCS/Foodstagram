@@ -259,6 +259,7 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
         </button>
       </div>
       {postDetailModal && (
+
         <Modal onClose={() => setPostDetailModal(false)}>
           <PostDetailPage
             setPostDetailModal={setPostDetailModal}
@@ -267,6 +268,7 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
             inputComment={inputComment}
             setinputComment={setinputComment}
           />
+
         </Modal>
       )}
     </div>
