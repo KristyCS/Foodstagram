@@ -179,7 +179,7 @@ export default function reducer(state = initialState, action) {
     case SET_POSTS:
       return { ...state, allPosts: { ...action.posts } };
     case UPDATE_POST:
-      let newAllPosts
+      // let newAllPosts
       newAllPosts = { ...state.allPosts };
       newAllPosts[action.post.id] = action.post;
       return { ...state, allPosts: newAllPosts };
@@ -210,7 +210,7 @@ export default function reducer(state = initialState, action) {
       let found = 0
       for (let i = 0; i < commentsArr.length; i++) {
         let comment = commentsArr[i]
-        if (comment.id == action.id.commentId) {
+        if (comment.id === action.id.commentId) {
           found = 1
         }
         if (found && commentsArr[i + 1]) {

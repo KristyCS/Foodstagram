@@ -21,7 +21,7 @@ class Post(db.Model):
             'description': self.description,
             "photos": [photo.to_simple_dict() for photo in self.photos],
             "comments": [comment.to_simple_dict() for comment in self.comments],
-            "likes": len(self.likes),
+            "likes": [like.to_simple_dict() for like in self.likes]
         }
 
     def to_simple_dict(self):
