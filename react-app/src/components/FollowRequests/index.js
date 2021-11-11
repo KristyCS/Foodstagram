@@ -36,14 +36,14 @@ function FollowRequests({confirmBoolean, setConfirmBoolean}) {
           });
 
           if (response.ok) {
-            const data = await response.json();
+            // const data = await response.json();
             setfollowerId(0);
             setRequestBoolean(!requestBoolean)
             setConfirmBoolean(!confirmBoolean)
           };
        })();
       }
-  }, [followerId]);
+  }, [followerId, user.id, confirmBoolean, requestBoolean, setConfirmBoolean]);
 
   useEffect(() => {
     if(deleteReqId !== 0) {
@@ -61,13 +61,13 @@ function FollowRequests({confirmBoolean, setConfirmBoolean}) {
         });
 
         if (response.ok) {
-          const data = await response.json();
+          // const data = await response.json();
           setdeleteReqId(0);
           setRequestBoolean(!requestBoolean)
         };
      })();
     }
-}, [deleteReqId]);
+}, [deleteReqId, user.id, requestBoolean]);
 
   const [showMenu, setShowMenu] = useState(false);
 

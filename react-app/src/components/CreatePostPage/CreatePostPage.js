@@ -6,8 +6,8 @@ function CreateNewPostPage({ setShowCreatePostModal }) {
   const dispatch = useDispatch();
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
-  const [errors, setErrors] = useState([]);
-  const [src, setSrc] = useState("");
+  const [errors] = useState([]);
+  const [src] = useState("");
   const user = useSelector((state) => state.session.user);
   console.log(images, "!!!!!!!!!!!");
   const createPostHandler = (e) => {
@@ -26,7 +26,7 @@ function CreateNewPostPage({ setShowCreatePostModal }) {
       <h3> Create new post</h3>
       {images && (
         <div className="view_image">
-            <img className="small" src={src} />
+            <img className="small" src={src} alt="" />
         </div>
       )}
       <form onSubmit={createPostHandler}>

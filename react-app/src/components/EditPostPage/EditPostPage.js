@@ -5,16 +5,16 @@ import "./EditPostPage.css";
 function CreateNewPostPage({ setShowEditPostModal, singlePost }) {
   const dispatch = useDispatch();
   const [description, setDescription] = useState("");
-  const [existImages, setExistImages] = useState(singlePost.photos);
+  const [existImages] = useState(singlePost.photos);
   const [newAddedImages, setNewAddedImages] = useState([]);
-  const [errors, setErrors] = useState([]);
+  const [errors] = useState([]);
   const [src, setSrc] = useState([]);
   const user = useSelector((state) => state.session.user);
   const checks = [];
-  console.log(newAddedImages)
-  for (const image in existImages) {
-    checks.push(true);
-  }
+  // console.log(newAddedImages)
+  // for (const image in existImages) {
+  //   checks.push(true);
+  // }
   const [existImageCheckIn, setExistImageCheckIn] = useState(checks);
   const editPostHandler = (e) => {
     e.preventDefault();
@@ -59,7 +59,7 @@ function CreateNewPostPage({ setShowEditPostModal, singlePost }) {
           {newAddedImages.map((image, idx) => (
             <div key={idx}>
               <p>{image.id}</p>
-              <img className="small" key={idx} src={src[idx]} />
+              <img className="small" key={idx} src={src[idx]} alt="" />
             </div>
           ))}
         </div>

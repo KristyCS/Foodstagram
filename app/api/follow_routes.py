@@ -7,6 +7,7 @@ follow_routes = Blueprint('follows', __name__)
 def add_follow():
     data = request.json
     new_follow = Follow(**data)
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", new_follow)
     db.session.add(new_follow)
     db.session.commit()
     return new_follow.to_dict()
@@ -25,6 +26,7 @@ def confirm_requests():
 @follow_routes.route('/unfollow', methods=['DELETE'])
 def unfollow():
     data = request.json
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", data)
     remove_follow = Follow.query.filter(Follow.user_id == data["user_id"]).filter(Follow.follower_id == data["follower_id"]).first()
     db.session.delete(remove_follow)
     db.session.commit()

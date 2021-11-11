@@ -36,14 +36,14 @@ function Followers({ username, setShowModal, setRerender, rerender }) {
             });
 
             if (response.ok) {
-              const data = await response.json();
+            //   const data = await response.json();
               setdeleteReqId(0);
               setRequestBoolean(!requestBoolean)
               setRerender(!rerender)
             };
          })();
         }
-    }, [deleteReqId]);
+    }, [deleteReqId, requestBoolean, rerender, setRerender, user.id]);
 
 
     return (

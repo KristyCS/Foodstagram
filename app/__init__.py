@@ -1,22 +1,18 @@
+import os
 from .config import Config
 from .seeds import seed_commands
-from .api import (auth_routes, user_routes, post_routes,
-                  like_routes, follow_routes)
-from .api import (auth_routes, user_routes, post_routes,
-                  like_routes, comment_routes)
-import os
-from flask import Flask, render_template, request, session, redirect, jsonify
+from .api import (auth_routes, user_routes, post_routes, like_routes, photo_routes, comment_routes, follow_routes)
+from flask import Flask, request,  redirect
 from flask_cors import CORS
 from flask_migrate import Migrate
-from flask_wtf.csrf import CSRFProtect, generate_csrf
+from flask_wtf.csrf import generate_csrf
 from flask_login import LoginManager
 
-from app.api import comment_routes, like_routes
 
 from .models import db, User, Follow
-from .api import (auth_routes, user_routes, post_routes, like_routes, photo_routes)
 
-from .seeds import seed_commands
+
+
 
 
 app = Flask(__name__)
@@ -83,8 +79,4 @@ def react_root(path):
     return app.send_static_file('index.html')
 
 
-@app.route("/")
-def index():
-    user = User.query.get(2)
 
-    return user.to_dict()

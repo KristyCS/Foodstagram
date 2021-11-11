@@ -156,8 +156,9 @@ export default function reducer(state = initialState, action) {
     case SET_POSTS:
       return { ...state, allPosts: { ...action.posts } };
     case UPDATE_POST:
+      let newAllPosts
       newAllPosts = { ...state.allPosts };
-      for (const post in newAllPosts) {
+      for (let post in newAllPosts) {
         if (post.id === action.post.id) {
           post = action.post;
         }
@@ -170,7 +171,7 @@ export default function reducer(state = initialState, action) {
         allPosts: { ...state.allPosts, [action.post.id]: action.post },
       };
     case REMOVE_POST:
-      const newAllPosts = { ...state.allPosts };
+      newAllPosts = { ...state.allPosts };
       delete newAllPosts[action.postId];
       return {
         ...state,
