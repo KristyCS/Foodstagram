@@ -16,6 +16,7 @@ export default function SinglePostDetails() {
       const res = await fetch(`/api/posts/${postId}`);
       const data = await res.json();
       setPost(data);
+      console.log({ Post: post });
     })();
   }, [postId, refresh]);
 
@@ -25,6 +26,7 @@ export default function SinglePostDetails() {
         const res = await fetch(`/api/users/${post.user.id}`);
         const data = await res.json();
         setUser(data);
+        console.log({ User: user });
       }
     })();
   }, [post, refresh]);
@@ -40,6 +42,7 @@ export default function SinglePostDetails() {
 
   const handleFollow = async (e) => {
     if (e.target.id === "Following" || e.target.id === "Requested") {
+      console.log("ping");
       await fetch(`/api/follows/unfollow`, {
         method: "DELETE",
         headers: {
@@ -53,6 +56,7 @@ export default function SinglePostDetails() {
     }
 
     if (e.target.id === "Follow") {
+      console.log("ping Follow");
       await fetch(`/api/follows/addFollow`, {
         method: "POST",
         headers: {
