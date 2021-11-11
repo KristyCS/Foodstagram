@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createComment } from "../../store/posts";
@@ -20,18 +20,18 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
   const [postDetailModal, setPostDetailModal] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [inputComment, setinputComment] = useState("");
-  const [isLoaded] = useState(false);
-  const [items] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState([]);
   const number_of_all_comments = singlePost.comments.length;
 
-  // useEffect(() => {
-  //   fetch(`/api/posts/${singlePost.id}/comments`)
-  //     .then((res) => res.json())
-  //     .then((result) => {
-  //       setItems(result);
-  //       setIsLoaded(true);
-  //     });
-  // }, [number_of_all_comments, singlePost.id]);
+  useEffect(() => {
+    fetch(`/api/posts/${singlePost.id}/comments`)
+      .then((res) => res.json())
+      .then((result) => {
+        setItems(result);
+        setIsLoaded(true);
+      });
+  }, [number_of_all_comments, singlePost.id]);
 
   const userLikes = () => {
     for (const like of singlePost.likes) {
@@ -56,7 +56,7 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
   const handleLikes = async (e) => {
     const id = Number(e.currentTarget.id)
     if (id > 0) {
-     await fetch(`/api/likes/${id}`, {
+      await fetch(`/api/likes/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -261,7 +261,7 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
       </div>
       {postDetailModal && (
 
-        <Modal type='edit'onClose={() => setPostDetailModal(false)}>
+        <Modal type='edit' onClose={() => setPostDetailModal(false)}>
           <PostDetailPage
             setPostDetailModal={setPostDetailModal}
             singlePostId={singlePost.id}
