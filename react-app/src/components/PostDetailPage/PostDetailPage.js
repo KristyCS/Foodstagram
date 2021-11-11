@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { Modal } from "../../context/Modal"
-import CreateEditPostPage from "../CreateEditPostPage/CreateEditPostPage";
+import EditPostPage from "../EditPostPage/EditPostPage";
 import {
   IoArrowForwardCircleOutline,
   IoArrowBackCircleOutline,
@@ -21,7 +21,7 @@ function PostDetailPage({ setPostDetailModal, singlePost, comments, inputComment
   const [showPreImgIcon, setShowPreImgIcon] = useState(false);
   const [showNxtImgIcon, setShowNxtImgIcon] = useState(true);
   const [showEditPostModal, setShowEditPostModal] = useState(false);
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
   let photoObjs = singlePost.photos;
   let photoList = Object.values(photoObjs);
   const deletePostHandler = () => {
@@ -131,7 +131,7 @@ function PostDetailPage({ setPostDetailModal, singlePost, comments, inputComment
           )}
           {showEditPostModal && (
             <Modal onClose={() => setShowEditPostModal(false)}>
-              <CreateEditPostPage
+              <EditPostPage
                 setShowEditPostModal={setShowEditPostModal}
                 singlePost={singlePost}
               />

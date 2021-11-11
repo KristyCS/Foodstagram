@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../../store/posts";
-// import ".CreatePostPage.css"
-function CreateNewPostPage({ setShowCreatePostModal, singlePost }) {
+import "./CreatePostPage.css";
+function CreateNewPostPage({ setShowCreatePostModal }) {
   const dispatch = useDispatch();
   const [description, setDescription] = useState("");
-  const initImages = singlePost? singlePost.photos:[]
-  const [images, setImages] = useState(initImages);
-  const [errors, setErrors] = useState([]);
+  const [images, setImages] = useState([]);
+  const [errors] = useState([]);
+  const [src] = useState("");
   const user = useSelector((state) => state.session.user);
+  console.log(images, "!!!!!!!!!!!");
   const createPostHandler = (e) => {
     e.preventDefault();
     const payload = {
@@ -22,12 +23,10 @@ function CreateNewPostPage({ setShowCreatePostModal, singlePost }) {
 
   return (
     <div className="createPostForm">
-      <h3>{singlePost ? "Edit Post" : "Create new post"}</h3>
+      <h3> Create new post</h3>
       {images && (
         <div className="view_image">
-          {images.map((image) => (
-            <div key={image.photo_url}>{image.photo_url}</div>
-          ))}
+            <img className="small" src={src} alt="" />
         </div>
       )}
       <form onSubmit={createPostHandler}>
@@ -38,18 +37,21 @@ function CreateNewPostPage({ setShowCreatePostModal, singlePost }) {
         </ul>
         <input
           type="file"
+          // onChange={(e) => setSrc(URL.createObjectURL(e.target.files[0]))}
           onChange={(e) => setImages([...images, e.target.files])}
           accept="image/*"
           multiple={true}
           required
         />
-
         <textarea
-          value={singlePost ? singlePost.description : ""}
-          placeholder={"Write a caption..."}
+          name="description"
+          placeholder="Write a caption..."
           onChange={(e) => setDescription(e.target.value)}
+          rows="10"
+          cols="50"
           required
         />
+
         <button type="submit">Submit</button>
       </form>
     </div>
