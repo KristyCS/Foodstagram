@@ -1,0 +1,10 @@
+.small{
+    width: 50px;
+    height:auto;
+}
+
+.wrap{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
