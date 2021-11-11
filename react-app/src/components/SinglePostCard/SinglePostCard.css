@@ -78,3 +78,31 @@ cursor: default;
   color: darkgray;
   cursor: pointer;
 }
+
+.single_post_user_btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  margin: 5px;
+  width: 30px;
+  height: 30px;
+}
+
+.single_post_user_btn:hover {
+  color: grey;
+}
+
+.liked {
+  color: red;
+}
+
+.liked:hover {
+  color: red;
+}
+
+.operation {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
