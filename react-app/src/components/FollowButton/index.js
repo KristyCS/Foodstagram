@@ -2,10 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+
 import './FollowButton.css'
 
-const FollowButton = ({selectedUserId}) => {
-    const user = useSelector(state => state.session.user);
+const FollowButton = ({selectedUserId, setRerender, rerender}) => {
+    let user = useSelector(state => state.session.user);
     const { username } = useParams();
 
     const [followingList, setfollowingList] = useState([]);
@@ -13,6 +14,7 @@ const FollowButton = ({selectedUserId}) => {
     const [requests, setRequests] = useState([]);
     const [followingId, setfollowingId] = useState(0);
     const [unfollowId, setunfollowId] = useState(0);
+    const [followBoolean, setFollowBoolean] = useState(false);
 
     useEffect(() => {
 
@@ -34,7 +36,11 @@ const FollowButton = ({selectedUserId}) => {
             setRequests(fetchedUsers.followers);
         })();
 
+<<<<<<< HEAD
     }, [user.username, username]);
+=======
+    }, [username, followBoolean]);
+>>>>>>> main
 
 
     useEffect(() => {
@@ -55,6 +61,8 @@ const FollowButton = ({selectedUserId}) => {
             if (response.ok) {
               // const data = await response.json();
               setfollowingId(0);
+              setRerender(!rerender);
+              setFollowBoolean(!followBoolean);
             };
          })();
         }
@@ -78,6 +86,8 @@ const FollowButton = ({selectedUserId}) => {
             if (response.ok) {
               // const data = await response.json();
               setunfollowId(0);
+              setRerender(!rerender);
+              setFollowBoolean(!followBoolean);
             };
          })();
         }
@@ -100,7 +110,7 @@ const FollowButton = ({selectedUserId}) => {
 
 
     if(inFollowing.length) {
-
+        //checks if the logged in user is following a user
         if(username === inFollowing[0].username) {
            return buttonType = (
                 <button className="follow-btn" onClick={() =>
@@ -109,6 +119,7 @@ const FollowButton = ({selectedUserId}) => {
             )
         }
     } else if (inRequests.length) {
+        //checks if the logged in user has requested to follow a user
         if(user.username === inRequests[0].username) {
             return buttonType = (
                  <button className="edit-btn" onClick={() =>
@@ -117,6 +128,7 @@ const FollowButton = ({selectedUserId}) => {
              )
         }
     } else if (inFollowers.length) {
+        //checks if the user is a follower of the logged in user
         if(username === inFollowers[0].username) {
             return buttonType = (
                  <button className="follow-btn" onClick={() =>
@@ -125,10 +137,12 @@ const FollowButton = ({selectedUserId}) => {
              )
         }
     } else {
+        //checks if the user is the logged in user
         if(user.username === username) {
             return buttonType = (
                  <button className="edit-btn" onClick={editUser}>Edit Profile</button>
         )} else {
+            //if the user is not the logged in user/follower/followings/requested follows
             return buttonType = (
                 <button className="follow-btn" onClick={ () =>
                     setfollowingId(selectedUserId)

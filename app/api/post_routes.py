@@ -54,6 +54,19 @@ def createImagesByPostId(photos, postId):
             db.session.add(photo)
             db.session.commit()
 
+@post_routes.route('/<int:id>', methods=["PUT"])
+def updatePost(id):
+    photos = request.files.getlist('images')
+    post = Post.query.get(id) 
+    form = PostForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        form.populate_obj(post)
+        db.session.commit()
+        createImagesByPostId(photos, id)
+        # post = Post.query.get(id)
+        return post.to_dict()
+    return "error~!!!!!!!!!!!!!!!!!!!"
 
 # @post_routes.route('')
 # def get_paginated_posts():

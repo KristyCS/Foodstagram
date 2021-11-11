@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import {Modal} from "../../context/Modal"
-import CreateEditPostPage from "../CreateEditPostPage/CreateEditPostPage";
+import EditPostPage from "../EditPostPage/EditPostPage";
 import {
   IoArrowForwardCircleOutline,
   IoArrowBackCircleOutline,
@@ -82,7 +82,7 @@ function PostDetailPage({ setPostDetailModal, singlePost }) {
           )}
           {showEditPostModal && (
             <Modal onClose={() => setShowEditPostModal(false)}>
-              <CreateEditPostPage
+              <EditPostPage
                 setShowEditPostModal={setShowEditPostModal}
                 singlePost={singlePost}
               />
