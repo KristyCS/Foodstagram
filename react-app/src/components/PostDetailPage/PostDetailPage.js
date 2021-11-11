@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-<<<<<<< HEAD
-import { NavLink } from "react-router-dom";
-import { Modal } from "../../context/Modal";
-=======
 import { NavLink, useHistory } from "react-router-dom";
 import { Modal } from "../../context/Modal"
->>>>>>> main
 import EditPostPage from "../EditPostPage/EditPostPage";
 import {
   IoArrowForwardCircleOutline,
@@ -16,13 +11,9 @@ import { deletePost } from "../../store/posts";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { GrEdit } from "react-icons/gr";
 import "./PostDetailPage.css";
-<<<<<<< HEAD
-function PostDetailPage({ setPostDetailModal, singlePostId }) {
-=======
 import { createComment, destroyComment } from "../../store/posts";
 
-function PostDetailPage({ setPostDetailModal, singlePost, comments, inputComment, setinputComment }) {
->>>>>>> main
+function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComment, setinputComment }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
@@ -31,14 +22,8 @@ function PostDetailPage({ setPostDetailModal, singlePost, comments, inputComment
   const [showPreImgIcon, setShowPreImgIcon] = useState(false);
   const [showNxtImgIcon, setShowNxtImgIcon] = useState(true);
   const [showEditPostModal, setShowEditPostModal] = useState(false);
-<<<<<<< HEAD
   const [errors, setErrors] = useState([]);
   const [photoList, setPhotoList] = useState([...singlePost.photos]);
-=======
-  // const [errors, setErrors] = useState([]);
-  let photoObjs = singlePost.photos;
-  let photoList = Object.values(photoObjs);
->>>>>>> main
   const deletePostHandler = () => {
     dispatch(deletePost(singlePost.id));
     setPostDetailModal(false);
