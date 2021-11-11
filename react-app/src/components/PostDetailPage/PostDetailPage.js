@@ -166,7 +166,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
             alt=""
           />
           <NavLink to="">{singlePost.user.username}</NavLink>
-          <p> · </p>
+          <p> {"  ·  "} </p>
           <p>following</p>
           {singlePost.user.id === user.id && (
             <>
@@ -196,7 +196,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
         <div className='detailed-comment-area'>
           {commentLoader(comments)}
         </div>
-        <div>
+        <div className="comment-input-container">
           <input className='comment-input-bar' placeholder='Add a comment...' value={inputComment} onChange={(event) => { setinputComment(event.target.value) }}>
           </input>
           <button className='comment-submit-btn' disabled={!inputComment} onClick={(event) => handleSubmit()}>Post</button>
