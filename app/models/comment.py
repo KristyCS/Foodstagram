@@ -23,5 +23,6 @@ class Comment(db.Model):
     def to_simple_dict(self):
         return {
             'id': self.id,
-            'content': self.content
+            'content': self.content,
+            'user_id': self.user_id
         }

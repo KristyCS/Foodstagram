@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import "./SinglePostDetails.css";
 
-import React from "react";
-
 export default function SinglePostDetails() {
+  const currentUser = useSelector((state) => state.session.user);
   const [post, setPost] = useState(null);
   const [user, setUser] = useState(null);
+  const [refresh, setRefresh] = useState(false);
   const { postId } = useParams();
 
   useEffect(() => {
@@ -16,7 +17,7 @@ export default function SinglePostDetails() {
       const data = await res.json();
       setPost(data);
     })();
-  }, [postId]);
+  }, [postId, refresh]);
 
   useEffect(() => {
     (async () => {
@@ -26,24 +27,74 @@ export default function SinglePostDetails() {
         setUser(data);
       }
     })();
-  }, [post]);
+  }, [post, refresh]);
+
+  const isFollowing = () => {
+    for (const user of currentUser.following) {
+      if (user.follower_id === post.user.id && user.confirmed === true)
+        return "Following";
+      if (user.follower_id === post.userid) return "Requested";
+    }
+    return "Follow";
+  };
+
+  const handleFollow = async (e) => {
+    if (e.target.id === "Following" || e.target.id === "Requested") {
+      await fetch(`/api/follows/unfollow`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: post.user.id,
+          follower_id: currentUser.id,
+        }),
+      });
+    }
+
+    if (e.target.id === "Follow") {
+      await fetch(`/api/follows/addFollow`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: post.user.id,
+          follower_id: currentUser.id,
+        }),
+      });
+    }
+
+    setRefresh(!refresh);
+  };
+
+  if (!user) return "loading...";
 
   return (
     <div className="single_post_wrapper2">
       <div className="single_post_container2">
         <div className="single_post_left2">
-          {user && <img src={post.photos[0].photo_url} alt=""/>}
+          <img
+            src={post.photos[0].photo_url}
+            className="single_post_left2_img"
+            alt=""
+          />
         </div>
         <div className="single_post_right2">
           <div className="single_post_right_header2">
-            {user && (
-              <img
-                src={post.user.profile_photo}
-                className="single_post_right_photo2"
-                alt=""
-              />
-            )}
-            <p>{user && post.user.username}</p>
+            <img
+              src={post.user.profile_photo}
+              className="single_post_right_photo2"
+              alt=""
+            />
+            <p>{post.user.username}</p>
+            <div
+              className="single_post_right2_follow_btn"
+              id={isFollowing()}
+              onClick={(e) => handleFollow(e)}
+            >
+              {isFollowing()}
+            </div>
           </div>
           <div className="single_post_right_body2"></div>
           <div className="single_post_right_footer2"></div>
