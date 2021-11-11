@@ -11,7 +11,7 @@ import {
 } from "react-icons/io5";
 import "./SinglePostCard.css";
 import PostDetailPage from "../PostDetailPage/PostDetailPage";
-const SinglePostCard = ({ singlePost }) => {
+const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
@@ -53,11 +53,33 @@ const SinglePostCard = ({ singlePost }) => {
     );
   };
 
-  const handleLikes = (e) => {
-    console.log(e.currentTarget.id);
-    // if (e.target.id !== "0") {
-    //   console.log(Number(e.target.id));
-    // }
+  const handleLikes = async (e) => {
+    const id = Number(e.currentTarget.id)
+    if (id > 0) {
+     await fetch(`/api/likes/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id
+        }),
+      })
+      setUpdateLikes(!updateLikes)
+      return
+    }
+    await fetch(`/api/likes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        post_id: singlePost.id
+      })
+    })
+    setUpdateLikes(!updateLikes)
+    return
   };
 
   const correspondingComments = () => {
@@ -180,7 +202,6 @@ const SinglePostCard = ({ singlePost }) => {
     history.push(`/users/dashboard/${username}`);
   };
 
-  // console.log(singlePost);
 
   return (
     <div className="single_post_container">
