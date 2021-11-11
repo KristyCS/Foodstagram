@@ -59,3 +59,16 @@
   background-color: rgb(247, 247, 247);
   border-radius: 50%;
 }
+
+
+.detailed-comment-area {
+  border: 1px solid black;
+  overflow-y: scroll;
+  height: 200px;
+}
+
+.single-comment {
+  margin-top: 7px;
+  margin-bottom: 7px;
+  border-bottom: 1px solid black;
+}

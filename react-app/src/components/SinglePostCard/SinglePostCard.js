@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createComment } from "../../store/posts";
 import { Modal } from "../../context/Modal";
@@ -8,6 +8,7 @@ import "./SinglePostCard.css";
 import PostDetailPage from "../PostDetailPage/PostDetailPage"
 const SinglePostCard = ({ singlePost }) => {
   const dispatch = useDispatch();
+  const history = useHistory()
   const user = useSelector((state) => state.session.user);
   const [imageIndex, setImageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
@@ -74,14 +75,16 @@ const SinglePostCard = ({ singlePost }) => {
     if (comment.content.length < 50) {
       return (
         <>
-          {comment.user.username}:  {comment.content}
+          <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}
+          </span>:  {comment.content}
         </>
       )
     }
     if (show) {
       return (
         <>
-          {comment.user.username}:  {comment.content} <button onClick={(event) => setShowMore(false)}>Less</button>
+          <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}
+          </span>:  {comment.content} <button className='more-less-btn' onClick={(event) => setShowMore(false)}>Less</button>
         </>
       )
     } else {
@@ -91,7 +94,8 @@ const SinglePostCard = ({ singlePost }) => {
       }
       return (
         <>
-          {comment.user.username}:  {shortener} <button onClick={(event) => setShowMore(true)}>Show</button>
+          <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
+          :  {shortener} <button className='more-less-btn' onClick={(event) => setShowMore(true)}>Show</button>
         </>
       )
     }
@@ -106,7 +110,7 @@ const SinglePostCard = ({ singlePost }) => {
     }
   }
 
-  const handleSubmit = async (event) => {
+  const handleCommentSubmit = async (event) => {
     const payload = {
       user_id: user.id,
       post_id: singlePost.id,
@@ -115,6 +119,10 @@ const SinglePostCard = ({ singlePost }) => {
     dispatch(createComment(payload))
     setinputComment('')
     return null
+  }
+
+  const toProfile = (username) => {
+    history.push(`/users/dashboard/${username}`)
   }
 
 
@@ -157,15 +165,15 @@ const SinglePostCard = ({ singlePost }) => {
         {number_of_all_comments && correspondingComments()}
       </div>
       <div>
-        <input placeholder='Add a comment...' value={inputComment} onChange={(event) => { setinputComment(event.target.value) }}>
+        <input className='comment-input-bar' placeholder='Add a comment...' value={inputComment} onChange={(event) => { setinputComment(event.target.value) }}>
         </input>
-        <button disabled={!inputComment} onClick={(event) => handleSubmit()}>
+        <button className='comment-submit-btn' disabled={!inputComment} onClick={(event) => handleCommentSubmit()}>
           Post
         </button>
       </div>
       {postDetailModal && (
         <Modal onClose={() => setPostDetailModal(false)}>
-          <PostDetailPage setPostDetailModal={setPostDetailModal} singlePost={singlePost} />
+          <PostDetailPage setPostDetailModal={setPostDetailModal} singlePost={singlePost} comments={items} inputComment={inputComment} setinputComment={setinputComment} />
         </Modal>
       )}
     </div>

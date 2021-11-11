@@ -2,6 +2,7 @@ const SET_POSTS = "SET_ALLPOSTS";
 const ADD_POST = "ADD_NEWPOST";
 const REMOVE_POST = "DELETE_POST";
 const ADD_COMMENT = 'ADD_NEWCOMMENT'
+const DELETE_COMMENT = 'DELETE_OLDCOMMENT'
 const setPosts = (posts) => ({
   type: SET_POSTS,
   posts,
@@ -18,6 +19,10 @@ const addComment = (comment) => ({
   type: ADD_COMMENT,
   comment,
 });
+const deleteComment = (id) => ({
+  type: DELETE_COMMENT,
+  id
+})
 
 export const createPost = (post) => async (dispatch) => {
   const { userId, description, images } = post;
@@ -64,6 +69,21 @@ export const createComment = (comment) => async (dispatch) => {
       dispatch(addComment(data))
     } else {
       throw console.error('Creation error!');
+    }
+  } catch (event) {
+    return event
+  }
+}
+export const destroyComment = (id) => async (dispatch) => {
+  const { commentId } = id
+  try {
+    const res = await fetch(`/api/comments/${commentId}`, {
+      method: 'DELETE'
+    })
+    if (res.ok) {
+      dispatch(deleteComment(id))
+    } else {
+      throw console.error('Deletion error!')
     }
   } catch (event) {
     return event
@@ -151,6 +171,26 @@ export default function reducer(state = initialState, action) {
       };
     case ADD_COMMENT:
       state.allPosts[action.comment.post.id].comments.push({ content: action.comment.content, id: action.comment.id })
+      return {
+        ...state,
+        allPosts: { ...state.allPosts }
+      };
+    case DELETE_COMMENT:
+      let commentsArr = state.allPosts[action.id.postId].comments
+      let found = 0
+      for (let i = 0; i < commentsArr.length; i++) {
+        let comment = commentsArr[i]
+        if (comment.id == action.id.commentId) {
+          found = 1
+        }
+        if (found && commentsArr[i + 1]) {
+          commentsArr[i] = commentsArr[i + 1]
+        }
+        if (found && !commentsArr[i + 1]) {
+          commentsArr.pop()
+        }
+      }
+      state.allPosts[action.id.postId].comments = [...commentsArr]
       return {
         ...state,
         allPosts: { ...state.allPosts }

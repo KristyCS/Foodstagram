@@ -39,3 +39,38 @@
 .testing {
   color: aqua;
 }
+.usernames-link {
+  font-weight: bold;
+  font-size: 15px;
+}
+.usernames-link:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.comment-input-bar {
+  width: 90%;
+}
+
+.comment-submit-btn {
+  background-color: transparent;
+  color: #2D66E9;
+  border: none;
+margin-left: 8px;
+font-weight: bolder;
+cursor: pointer;
+}
+.comment-submit-btn:disabled {
+  font-weight: bolder;
+background-color: transparent;
+color: #81A6FC;
+border: none;
+margin-left: 8px;
+cursor: default;
+}
+.more-less-btn {
+  background-color: transparent;
+  border: none;
+  color: darkgray;
+  cursor: pointer;
+}
