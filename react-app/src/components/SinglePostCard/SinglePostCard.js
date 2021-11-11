@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createComment } from "../../store/posts";
 import { Modal } from "../../context/Modal";
-import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
-import { ImBubble2 } from "react-icons/im";
+// import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+import {
+  IoHeartOutline,
+  IoHeartSharp,
+  IoChatbubbleOutline,
+} from "react-icons/io5";
 import "./SinglePostCard.css";
 import PostDetailPage from "../PostDetailPage/PostDetailPage";
 const SinglePostCard = ({ singlePost }) => {
@@ -32,9 +36,28 @@ const SinglePostCard = ({ singlePost }) => {
   const userLikes = () => {
     for (const like of singlePost.likes) {
       if (like.user_id === user.id)
-        return <IoIosHeart className={`single_post_user_btn liked`} />;
+        return (
+          <div
+            className={`single_post_user_btn liked`}
+            id={`${like.id}`}
+            onClick={handleLikes}
+          >
+            <IoHeartSharp />
+          </div>
+        );
     }
-    return <IoIosHeartEmpty className={`single_post_user_btn`} />;
+    return (
+      <div className={`single_post_user_btn`} id={0} onClick={handleLikes}>
+        <IoHeartOutline />
+      </div>
+    );
+  };
+
+  const handleLikes = (e) => {
+    console.log(e.currentTarget.id);
+    // if (e.target.id !== "0") {
+    //   console.log(Number(e.target.id));
+    // }
   };
 
   const correspondingComments = () => {
@@ -177,7 +200,10 @@ const SinglePostCard = ({ singlePost }) => {
         />
       </div>
       <div className="operation">
-        {userLikes()} <ImBubble2 className="single_post_user_btn" onClick={() => test} />
+        {userLikes()}{" "}
+        <div className={`single_post_user_btn`} id={0} onClick={handleLikes}>
+          <IoChatbubbleOutline onClick={() => test} />
+        </div>
       </div>
       <div className="likes">
         <p>{`${singlePost.likes.length} likes`}</p>
