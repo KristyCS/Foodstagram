@@ -72,7 +72,7 @@ const SinglePostCard = ({ singlePost }) => {
       return (
         <>
           <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}
-          </span>:  {comment.content}
+          </span>  {comment.content}
         </>
       );
     }
@@ -80,7 +80,7 @@ const SinglePostCard = ({ singlePost }) => {
       return (
         <>
           <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}
-          </span>:  {comment.content} <button className='more-less-btn' onClick={(event) => setShowMore(false)}>Less</button>
+            &nbsp;</span>  {comment.content} <button className='more-less-btn' onClick={(event) => setShowMore(false)}>Less</button>
         </>
       );
     } else {
@@ -91,7 +91,7 @@ const SinglePostCard = ({ singlePost }) => {
       return (
         <>
           <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
-          :  {shortener} <button className='more-less-btn' onClick={(event) => setShowMore(true)}>Show</button>
+          &nbsp;  {shortener} <button className='more-less-btn' onClick={(event) => setShowMore(true)}>Show</button>
         </>
       );
     }

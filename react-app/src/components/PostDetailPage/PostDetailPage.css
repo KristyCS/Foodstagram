@@ -62,13 +62,32 @@
 
 
 .detailed-comment-area {
-  border: 1px solid black;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 200px;
 }
 
 .single-comment {
-  margin-top: 7px;
-  margin-bottom: 7px;
-  border-bottom: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.comments-delete-btn {
+  color: #FF3A41;
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  margin-left: 40px;
+  cursor: pointer;
+}
+
+.comment-pfp {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+}
+
+.comment-container {
+  display: flex;
+
 }

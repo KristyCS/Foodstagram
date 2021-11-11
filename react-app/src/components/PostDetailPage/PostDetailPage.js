@@ -49,15 +49,30 @@ function PostDetailPage({ setPostDetailModal, singlePost, comments, inputComment
         commentsArr.map((comment) => {
           if (comment.user.id == user.id) {
             return (
-              <li className='single-comment'><span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>: {comment.content}
-                <div>
-                  <button onClick={(event) => { handleDelete(comment.id, comment.post.id) }}>Delete</button>
+              <li className='single-comment'>
+                <div className='comment-container'>
+                  <img className='comment-pfp' src={`${comment.user.profile_photo}`}></img>
+                  <div>
+                    <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
+                    &nbsp;&nbsp;{comment.content}
+                  </div>
                 </div>
+                <div>
+                </div>
+                <button className='comments-delete-btn' onClick={(event) => { handleDelete(comment.id, comment.post.id) }}>Delete</button>
               </li>
             )
           }
           return (
-            <li className='single-comment'><span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>: {comment.content}</li>
+            <li className='single-comment'>
+              <div className='comment-container'>
+                <img className='comment-pfp' src={`${comment.user.profile_photo}`}></img>
+                <div>
+                  <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
+                  &nbsp;&nbsp;{comment.content}
+                </div>
+              </div>
+            </li>
           )
         })
       )
