@@ -16,7 +16,7 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
   // const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
-  const [imageIndex] = useState(0);
+  const [imageIndex, setImageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [inputComment, setinputComment] = useState("");
@@ -107,9 +107,10 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
       } else {
         const commentId = Object.keys(items);
         const firstComment = items[commentId[0]];
-        // let shortener = ''
+        if (!firstComment) {
+          return null
+        }
         if (firstComment.content.length > 50) {
-          // shortener = firstComment.content.slice(0, 50) + '...'
         }
         return (
           <div>
@@ -240,7 +241,7 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
           {isThereAnyComments()}
         </span>
       </div>
-      <div>{number_of_all_comments && correspondingComments()}</div>
+      <div>{number_of_all_comments ? correspondingComments() : null}</div>
       <div>
         <input
           className="comment-input-bar"
