@@ -14,6 +14,7 @@ import UserProfile from "./components/UserProfile";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
+  const [confirmBoolean, setConfirmBoolean] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,7 +30,10 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
+      <NavBar
+        confirmBoolean={confirmBoolean}
+        setConfirmBoolean={setConfirmBoolean}
+      />
       <Switch>
         <Route path="/login" exact={true}>
           <LoginForm />
@@ -50,7 +54,7 @@ function App() {
           <HomePage />
         </ProtectedRoute>
         <Route path="/users/dashboard/:username" exact={true}>
-          <UserProfile />
+          <UserProfile confirmBoolean={confirmBoolean}/>
         </Route>
       </Switch>
     </BrowserRouter>

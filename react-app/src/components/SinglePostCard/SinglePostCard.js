@@ -12,112 +12,107 @@ const SinglePostCard = ({ singlePostId }) => {
   const singlePost = useSelector((state)=>state.posts.allPosts[singlePostId])
   const [imageIndex, setImageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
-  const [showMore, setShowMore] = useState(false)
-
-  const [inputComment, setinputComment] = useState('')
+  const [showMore, setShowMore] = useState(false);
+  const [inputComment, setinputComment] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const number_of_all_comments = singlePost.comments.length;
 
-
   useEffect(() => {
-    const res = fetch(`/api/posts/${singlePost.id}/comments`)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setItems(result);
-          setIsLoaded(true);
-        })
-  }, [number_of_all_comments])
+    fetch(`/api/posts/${singlePost.id}/comments`)
+      .then((res) => res.json())
+      .then((result) => {
+        setItems(result);
+        setIsLoaded(true);
+      });
+  }, [number_of_all_comments, singlePost.id]);
 
   const correspondingComments = () => {
     if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-      let sessionComments = []
+      let sessionComments = [];
       for (const comment in items) {
         if (sessionComments.length > 0) {
-          break
+          break;
         }
         if (items[comment].user.id === user.id) {
-          sessionComments.push(items[comment])
+          sessionComments.push(items[comment]);
         }
       }
       if (sessionComments.length) {
-        return (
-          sessionComments.map((comment, idx) => {
-            return (
-              <div key={idx}>
-                {!showMore && hideShowComment(false, comment)}
-                {showMore && hideShowComment(true, comment)}
-              </div>
-            )
-          })
-        )
+        return sessionComments.map((comment) => {
+          return (
+            <div key={comment.id}>
+              {!showMore && hideShowComment(false, comment)}
+              {showMore && hideShowComment(true, comment)}
+            </div>
+          );
+        });
       } else {
-        const commentId = Object.keys(items)
-        const firstComment = items[commentId[0]]
-        let shortener = ''
+        const commentId = Object.keys(items);
+        const firstComment = items[commentId[0]];
+        // let shortener = ''
         if (firstComment.content.length > 50) {
-          shortener = firstComment.content.slice(0, 50) + '...'
+          // shortener = firstComment.content.slice(0, 50) + '...'
         }
         return (
           <div>
             {!showMore && hideShowComment(false, firstComment)}
             {showMore && hideShowComment(true, firstComment)}
           </div>
-        )
+        );
       }
     }
-  }
+  };
 
   const hideShowComment = (show, comment) => {
     if (comment.content.length < 50) {
       return (
         <>
-          {comment.user.username}:  {comment.content}
+          {comment.user.username}: {comment.content}
         </>
-      )
+      );
     }
     if (show) {
       return (
         <>
-          {comment.user.username}:  {comment.content} <button onClick={(event) => setShowMore(false)}>Less</button>
+          {comment.user.username}: {comment.content}{" "}
+          <button onClick={(event) => setShowMore(false)}>Less</button>
         </>
-      )
+      );
     } else {
-      let shortener = ''
+      let shortener = "";
       if (comment.content.length >= 50) {
-        shortener = comment.content.slice(0, 50) + '...'
+        shortener = comment.content.slice(0, 50) + "...";
       }
       return (
         <>
-          {comment.user.username}:  {shortener} <button onClick={(event) => setShowMore(true)}>Show</button>
+          {comment.user.username}: {shortener}{" "}
+          <button onClick={(event) => setShowMore(true)}>Show</button>
         </>
-      )
+      );
     }
-  }
-
+  };
 
   const isThereAnyComments = () => {
     if (number_of_all_comments) {
-      return `View all ${number_of_all_comments} comments`
+      return `View all ${number_of_all_comments} comments`;
     } else {
-      return `View post details`
+      return `View post details`;
     }
-  }
+  };
 
   const handleSubmit = async (event) => {
     const payload = {
       user_id: user.id,
       post_id: singlePost.id,
-      content: inputComment
+      content: inputComment,
     };
-    dispatch(createComment(payload))
-    setinputComment('')
-    return null
-  }
-
+    dispatch(createComment(payload));
+    setinputComment("");
+    return null;
+  };
 
   return (
     <div className="single_post_container">
@@ -154,12 +149,15 @@ const SinglePostCard = ({ singlePostId }) => {
           {isThereAnyComments()}
         </span>
       </div>
+      <div>{number_of_all_comments && correspondingComments()}</div>
       <div>
-        {number_of_all_comments && correspondingComments()}
-      </div>
-      <div>
-        <input placeholder='Add a comment...' value={inputComment} onChange={(event) => { setinputComment(event.target.value) }}>
-        </input>
+        <input
+          placeholder="Add a comment..."
+          value={inputComment}
+          onChange={(event) => {
+            setinputComment(event.target.value);
+          }}
+        ></input>
         <button disabled={!inputComment} onClick={(event) => handleSubmit()}>
           Post
         </button>

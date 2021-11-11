@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SinglePostCard from "../SinglePostCard/SinglePostCard";
-import { getPosts, deletePost} from "../../store/posts";
+import { getPosts } from "../../store/posts";
 
 const HomePage = () => {
   const despatch = useDispatch();
@@ -10,11 +10,11 @@ const HomePage = () => {
   
   useEffect(() => {
     despatch(getPosts());
-  }, []);
-  
+  }, [despatch]);
+
   return (
     <>
-      
+
       {postLists && (
         <div className="posts_containers">
           {postLists.map((post) => (

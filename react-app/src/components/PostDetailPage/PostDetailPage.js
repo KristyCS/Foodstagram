@@ -19,8 +19,14 @@ function PostDetailPage({ setPostDetailModal, singlePostId }) {
   const [showPreImgIcon, setShowPreImgIcon] = useState(false);
   const [showNxtImgIcon, setShowNxtImgIcon] = useState(true);
   const [showEditPostModal, setShowEditPostModal] = useState(false);
+<<<<<<< HEAD
   const [errors, setErrors] = useState([]);
   const [photoList, setPhotoList] = useState([...singlePost.photos]);
+=======
+  // const [errors, setErrors] = useState([]);
+  let photoObjs = singlePost.photos;
+  let photoList = Object.values(photoObjs);
+>>>>>>> main
   const deletePostHandler = () => {
     dispatch(deletePost(singlePost.id));
     setPostDetailModal(false);
@@ -66,7 +72,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId }) {
     if (imageIdx === 0) {
       setShowPreImgIcon(false);
     }
-  }, [imageIdx]);
+  }, [imageIdx, photoList.length]);
   return (
     <div className="post_detail_container">
       <div className="images_container">
