@@ -261,7 +261,7 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
       </div>
       {postDetailModal && (
 
-        <Modal onClose={() => setPostDetailModal(false)}>
+        <Modal type='edit'onClose={() => setPostDetailModal(false)}>
           <PostDetailPage
             setPostDetailModal={setPostDetailModal}
             singlePostId={singlePost.id}
