@@ -11,7 +11,7 @@ const SinglePostCard = ({ singlePostId }) => {
   const history = useHistory()
   const user = useSelector((state) => state.session.user);
   const singlePost = useSelector((state)=>state.posts.allPosts[singlePostId])
-  const [imageIndex, setImageIndex] = useState(0);
+  const [imageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [inputComment, setinputComment] = useState("");

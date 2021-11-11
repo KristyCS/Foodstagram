@@ -10,17 +10,17 @@ function CreateNewPostPage({
   const dispatch = useDispatch();
   const [description, setDescription] = useState("");
   const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
-  const [existImages, setExistImages] = useState(singlePost.photos);
+  const [existImages] = useState(singlePost.photos);
   const [newAddedImages, setNewAddedImages] = useState([]);
   const [errors] = useState([]);
   const [src, setSrc] = useState([]);
   const user = useSelector((state) => state.session.user);
 
   const checks = [];
-  console.log(newAddedImages);
-  for (const image in existImages) {
-    checks.push(true);
-  }
+  // console.log(newAddedImages);
+  // for (const image in existImages) {
+  //   checks.push(true);
+  // }
   const [existImageCheckIn, setExistImageCheckIn] = useState(checks);
   const editPostHandler = (e) => {
     e.preventDefault();

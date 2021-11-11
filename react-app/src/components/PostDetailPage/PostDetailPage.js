@@ -22,22 +22,24 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
   const [showPreImgIcon, setShowPreImgIcon] = useState(false);
   const [showNxtImgIcon, setShowNxtImgIcon] = useState(true);
   const [showEditPostModal, setShowEditPostModal] = useState(false);
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
   const [photoList, setPhotoList] = useState([...singlePost.photos]);
   const deletePostHandler = () => {
     dispatch(deletePost(singlePost.id));
     setPostDetailModal(false);
   };
-  const refactorArrow = () => {
-    setShowNxtImgIcon(true);
-    setShowPreImgIcon(true);
-    if (imageIdx === photoList.length - 1) {
-      setShowNxtImgIcon(false);
-    }
-    if (imageIdx === 0) {
-      setShowPreImgIcon(false);
-    }
-  };
+
+  // const refactorArrow = () => {
+  //   setShowNxtImgIcon(true);
+  //   setShowPreImgIcon(true);
+  //   if (imageIdx === photoList.length - 1) {
+  //     setShowNxtImgIcon(false);
+  //   }
+  //   if (imageIdx === 0) {
+  //     setShowPreImgIcon(false);
+  //   }
+  // };
+
   useEffect(() => {
     console.log("singlePost会render吗");
     console.log(singlePost.photos, "singlePost会render吗");
@@ -57,7 +59,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
     if (imageIdx === 0) {
       setShowPreImgIcon(false);
     }
-  }, [singlePost]);
+  }, [singlePost, imageIdx, photoList.length]);
 
   useEffect(() => {
     console.log(imageIdx);
@@ -69,7 +71,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
     if (imageIdx === 0) {
       setShowPreImgIcon(false);
     }
-  }, [imageIdx]);
+  }, [imageIdx, photoList.length]);
 
 
   const commentLoader = (comments) => {
@@ -77,11 +79,11 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
       const commentsArr = Object.values(comments)
       return (
         commentsArr.map((comment) => {
-          if (comment.user.id == user.id) {
+          if (comment.user.id === user.id) {
             return (
               <li className='single-comment'>
                 <div className='comment-container'>
-                  <img className='comment-pfp' src={`${comment.user.profile_photo}`}></img>
+                  <img className='comment-pfp' src={`${comment.user.profile_photo}`} alt=""/>
                   <div>
                     <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
                     &nbsp;&nbsp;{comment.content}
@@ -96,7 +98,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
           return (
             <li className='single-comment'>
               <div className='comment-container'>
-                <img className='comment-pfp' src={`${comment.user.profile_photo}`}></img>
+                <img className='comment-pfp' src={`${comment.user.profile_photo}`} alt=""/>
                 <div>
                   <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
                   &nbsp;&nbsp;{comment.content}
