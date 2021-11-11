@@ -78,7 +78,7 @@
 .detailed-comment-area {
   overflow-y: auto;
   scrollbar-width: thin;
-  max-height: 480px; 
+  max-height: 400px; 
   
 }
 
