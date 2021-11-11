@@ -32,9 +32,9 @@ const SinglePostCard = ({ singlePost }) => {
   const userLikes = () => {
     for (const like of singlePost.likes) {
       if (like.user_id === user.id)
-        return <IoIosHeart className={`single_post_user_liked liked`} />;
+        return <IoIosHeart className={`single_post_user_btn liked`} />;
     }
-    return <IoIosHeartEmpty className={`single_post_user_liked`} />;
+    return <IoIosHeartEmpty className={`single_post_user_btn`} />;
   };
 
   const correspondingComments = () => {
@@ -177,8 +177,7 @@ const SinglePostCard = ({ singlePost }) => {
         />
       </div>
       <div className="operation">
-        {userLikes()} <ImBubble2 onClick={() => test} />
-        {/* <img src={Like} alt="empty heart"className="empty_heart"/> */}
+        {userLikes()} <ImBubble2 className="single_post_user_btn" onClick={() => test} />
       </div>
       <div className="likes">
         <p>{`${singlePost.likes.length} likes`}</p>

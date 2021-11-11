@@ -77,11 +77,19 @@ cursor: default;
   cursor: pointer;
 }
 
-.single_post_user_liked {
+.single_post_user_btn {
   font-size: 20px;
   margin: 5px;
 }
 
+.single_post_user_btn:hover {
+  color: grey;
+}
+
 .liked {
+  color: red;
+}
+
+.liked:hover {
   color: red;
 }
