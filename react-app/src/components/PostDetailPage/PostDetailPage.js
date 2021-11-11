@@ -76,10 +76,10 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
     if (Object.keys(comments).length) {
       const commentsArr = Object.values(comments)
       return (
-        commentsArr.map((comment) => {
+        commentsArr.map((comment,idx) => {
           if (comment.user.id == user.id) {
             return (
-              <li className='single-comment'>
+              <li key={idx} className='single-comment'>
                 <div className='comment-container'>
                   <img className='comment-pfp' src={`${comment.user.profile_photo}`}></img>
                   <div>
