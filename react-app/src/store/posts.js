@@ -2,7 +2,8 @@ const SET_POSTS = "SET_ALLPOSTS";
 const ADD_POST = "ADD_NEWPOST";
 const REMOVE_POST = "DELETE_POST";
 const UPDATE_POST = "UPDATE_POST";
-const ADD_COMMENT = "ADD_NEWCOMMENT";
+const ADD_COMMENT = 'ADD_NEWCOMMENT'
+const DELETE_COMMENT = 'DELETE_OLDCOMMENT'
 const setPosts = (posts) => ({
   type: SET_POSTS,
   posts,
@@ -24,6 +25,10 @@ const addComment = (comment) => ({
   type: ADD_COMMENT,
   comment,
 });
+const deleteComment = (id) => ({
+  type: DELETE_COMMENT,
+  id
+})
 
 export const createPost = (post) => async (dispatch) => {
   const { userId, description, images } = post;
@@ -90,6 +95,7 @@ export const editPost = (post) => async (dispatch) => {
     if (!res.ok) throw res;
     const post = await res.json();
     if (!post.errors) {
+      console.log("before reducer$$$$$$$$$$$$$$$$$$$$$$$$$", post);
       dispatch(setPost(post));
     }
     return post;
@@ -117,7 +123,23 @@ export const createComment = (comment) => async (dispatch) => {
   } catch (event) {
     return event;
   }
-};
+}
+export const destroyComment = (id) => async (dispatch) => {
+  const { commentId } = id
+  try {
+    const res = await fetch(`/api/comments/${commentId}`, {
+      method: 'DELETE'
+    })
+    if (res.ok) {
+      dispatch(deleteComment(id))
+    } else {
+      throw console.error('Deletion error!')
+    }
+  } catch (event) {
+    return event
+  }
+}
+
 
 export const deletePost = (postId) => async (dispatch) => {
   try {
@@ -152,25 +174,23 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action) {
+  let newAllPosts = { ...state.allPosts };
   switch (action.type) {
     case SET_POSTS:
       return { ...state, allPosts: { ...action.posts } };
     case UPDATE_POST:
+      let newAllPosts
       newAllPosts = { ...state.allPosts };
-      for (const post in newAllPosts) {
-        if (post.id === action.post.id) {
-          post = action.post;
-        }
-      }
+      newAllPosts[action.post.id] = action.post;
       return { ...state, allPosts: newAllPosts };
 
     case ADD_POST:
       return {
         ...state,
-        allPosts: { ...state.allPosts, [action.post.id]: action.post },
+        allPosts: { [action.post.id]: action.post, ...state.allPosts },
       };
     case REMOVE_POST:
-      const newAllPosts = { ...state.allPosts };
+      newAllPosts = { ...state.allPosts };
       delete newAllPosts[action.postId];
       return {
         ...state,
@@ -184,6 +204,26 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         allPosts: { ...state.allPosts },
+      };
+    case DELETE_COMMENT:
+      let commentsArr = state.allPosts[action.id.postId].comments
+      let found = 0
+      for (let i = 0; i < commentsArr.length; i++) {
+        let comment = commentsArr[i]
+        if (comment.id == action.id.commentId) {
+          found = 1
+        }
+        if (found && commentsArr[i + 1]) {
+          commentsArr[i] = commentsArr[i + 1]
+        }
+        if (found && !commentsArr[i + 1]) {
+          commentsArr.pop()
+        }
+      }
+      state.allPosts[action.id.postId].comments = [...commentsArr]
+      return {
+        ...state,
+        allPosts: { ...state.allPosts }
       };
     default:
       return state;

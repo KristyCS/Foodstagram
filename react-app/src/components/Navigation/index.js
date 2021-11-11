@@ -6,9 +6,12 @@ import ProfileButton from "./ProfileButton";
 import FollowRequests from '../FollowRequests';
 import "./NavBar.css";
 import { Modal } from "../../context/Modal";
-import { AiOutlinePlusSquare } from "react-icons/ai";
+// import { AiOutlinePlusSquare } from "react-icons/ai";
+// import CreateEditPostPage from "../CreateEditPostPage/CreateEditPostPage";
 import CreatePostPage from "../CreatePostPage/CreatePostPage";
-const NavBar = () => {
+
+
+const NavBar = ({confirmBoolean, setConfirmBoolean}) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const credential = "demo@demo.com";
@@ -45,7 +48,10 @@ const NavBar = () => {
           )}
         </div>
         <div id="frnds">
-          <FollowRequests />
+          <FollowRequests
+            confirmBoolean={confirmBoolean}
+            setConfirmBoolean={setConfirmBoolean}
+          />
         </div>
         <ProfileButton />
       </>
@@ -100,4 +106,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default NavBar

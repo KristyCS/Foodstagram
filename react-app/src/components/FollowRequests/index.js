@@ -3,11 +3,12 @@ import { useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import './FollowRequests.css';
 
-function FollowRequests() {
+function FollowRequests({confirmBoolean, setConfirmBoolean}) {
   const user = useSelector(state => state.session.user);
   const [requests, setRequests] = useState([]);
   const [followerId, setfollowerId] = useState(0);
   const [deleteReqId, setdeleteReqId] = useState(0);
+  const [requestBoolean, setRequestBoolean] = useState(false);
 
     useEffect(() => {
 
@@ -17,7 +18,7 @@ function FollowRequests() {
             setRequests(fetchedUsers.followers);
         })();
 
-    }, [user.username]);
+    }, [user.username, requestBoolean]);
 
     useEffect(() => {
       if(followerId !== 0) {
@@ -35,12 +36,14 @@ function FollowRequests() {
           });
 
           if (response.ok) {
-            const data = await response.json();
+            // const data = await response.json();
             setfollowerId(0);
+            setRequestBoolean(!requestBoolean)
+            setConfirmBoolean(!confirmBoolean)
           };
        })();
       }
-  }, [followerId]);
+  }, [followerId, user.id, confirmBoolean, requestBoolean, setConfirmBoolean]);
 
   useEffect(() => {
     if(deleteReqId !== 0) {
@@ -58,12 +61,13 @@ function FollowRequests() {
         });
 
         if (response.ok) {
-          const data = await response.json();
+          // const data = await response.json();
           setdeleteReqId(0);
+          setRequestBoolean(!requestBoolean)
         };
      })();
     }
-}, [deleteReqId]);
+}, [deleteReqId, user.id, requestBoolean]);
 
   const [showMenu, setShowMenu] = useState(false);
 
