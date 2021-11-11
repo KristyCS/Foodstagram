@@ -16,9 +16,8 @@ export default function SinglePostDetails() {
       const res = await fetch(`/api/posts/${postId}`);
       const data = await res.json();
       setPost(data);
-      console.log({ Post: post });
     })();
-  }, [postId, refresh, post]);
+  }, [postId, refresh ]);
 
   useEffect(() => {
     (async () => {
@@ -26,11 +25,11 @@ export default function SinglePostDetails() {
         const res = await fetch(`/api/users/${post.user.id}`);
         const data = await res.json();
         setUser(data);
-        console.log({ User: user });
       }
     })();
-  }, [post, refresh, user]);
+  }, [post, refresh]);
 
+ 
   const isFollowing = () => {
     for (const user of currentUser.following) {
       if (user.follower_id === post.user.id && user.confirmed === true)
