@@ -9,7 +9,7 @@ def add_follow():
     new_follow = Follow(**data)
     db.session.add(new_follow)
     db.session.commit()
-    return {"message": "Follow added"}
+    return new_follow.to_dict()
 
 
 @follow_routes.route('/confirmRequest', methods=['PUT'])
