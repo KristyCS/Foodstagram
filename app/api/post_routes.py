@@ -18,7 +18,7 @@ def deletePost(id):
 
 @post_routes.route('/')
 def get_all_posts():
-    posts = Post.query.limit(20).all()
+    posts = Post.query.order_by(Post.id.desc()).all()
     return {post.id: post.to_dict() for post in posts}
 
 
@@ -64,7 +64,7 @@ def updatePost(id):
         form.populate_obj(post)
         db.session.commit()
         createImagesByPostId(photos, id)
-        # post = Post.query.get(id)
+        post = Post.query.get(id)
         return post.to_dict()
     return "error~!!!!!!!!!!!!!!!!!!!"
 

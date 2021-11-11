@@ -6,9 +6,10 @@ import { Modal } from "../../context/Modal";
 import { ImHeart, ImBubble2 } from "react-icons/im";
 import "./SinglePostCard.css";
 import PostDetailPage from "../PostDetailPage/PostDetailPage"
-const SinglePostCard = ({ singlePost }) => {
+const SinglePostCard = ({ singlePostId }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const singlePost = useSelector((state)=>state.posts.allPosts[singlePostId])
   const [imageIndex, setImageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
   const [showMore, setShowMore] = useState(false)
@@ -44,9 +45,9 @@ const SinglePostCard = ({ singlePost }) => {
       }
       if (sessionComments.length) {
         return (
-          sessionComments.map((comment) => {
+          sessionComments.map((comment, idx) => {
             return (
-              <div>
+              <div key={idx}>
                 {!showMore && hideShowComment(false, comment)}
                 {showMore && hideShowComment(true, comment)}
               </div>
@@ -165,7 +166,7 @@ const SinglePostCard = ({ singlePost }) => {
       </div>
       {postDetailModal && (
         <Modal onClose={() => setPostDetailModal(false)}>
-          <PostDetailPage setPostDetailModal={setPostDetailModal} singlePost={singlePost} />
+          <PostDetailPage setPostDetailModal={setPostDetailModal} singlePostId={singlePostId} />
         </Modal>
       )}
     </div>
