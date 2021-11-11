@@ -43,7 +43,7 @@ function FollowRequests({confirmBoolean, setConfirmBoolean}) {
           };
        })();
       }
-  }, [followerId, user.id]);
+  }, [followerId, user.id, confirmBoolean, requestBoolean, setConfirmBoolean]);
 
   useEffect(() => {
     if(deleteReqId !== 0) {
@@ -67,7 +67,7 @@ function FollowRequests({confirmBoolean, setConfirmBoolean}) {
         };
      })();
     }
-}, [deleteReqId, user.id]);
+}, [deleteReqId, user.id, requestBoolean]);
 
   const [showMenu, setShowMenu] = useState(false);
 

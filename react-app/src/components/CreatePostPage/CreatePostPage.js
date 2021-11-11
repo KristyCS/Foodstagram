@@ -5,19 +5,11 @@ import "./CreatePostPage.css";
 function CreateNewPostPage({ setShowCreatePostModal }) {
   const dispatch = useDispatch();
   const [description, setDescription] = useState("");
-<<<<<<< HEAD:react-app/src/components/CreateEditPostPage/CreateEditPostPage.js
-  const initImages = singlePost? singlePost.photos:[]
-  const [images, setImages] = useState(initImages);
-  const [errors] = useState([]);
-  const user = useSelector((state) => state.session.user);
-
-=======
   const [images, setImages] = useState([]);
-  const [errors, setErrors] = useState([]);
-  const [src, setSrc] = useState("");
+  const [errors] = useState([]);
+  const [src] = useState("");
   const user = useSelector((state) => state.session.user);
   console.log(images, "!!!!!!!!!!!");
->>>>>>> main:react-app/src/components/CreatePostPage/CreatePostPage.js
   const createPostHandler = (e) => {
     e.preventDefault();
     const payload = {
@@ -34,7 +26,7 @@ function CreateNewPostPage({ setShowCreatePostModal }) {
       <h3> Create new post</h3>
       {images && (
         <div className="view_image">
-            <img className="small" src={src} />
+            <img className="small" src={src} alt="" />
         </div>
       )}
       <form onSubmit={createPostHandler}>

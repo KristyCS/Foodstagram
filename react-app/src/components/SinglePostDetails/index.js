@@ -18,7 +18,7 @@ export default function SinglePostDetails() {
       setPost(data);
       console.log({ Post: post });
     })();
-  }, [postId, refresh]);
+  }, [postId, refresh, post]);
 
   useEffect(() => {
     (async () => {
@@ -29,7 +29,7 @@ export default function SinglePostDetails() {
         console.log({ User: user });
       }
     })();
-  }, [post, refresh]);
+  }, [post, refresh, user]);
 
   const isFollowing = () => {
     for (const user of currentUser.following) {
