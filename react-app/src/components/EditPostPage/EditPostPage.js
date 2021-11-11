@@ -2,32 +2,25 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editPost } from "../../store/posts";
 import "./EditPostPage.css";
-function CreateNewPostPage({ setShowEditPostModal,setPostDetailModal, singlePostId }) {
+function CreateNewPostPage({
+  setShowEditPostModal,
+  setPostDetailModal,
+  singlePostId,
+}) {
   const dispatch = useDispatch();
   const [description, setDescription] = useState("");
-<<<<<<< HEAD
   const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
   const [existImages, setExistImages] = useState(singlePost.photos);
-=======
-  const [existImages] = useState(singlePost.photos);
->>>>>>> main
   const [newAddedImages, setNewAddedImages] = useState([]);
   const [errors] = useState([]);
   const [src, setSrc] = useState([]);
   const user = useSelector((state) => state.session.user);
 
   const checks = [];
-<<<<<<< HEAD
   console.log(newAddedImages);
   for (const image in existImages) {
     checks.push(true);
   }
-=======
-  // console.log(newAddedImages)
-  // for (const image in existImages) {
-  //   checks.push(true);
-  // }
->>>>>>> main
   const [existImageCheckIn, setExistImageCheckIn] = useState(checks);
   const editPostHandler = (e) => {
     e.preventDefault();

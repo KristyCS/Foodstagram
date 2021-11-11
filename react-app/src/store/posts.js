@@ -181,15 +181,7 @@ export default function reducer(state = initialState, action) {
     case UPDATE_POST:
       let newAllPosts
       newAllPosts = { ...state.allPosts };
-<<<<<<< HEAD
       newAllPosts[action.post.id] = action.post;
-=======
-      for (let post in newAllPosts) {
-        if (post.id === action.post.id) {
-          post = action.post;
-        }
-      }
->>>>>>> main
       return { ...state, allPosts: newAllPosts };
 
     case ADD_POST:
