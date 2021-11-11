@@ -7,10 +7,12 @@ const HomePage = () => {
   const despatch = useDispatch();
   const postsObjs = useSelector((state) => state.posts.allPosts);
   const postLists = Object.values(postsObjs).reverse();
-  
+
   useEffect(() => {
     despatch(getPosts());
   }, [despatch]);
+
+ 
 
   return (
     <>
@@ -18,7 +20,7 @@ const HomePage = () => {
       {postLists && (
         <div className="posts_containers">
           {postLists.map((post) => (
-            <SinglePostCard key={post.id} singlePostId={post.id} />
+            <SinglePostCard key={post.id} singlePost={post} />
           ))}
         </div>
       )}

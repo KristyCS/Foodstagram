@@ -76,3 +76,12 @@ cursor: default;
   color: darkgray;
   cursor: pointer;
 }
+
+.single_post_user_liked {
+  font-size: 20px;
+  margin: 5px;
+}
+
+.liked {
+  color: red;
+}
