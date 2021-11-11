@@ -95,6 +95,7 @@ export const editPost = (post) => async (dispatch) => {
     if (!res.ok) throw res;
     const post = await res.json();
     if (!post.errors) {
+      console.log("before reducer$$$$$$$$$$$$$$$$$$$$$$$$$", post);
       dispatch(setPost(post));
     }
     return post;
@@ -173,23 +174,28 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action) {
+  let newAllPosts = { ...state.allPosts };
   switch (action.type) {
     case SET_POSTS:
       return { ...state, allPosts: { ...action.posts } };
     case UPDATE_POST:
       let newAllPosts
       newAllPosts = { ...state.allPosts };
+<<<<<<< HEAD
+      newAllPosts[action.post.id] = action.post;
+=======
       for (let post in newAllPosts) {
         if (post.id === action.post.id) {
           post = action.post;
         }
       }
+>>>>>>> main
       return { ...state, allPosts: newAllPosts };
 
     case ADD_POST:
       return {
         ...state,
-        allPosts: { ...state.allPosts, [action.post.id]: action.post },
+        allPosts: { [action.post.id]: action.post, ...state.allPosts },
       };
     case REMOVE_POST:
       newAllPosts = { ...state.allPosts };

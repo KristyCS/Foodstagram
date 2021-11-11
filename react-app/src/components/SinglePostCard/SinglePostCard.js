@@ -5,13 +5,13 @@ import { createComment } from "../../store/posts";
 import { Modal } from "../../context/Modal";
 import { ImHeart, ImBubble2 } from "react-icons/im";
 import "./SinglePostCard.css";
-import PostDetailPage from "../PostDetailPage/PostDetailPage";
-
-const SinglePostCard = ({ singlePost }) => {
+import PostDetailPage from "../PostDetailPage/PostDetailPage"
+const SinglePostCard = ({ singlePostId }) => {
   const dispatch = useDispatch();
   const history = useHistory()
   const user = useSelector((state) => state.session.user);
-  const [imageIndex] = useState(0);
+  const singlePost = useSelector((state)=>state.posts.allPosts[singlePostId])
+  const [imageIndex, setImageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [inputComment, setinputComment] = useState("");
@@ -166,7 +166,7 @@ const SinglePostCard = ({ singlePost }) => {
       </div>
       {postDetailModal && (
         <Modal onClose={() => setPostDetailModal(false)}>
-          <PostDetailPage setPostDetailModal={setPostDetailModal} singlePost={singlePost} comments={items} inputComment={inputComment} setinputComment={setinputComment} />
+          <PostDetailPage setPostDetailModal={setPostDetailModal} singlePostId={singlePostId} comments={items} inputComment={inputComment} setinputComment={setinputComment} />
         </Modal>
       )}
     </div>

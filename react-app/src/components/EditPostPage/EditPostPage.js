@@ -2,19 +2,32 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editPost } from "../../store/posts";
 import "./EditPostPage.css";
-function CreateNewPostPage({ setShowEditPostModal, singlePost }) {
+function CreateNewPostPage({ setShowEditPostModal,setPostDetailModal, singlePostId }) {
   const dispatch = useDispatch();
   const [description, setDescription] = useState("");
+<<<<<<< HEAD
+  const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
+  const [existImages, setExistImages] = useState(singlePost.photos);
+=======
   const [existImages] = useState(singlePost.photos);
+>>>>>>> main
   const [newAddedImages, setNewAddedImages] = useState([]);
   const [errors] = useState([]);
   const [src, setSrc] = useState([]);
   const user = useSelector((state) => state.session.user);
+
   const checks = [];
+<<<<<<< HEAD
+  console.log(newAddedImages);
+  for (const image in existImages) {
+    checks.push(true);
+  }
+=======
   // console.log(newAddedImages)
   // for (const image in existImages) {
   //   checks.push(true);
   // }
+>>>>>>> main
   const [existImageCheckIn, setExistImageCheckIn] = useState(checks);
   const editPostHandler = (e) => {
     e.preventDefault();
@@ -28,6 +41,7 @@ function CreateNewPostPage({ setShowEditPostModal, singlePost }) {
     };
     dispatch(editPost(payload));
     setShowEditPostModal(false);
+    // setPostDetailModal(false);
   };
   const changeCheckInHandler = (e) => {
     const newCheckIn = [...existImageCheckIn];
@@ -42,8 +56,8 @@ function CreateNewPostPage({ setShowEditPostModal, singlePost }) {
         <div className="existing_images wrap">
           <h4>Existing Photos</h4>
           {existImages.map((image, idx) => (
-            <div key={idx} >
-              <img className="small" src={image.photo_url} alt={idx}/>
+            <div key={idx}>
+              <img className="small" src={image.photo_url} alt={idx} />
               <input
                 id={idx}
                 name="check_image"
@@ -73,7 +87,9 @@ function CreateNewPostPage({ setShowEditPostModal, singlePost }) {
         <input
           type="file"
           onChange={(e) => {
-            setSrc([...src, URL.createObjectURL(e.target.files[0])])
+            if (e.target.files.length !== 0) {
+              setSrc([...src, URL.createObjectURL(e.target.files[0])]);
+            }
             setNewAddedImages([...newAddedImages, e.target.files]);
           }}
           accept="image/*"

@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+<<<<<<< HEAD
+import { NavLink } from "react-router-dom";
+import { Modal } from "../../context/Modal";
+=======
 import { NavLink, useHistory } from "react-router-dom";
 import { Modal } from "../../context/Modal"
+>>>>>>> main
 import EditPostPage from "../EditPostPage/EditPostPage";
 import {
   IoArrowForwardCircleOutline,
@@ -11,23 +16,63 @@ import { deletePost } from "../../store/posts";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { GrEdit } from "react-icons/gr";
 import "./PostDetailPage.css";
+<<<<<<< HEAD
+function PostDetailPage({ setPostDetailModal, singlePostId }) {
+=======
 import { createComment, destroyComment } from "../../store/posts";
 
 function PostDetailPage({ setPostDetailModal, singlePost, comments, inputComment, setinputComment }) {
+>>>>>>> main
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
+  const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
   const [imageIdx, setImageIdx] = useState(0);
   const [showPreImgIcon, setShowPreImgIcon] = useState(false);
   const [showNxtImgIcon, setShowNxtImgIcon] = useState(true);
   const [showEditPostModal, setShowEditPostModal] = useState(false);
+<<<<<<< HEAD
+  const [errors, setErrors] = useState([]);
+  const [photoList, setPhotoList] = useState([...singlePost.photos]);
+=======
   // const [errors, setErrors] = useState([]);
   let photoObjs = singlePost.photos;
   let photoList = Object.values(photoObjs);
+>>>>>>> main
   const deletePostHandler = () => {
     dispatch(deletePost(singlePost.id));
     setPostDetailModal(false);
   };
+  const refactorArrow = () => {
+    setShowNxtImgIcon(true);
+    setShowPreImgIcon(true);
+    if (imageIdx === photoList.length - 1) {
+      setShowNxtImgIcon(false);
+    }
+    if (imageIdx === 0) {
+      setShowPreImgIcon(false);
+    }
+  };
+  useEffect(() => {
+    console.log("singlePost会render吗");
+    console.log(singlePost.photos, "singlePost会render吗");
+    const newPhotoList=[]
+    for(let i=0; i< singlePost.photos.length;i++){
+      newPhotoList.push(singlePost.photos[i])
+    }
+
+    setPhotoList([...singlePost.photos]);
+    console.log(photoList.length+ "&*&*&*&*&*&");
+    setImageIdx(0);
+    setShowNxtImgIcon(true);
+    setShowPreImgIcon(true);
+    if (imageIdx === singlePost.photos.length - 1) {
+      setShowNxtImgIcon(false);
+    }
+    if (imageIdx === 0) {
+      setShowPreImgIcon(false);
+    }
+  }, [singlePost]);
 
   useEffect(() => {
     console.log(imageIdx);
@@ -147,8 +192,9 @@ function PostDetailPage({ setPostDetailModal, singlePost, comments, inputComment
           {showEditPostModal && (
             <Modal onClose={() => setShowEditPostModal(false)}>
               <EditPostPage
+                setPostDetailModal={setPostDetailModal}
                 setShowEditPostModal={setShowEditPostModal}
-                singlePost={singlePost}
+                singlePostId={singlePostId}
               />
             </Modal>
           )}

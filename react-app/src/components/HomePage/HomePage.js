@@ -6,8 +6,8 @@ import { getPosts } from "../../store/posts";
 const HomePage = () => {
   const despatch = useDispatch();
   const postsObjs = useSelector((state) => state.posts.allPosts);
-  const postLists = Object.values(postsObjs);
-
+  const postLists = Object.values(postsObjs).reverse();
+  
   useEffect(() => {
     despatch(getPosts());
   }, [despatch]);
@@ -18,7 +18,7 @@ const HomePage = () => {
       {postLists && (
         <div className="posts_containers">
           {postLists.map((post) => (
-            <SinglePostCard key={post.id} singlePost={post} />
+            <SinglePostCard key={post.id} singlePostId={post.id} />
           ))}
         </div>
       )}
