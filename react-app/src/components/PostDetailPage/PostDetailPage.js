@@ -22,34 +22,19 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
   const [showPreImgIcon, setShowPreImgIcon] = useState(false);
   const [showNxtImgIcon, setShowNxtImgIcon] = useState(true);
   const [showEditPostModal, setShowEditPostModal] = useState(false);
-  // const [errors, setErrors] = useState([]);
   const [photoList, setPhotoList] = useState([...singlePost.photos]);
   const deletePostHandler = () => {
     dispatch(deletePost(singlePost.id));
     setPostDetailModal(false);
   };
 
-  // const refactorArrow = () => {
-  //   setShowNxtImgIcon(true);
-  //   setShowPreImgIcon(true);
-  //   if (imageIdx === photoList.length - 1) {
-  //     setShowNxtImgIcon(false);
-  //   }
-  //   if (imageIdx === 0) {
-  //     setShowPreImgIcon(false);
-  //   }
-  // };
-
   useEffect(() => {
     console.log("singlePost会render吗");
-    console.log(singlePost.photos, "singlePost会render吗");
     const newPhotoList=[]
     for(let i=0; i< singlePost.photos.length;i++){
       newPhotoList.push(singlePost.photos[i])
     }
-
     setPhotoList([...singlePost.photos]);
-    console.log(photoList.length+ "&*&*&*&*&*&");
     setImageIdx(0);
     setShowNxtImgIcon(true);
     setShowPreImgIcon(true);
@@ -59,10 +44,10 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
     if (imageIdx === 0) {
       setShowPreImgIcon(false);
     }
-  }, [singlePost, imageIdx, photoList.length]);
+  }, [singlePost]);
 
   useEffect(() => {
-    console.log(imageIdx);
+    console.log(imageIdx,"$$$$$$");
     setShowNxtImgIcon(true);
     setShowPreImgIcon(true);
     if (imageIdx === photoList.length - 1) {
