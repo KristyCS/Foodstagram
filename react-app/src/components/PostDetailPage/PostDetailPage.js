@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+<<<<<<< HEAD
 import { NavLink } from "react-router-dom";
 import { Modal } from "../../context/Modal";
+=======
+import { NavLink, useHistory } from "react-router-dom";
+import { Modal } from "../../context/Modal"
+>>>>>>> main
 import EditPostPage from "../EditPostPage/EditPostPage";
 import {
   IoArrowForwardCircleOutline,
@@ -11,8 +16,15 @@ import { deletePost } from "../../store/posts";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { GrEdit } from "react-icons/gr";
 import "./PostDetailPage.css";
+<<<<<<< HEAD
 function PostDetailPage({ setPostDetailModal, singlePostId }) {
+=======
+import { createComment, destroyComment } from "../../store/posts";
+
+function PostDetailPage({ setPostDetailModal, singlePost, comments, inputComment, setinputComment }) {
+>>>>>>> main
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
   const [imageIdx, setImageIdx] = useState(0);
@@ -72,7 +84,68 @@ function PostDetailPage({ setPostDetailModal, singlePostId }) {
     if (imageIdx === 0) {
       setShowPreImgIcon(false);
     }
-  }, [imageIdx, photoList.length]);
+  }, [imageIdx]);
+
+
+  const commentLoader = (comments) => {
+    if (Object.keys(comments).length) {
+      const commentsArr = Object.values(comments)
+      return (
+        commentsArr.map((comment) => {
+          if (comment.user.id == user.id) {
+            return (
+              <li className='single-comment'>
+                <div className='comment-container'>
+                  <img className='comment-pfp' src={`${comment.user.profile_photo}`}></img>
+                  <div>
+                    <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
+                    &nbsp;&nbsp;{comment.content}
+                  </div>
+                </div>
+                <div>
+                </div>
+                <button className='comments-delete-btn' onClick={(event) => { handleDelete(comment.id, comment.post.id) }}>Delete</button>
+              </li>
+            )
+          }
+          return (
+            <li className='single-comment'>
+              <div className='comment-container'>
+                <img className='comment-pfp' src={`${comment.user.profile_photo}`}></img>
+                <div>
+                  <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
+                  &nbsp;&nbsp;{comment.content}
+                </div>
+              </div>
+            </li>
+          )
+        })
+      )
+    }
+  }
+  const handleSubmit = async (event) => {
+    const payload = {
+      user_id: user.id,
+      post_id: singlePost.id,
+      content: inputComment
+    };
+    dispatch(createComment(payload))
+    setinputComment('')
+    return null
+  }
+  const handleDelete = async (commentId, postId) => {
+    const payload = {
+      commentId,
+      postId
+    }
+    dispatch(destroyComment(payload))
+    return null
+  }
+
+  const toProfile = (username) => {
+    history.push(`/users/dashboard/${username}`)
+  }
+
   return (
     <div className="post_detail_container">
       <div className="images_container">
@@ -134,6 +207,14 @@ function PostDetailPage({ setPostDetailModal, singlePostId }) {
           />
           <NavLink to="">{singlePost.user.username}</NavLink>
           <p className="">{singlePost.description}</p>
+        </div>
+        <div className='detailed-comment-area'>
+          {commentLoader(comments)}
+        </div>
+        <div>
+          <input className='comment-input-bar' placeholder='Add a comment...' value={inputComment} onChange={(event) => { setinputComment(event.target.value) }}>
+          </input>
+          <button className='comment-submit-btn' disabled={!inputComment} onClick={(event) => handleSubmit()}>Post</button>
         </div>
       </div>
     </div>
