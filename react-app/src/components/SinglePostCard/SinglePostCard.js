@@ -18,11 +18,12 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
-  const [imageIndex, setImageIndex] = useState(0);
+  const [imageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [inputComment, setinputComment] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
+  const [updateCommentLikes, setUpdateCommentLikes] = useState(false)
   const [items, setItems] = useState([]);
   const number_of_all_comments = singlePost.comments.length;
 
@@ -33,7 +34,7 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
         setItems(result);
         setIsLoaded(true);
       });
-  }, [number_of_all_comments, singlePost.id]);
+  }, [number_of_all_comments, singlePost.id, updateCommentLikes]);
 
   const userLikes = () => {
     for (const like of singlePost.likes) {
@@ -56,7 +57,8 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
   };
 
   const handleLikes = async (e) => {
-    const id = Number(e.currentTarget.id);
+    e.stopPropagation()
+    const id = Number(e.currentTarget.id)
     if (id > 0) {
       await fetch(`/api/likes/${id}`, {
         method: "DELETE",
@@ -209,14 +211,14 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
     <>
       {photoFeed &&
         <div className="single_post_container">
-            <div className="single_post_user">
-              <img
-                src={singlePost.user.profile_photo}
-                alt="profile_photo"
-                className="profile_photo"
-              />
-              <p className="user_name">{singlePost.user.username}</p>
-            </div>
+          <div className="single_post_user">
+            <img
+              src={singlePost.user.profile_photo}
+              alt="profile_photo"
+              className="profile_photo"
+            />
+            <p className="user_name">{singlePost.user.username}</p>
+          </div>
           <div className="main_post_image">
             <img
               src={singlePost.photos[imageIndex].photo_url}
@@ -225,14 +227,14 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
             />
           </div>
           <div className="operation">
-                {userLikes()}{" "}
-              <div className={`single_post_user_btn`} id={0} onClick={handleLikes}>
-                <IoChatbubbleOutline onClick={() => test} />
-              </div>
+            {userLikes()}{" "}
+            <div className={`single_post_user_btn`} id={0} >
+              <IoChatbubbleOutline onClick={() => test} />
             </div>
-            <div className="likes">
-              <p>{`${singlePost.likes.length} likes`}</p>
-            </div>
+          </div>
+          <div className="likes">
+            <p>{`${singlePost.likes.length} likes`}</p>
+          </div>
           <div className="description">
             <NavLink  to={`/users/dashboard/${singlePost.user.username}`} className="description_user_name">
               <p>{singlePost.user.username}</p>
@@ -271,38 +273,49 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
                 comments={items}
                 inputComment={inputComment}
                 setinputComment={setinputComment}
+                updateLikes={updateLikes}
+                setUpdateLikes={setUpdateLikes}
+                updateCommentLikes={updateCommentLikes}
+                setUpdateCommentLikes={setUpdateCommentLikes}
               />
 
-            </Modal>
-          )}
-        </div>
-      }
+                </Modal>
+              )}
+              </div>
+    }
 
-      {userGallery &&
-        <div className="user_img_cont">
-          <div className="user_img">
-            <img
-              src={singlePost.photos[imageIndex].photo_url}
-              alt="display_image"
-              className="display_image"
-              onClick={() => setPostDetailModal(true)}
-            />
-          </div>
-          {postDetailModal && (
-            <Modal type='edit' onClose={() => setPostDetailModal(false)}>
-              <PostDetailPage
-                setPostDetailModal={setPostDetailModal}
-                singlePostId={singlePostId}
-                comments={items}
-                inputComment={inputComment}
-                setinputComment={setinputComment}
-              />
-            </Modal>
-          )}
-        </div>
-      }
-    </>
-  );
-};
+    {userGallery &&
+            <div className="user_img_cont">
+              <div className="user_img">
+                <img
+                  src={singlePost.photos[imageIndex].photo_url}
+                  alt="display_image"
+                  className="u-g-i"
+                />
+              </div>
+              <div class="gal-img-info" onClick={() => setPostDetailModal(true)}>
+                <ul>
+                  <li class="gal-img-likes"><i class="fas fa-heart" ></i> {singlePost.likes.length}</li>
+                  <li class="gal-img-com"><i class="fas fa-comment"></i> {singlePost.comments.length}</li>
+                </ul>
+              </div>
+              {postDetailModal && (
+                <Modal type='edit' onClose={() => setPostDetailModal(false)}>
+                  <PostDetailPage
+                    setPostDetailModal={setPostDetailModal}
+                    singlePostId={singlePostId}
+                    comments={items}
+                    inputComment={inputComment}
+                    setinputComment={setinputComment}
+                  />
+                </Modal>
+              )}
+            </div>
+          }
+        </>
+  )}
+
+
+
 
 export default SinglePostCard;
