@@ -10,12 +10,14 @@ import {
   IoChatbubbleOutline,
 } from "react-icons/io5";
 import "./SinglePostCard.css";
-import PostDetailPage from "../PostDetailPage/PostDetailPage";
-const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
+import PostDetailPage from "../PostDetailPage/PostDetailPage"
+
+
+const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, updateLikes }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
-  // const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
+  const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
   const [imageIndex, setImageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
   const [showMore, setShowMore] = useState(false);
@@ -63,24 +65,24 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: id
+          id: id,
         }),
-      })
-      setUpdateLikes(!updateLikes)
-      return
+      });
+      setUpdateLikes(!updateLikes);
+      return;
     }
     await fetch(`/api/likes`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         user_id: user.id,
-        post_id: singlePost.id
-      })
-    })
-    setUpdateLikes(!updateLikes)
-    return
+        post_id: singlePost.id,
+      }),
+    });
+    setUpdateLikes(!updateLikes);
+    return;
   };
 
   const correspondingComments = () => {
@@ -109,7 +111,7 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
         const commentId = Object.keys(items);
         const firstComment = items[commentId[0]];
         if (!firstComment) {
-          return null
+          return null;
         }
         if (firstComment.content.length > 50) {
         }
@@ -204,7 +206,6 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
     history.push(`/users/dashboard/${username}`);
   };
 
-
   return (
     <div className="single_post_container">
       <div className="single_post_user">
@@ -273,9 +274,35 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
             setUpdateLikes={setUpdateLikes}
           />
 
-        </Modal>
-      )}
-    </div>
+            </Modal>
+          )}
+        </div>
+      }
+
+      {userGallery &&
+        <div className="user_img_cont">
+          <div className="user_img">
+            <img
+              src={singlePost.photos[imageIndex].photo_url}
+              alt="display_image"
+              className="display_image"
+              onClick={() => setPostDetailModal(true)}
+            />
+          </div>
+          {postDetailModal && (
+            <Modal type='edit' onClose={() => setPostDetailModal(false)}>
+              <PostDetailPage
+                setPostDetailModal={setPostDetailModal}
+                singlePostId={singlePostId}
+                comments={items}
+                inputComment={inputComment}
+                setinputComment={setinputComment}
+              />
+            </Modal>
+          )}
+        </div>
+      }
+    </>
   );
 };
 

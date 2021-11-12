@@ -7,7 +7,7 @@ function CreateNewPostPage({ setShowCreatePostModal }) {
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
   const [errors] = useState([]);
-  const [src] = useState("");
+  const [src, setSrc] = useState([]);
   const user = useSelector((state) => state.session.user);
   console.log(images, "!!!!!!!!!!!");
   const createPostHandler = (e) => {
@@ -24,11 +24,11 @@ function CreateNewPostPage({ setShowCreatePostModal }) {
   return (
     <div className="createPostForm">
       <h3> Create new post</h3>
-      {images && (
-        <div className="view_image">
-            <img className="small" src={src} alt="" />
+      {images.map((image, idx) => (
+        <div key={idx}>
+          <img className="small" key={idx} src={src[idx]} alt={src[idx]} />
         </div>
-      )}
+      ))}
       <form onSubmit={createPostHandler}>
         <ul>
           {errors.map((error, idx) => (
@@ -37,8 +37,12 @@ function CreateNewPostPage({ setShowCreatePostModal }) {
         </ul>
         <input
           type="file"
-          // onChange={(e) => setSrc(URL.createObjectURL(e.target.files[0]))}
-          onChange={(e) => setImages([...images, e.target.files])}
+          onChange={(e) => {
+            if (e.target.files.length !== 0) {
+              setSrc([...src, URL.createObjectURL(e.target.files[0])]);
+            }
+            setImages([...images, e.target.files]);
+          }}
           accept="image/*"
           multiple={true}
           required

@@ -7,6 +7,8 @@ const HomePage = () => {
   const despatch = useDispatch();
   const postsObjs = useSelector((state) => state.posts.allPosts);
   const postLists = Object.values(postsObjs).reverse();
+  const photoFeed = true;
+  const userGallery = false;
   const [updateLikes, setUpdateLikes] = useState(true)
 
   useEffect(() => {
@@ -21,7 +23,14 @@ const HomePage = () => {
       {postLists && (
         <div className="posts_containers">
           {postLists.map((post) => (
-            <SinglePostCard key={post.id} singlePost={post} setUpdateLikes={setUpdateLikes} updateLikes={updateLikes} />
+            <SinglePostCard
+              key={post.id}
+              singlePostId={post.id}
+              photoFeed={photoFeed}
+              userGallery={userGallery}
+              setUpdateLikes={setUpdateLikes}
+              updateLikes={updateLikes}
+            />
           ))}
         </div>
       )}
