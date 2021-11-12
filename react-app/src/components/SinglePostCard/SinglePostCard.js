@@ -54,6 +54,7 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
   };
 
   const handleLikes = async (e) => {
+    e.stopPropagation()
     const id = Number(e.currentTarget.id)
     if (id > 0) {
       await fetch(`/api/likes/${id}`, {
@@ -223,7 +224,7 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
       </div>
       <div className="operation">
         {userLikes()}{" "}
-        <div className={`single_post_user_btn`} id={0} onClick={handleLikes}>
+        <div className={`single_post_user_btn`} id={0} >
           <IoChatbubbleOutline onClick={() => test} />
         </div>
       </div>
@@ -268,6 +269,8 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
             comments={items}
             inputComment={inputComment}
             setinputComment={setinputComment}
+            updateLikes={updateLikes}
+            setUpdateLikes={setUpdateLikes}
           />
 
         </Modal>
