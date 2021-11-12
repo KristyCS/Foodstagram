@@ -17,7 +17,7 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
-  // const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
+  const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
   const [imageIndex, setImageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
   const [showMore, setShowMore] = useState(false);
