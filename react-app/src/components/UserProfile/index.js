@@ -1,19 +1,31 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
+import { getPosts } from '../../store/posts';
 import FollowersModal from '../FollowersModal';
 import FollowingModal from '../FollowingModal';
 import FollowButton from '../FollowButton';
+import SinglePostCard from '../SinglePostCard/SinglePostCard';
 import './UserProfile.css';
 
 
-const UserProfile = ({confirmBoolean}) => {
+const UserProfile = ({ confirmBoolean }) => {
+    const dispatch = useDispatch();
     const { username } = useParams();
     const [rerender, setRerender] = useState(false);
     const [selectedUser, setselectedUser] = useState({});
     const [postsCount, setpostsCount] = useState(0);
     const [followersCount, setfollowersCount] = useState(0);
     const [followingCount, setfollowingCount] = useState(0);
+    const postsObjs = useSelector((state) => state.posts.allPosts);
+    const postLists = Object.values(postsObjs).reverse();
+    const userGallery = true;
+    const photoFeed = false;
+
+    useEffect(() => {
+        dispatch(getPosts());
+    }, [dispatch]);
 
     let profileDisplay;
     if(selectedUser.profile_photo) {
@@ -32,6 +44,7 @@ const UserProfile = ({confirmBoolean}) => {
         </>
         )
     }
+
 
     useEffect(() => {
         let userfollowers = 0;
@@ -59,51 +72,69 @@ const UserProfile = ({confirmBoolean}) => {
             }
             setfollowingCount(userfollowing);
 
-
         })();
 
     }, [username, rerender, confirmBoolean]);
 
 
+    let userPosts = [];
+    if(postLists.length){
+        userPosts = postLists.filter(post => post.user.id === selectedUser.id)
+    }
+
 
     return (
-        <div className = "prof-cont">
-            <div className = "dis-pic-cont">
-                { profileDisplay }
-            </div>
-            <div className = "prof-details">
-                <div className="name-fol">
-                    <p>{selectedUser.username}</p>
-                    <FollowButton
-                    selectedUserId={selectedUser.id}
-                    setRerender={setRerender}
-                    rerender={rerender}
-                    />
+        <div className="prof-pg">
+            <div className = "prof-cont">
+                <div className = "dis-pic-cont">
+                    { profileDisplay }
                 </div>
-                <div className="tot-count">
-                    <div>
-                        {postsCount} posts
-                    </div>
-                    <div>
-                        <FollowersModal
-                            followersCount={followersCount}
-                            username={username}
-                            setRerender={setRerender}
-                            rerender={rerender}
+                <div className = "prof-details">
+                    <div className="name-fol">
+                        <p>{selectedUser.username}</p>
+                        <FollowButton
+                        selectedUserId={selectedUser.id}
+                        setRerender={setRerender}
+                        rerender={rerender}
                         />
                     </div>
-                    <div>
-                        <FollowingModal
-                            followingCount={followingCount}
-                            username={username}
-                        />
+                    <div className="tot-count">
+                        <div>
+                            {postsCount} posts
+                        </div>
+                        <div>
+                            <FollowersModal
+                                followersCount={followersCount}
+                                username={username}
+                                setRerender={setRerender}
+                                rerender={rerender}
+                            />
+                        </div>
+                        <div>
+                            <FollowingModal
+                                followingCount={followingCount}
+                                username={username}
+                            />
+                        </div>
                     </div>
-                </div>
-                <div>
+                    <div>
+
+                    </div>
 
                 </div>
-
             </div>
+            {userPosts.length &&
+                <div className="user-gallery-cont">
+                    {userPosts.map((post) => (
+                        <SinglePostCard
+                            key={post.id}
+                            singlePostId={post.id}
+                            userGallery={userGallery}
+                            photoFeed={photoFeed}
+                        />
+                    ))}
+                </div>
+            }
         </div>
     );
 
