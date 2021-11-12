@@ -22,32 +22,19 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
   const [showPreImgIcon, setShowPreImgIcon] = useState(false);
   const [showNxtImgIcon, setShowNxtImgIcon] = useState(true);
   const [showEditPostModal, setShowEditPostModal] = useState(false);
-  const [errors, setErrors] = useState([]);
   const [photoList, setPhotoList] = useState([...singlePost.photos]);
   const deletePostHandler = () => {
     dispatch(deletePost(singlePost.id));
     setPostDetailModal(false);
   };
-  const refactorArrow = () => {
-    setShowNxtImgIcon(true);
-    setShowPreImgIcon(true);
-    if (imageIdx === photoList.length - 1) {
-      setShowNxtImgIcon(false);
-    }
-    if (imageIdx === 0) {
-      setShowPreImgIcon(false);
-    }
-  };
+
   useEffect(() => {
     console.log("singlePost会render吗");
-    console.log(singlePost.photos, "singlePost会render吗");
     const newPhotoList=[]
     for(let i=0; i< singlePost.photos.length;i++){
       newPhotoList.push(singlePost.photos[i])
     }
-
     setPhotoList([...singlePost.photos]);
-    console.log(photoList.length+ "&*&*&*&*&*&");
     setImageIdx(0);
     setShowNxtImgIcon(true);
     setShowPreImgIcon(true);
@@ -60,7 +47,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
   }, [singlePost]);
 
   useEffect(() => {
-    console.log(imageIdx);
+    console.log(imageIdx,"$$$$$$");
     setShowNxtImgIcon(true);
     setShowPreImgIcon(true);
     if (imageIdx === photoList.length - 1) {
@@ -69,19 +56,21 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
     if (imageIdx === 0) {
       setShowPreImgIcon(false);
     }
-  }, [imageIdx]);
+  }, [imageIdx, photoList.length]);
 
 
   const commentLoader = (comments) => {
     if (Object.keys(comments).length) {
       const commentsArr = Object.values(comments)
       return (
-        commentsArr.map((comment) => {
+
+        commentsArr.map((comment,idx) => {
           if (comment.user.id == user.id) {
+
             return (
-              <li className='single-comment'>
+              <li key={idx} className='single-comment'>
                 <div className='comment-container'>
-                  <img className='comment-pfp' src={`${comment.user.profile_photo}`}></img>
+                  <img className='comment-pfp' src={`${comment.user.profile_photo}`} alt=""/>
                   <div>
                     <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
                     &nbsp;&nbsp;{comment.content}
@@ -96,7 +85,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
           return (
             <li className='single-comment'>
               <div className='comment-container'>
-                <img className='comment-pfp' src={`${comment.user.profile_photo}`}></img>
+                <img className='comment-pfp' src={`${comment.user.profile_photo}`} alt=""/>
                 <div>
                   <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
                   &nbsp;&nbsp;{comment.content}
@@ -166,7 +155,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
             alt=""
           />
           <NavLink to="">{singlePost.user.username}</NavLink>
-          <p> · </p>
+          <p> {"  ·  "} </p>
           <p>following</p>
           {singlePost.user.id === user.id && (
             <>
@@ -175,7 +164,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
             </>
           )}
           {showEditPostModal && (
-            <Modal onClose={() => setShowEditPostModal(false)}>
+            <Modal type='edit' onClose={() => setShowEditPostModal(false)}>
               <EditPostPage
                 setPostDetailModal={setPostDetailModal}
                 setShowEditPostModal={setShowEditPostModal}
@@ -196,7 +185,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
         <div className='detailed-comment-area'>
           {commentLoader(comments)}
         </div>
-        <div>
+        <div className="comment-input-container">
           <input className='comment-input-bar' placeholder='Add a comment...' value={inputComment} onChange={(event) => { setinputComment(event.target.value) }}>
           </input>
           <button className='comment-submit-btn' disabled={!inputComment} onClick={(event) => handleSubmit()}>Post</button>

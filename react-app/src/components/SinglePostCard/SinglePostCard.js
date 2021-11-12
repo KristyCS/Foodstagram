@@ -3,16 +3,21 @@ import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createComment } from "../../store/posts";
 import { Modal } from "../../context/Modal";
-import { ImHeart, ImBubble2 } from "react-icons/im";
+// import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+import {
+  IoHeartOutline,
+  IoHeartSharp,
+  IoChatbubbleOutline,
+} from "react-icons/io5";
 import "./SinglePostCard.css";
 import PostDetailPage from "../PostDetailPage/PostDetailPage"
 
 
-const SinglePostCard = ({ singlePostId, photoFeed, userGallery }) => {
+const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, updateLikes }) => {
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
   const user = useSelector((state) => state.session.user);
-  const singlePost = useSelector((state)=>state.posts.allPosts[singlePostId])
+  // const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
   const [imageIndex, setImageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
   const [showMore, setShowMore] = useState(false);
@@ -29,6 +34,55 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery }) => {
         setIsLoaded(true);
       });
   }, [number_of_all_comments, singlePost.id]);
+
+  const userLikes = () => {
+    for (const like of singlePost.likes) {
+      if (like.user_id === user.id)
+        return (
+          <div
+            className={`single_post_user_btn liked`}
+            id={`${like.id}`}
+            onClick={handleLikes}
+          >
+            <IoHeartSharp />
+          </div>
+        );
+    }
+    return (
+      <div className={`single_post_user_btn`} id={0} onClick={handleLikes}>
+        <IoHeartOutline />
+      </div>
+    );
+  };
+
+  const handleLikes = async (e) => {
+    const id = Number(e.currentTarget.id)
+    if (id > 0) {
+      await fetch(`/api/likes/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id
+        }),
+      })
+      setUpdateLikes(!updateLikes)
+      return
+    }
+    await fetch(`/api/likes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        post_id: singlePost.id
+      })
+    })
+    setUpdateLikes(!updateLikes)
+    return
+  };
 
   const correspondingComments = () => {
     if (!isLoaded) {
@@ -55,9 +109,10 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery }) => {
       } else {
         const commentId = Object.keys(items);
         const firstComment = items[commentId[0]];
-        // let shortener = ''
+        if (!firstComment) {
+          return null
+        }
         if (firstComment.content.length > 50) {
-          // shortener = firstComment.content.slice(0, 50) + '...'
         }
         return (
           <div>
@@ -73,16 +128,33 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery }) => {
     if (comment.content.length < 50) {
       return (
         <>
-          <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}
-          </span>  {comment.content}
+          <span
+            className="usernames-link"
+            onClick={(event) => toProfile(comment.user.username)}
+          >
+            {comment.user.username}
+          </span>{" "}
+          {comment.content}
         </>
       );
     }
     if (show) {
       return (
         <>
-          <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}
-            &nbsp;</span>  {comment.content} <button className='more-less-btn' onClick={(event) => setShowMore(false)}>Less</button>
+          <span
+            className="usernames-link"
+            onClick={(event) => toProfile(comment.user.username)}
+          >
+            {comment.user.username}
+            &nbsp;
+          </span>{" "}
+          {comment.content}{" "}
+          <button
+            className="more-less-btn"
+            onClick={(event) => setShowMore(false)}
+          >
+            Less
+          </button>
         </>
       );
     } else {
@@ -92,8 +164,19 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery }) => {
       }
       return (
         <>
-          <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
-          &nbsp;  {shortener} <button className='more-less-btn' onClick={(event) => setShowMore(true)}>Show</button>
+          <span
+            className="usernames-link"
+            onClick={(event) => toProfile(comment.user.username)}
+          >
+            {comment.user.username}
+          </span>
+          &nbsp; {shortener}{" "}
+          <button
+            className="more-less-btn"
+            onClick={(event) => setShowMore(true)}
+          >
+            Show
+          </button>
         </>
       );
     }
@@ -113,14 +196,14 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery }) => {
       post_id: singlePost.id,
       content: inputComment,
     };
-    dispatch(createComment(payload))
-    setinputComment('')
-    return null
-  }
+    dispatch(createComment(payload));
+    setinputComment("");
+    return null;
+  };
 
   const toProfile = (username) => {
-    history.push(`/users/dashboard/${username}`)
-  }
+    history.push(`/users/dashboard/${username}`);
+  };
 
 
   return (
@@ -143,12 +226,14 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery }) => {
             />
           </div>
           <div className="operation">
-            <ImHeart /> <ImBubble2 onClick={() => test} />
-            {/* <img src={Like} alt="empty heart"className="empty_heart"/> */}
-          </div>
-          <div className="likes">
-            <p>3 likes</p>
-          </div>
+                {userLikes()}{" "}
+              <div className={`single_post_user_btn`} id={0} onClick={handleLikes}>
+                <IoChatbubbleOutline onClick={() => test} />
+              </div>
+            </div>
+            <div className="likes">
+              <p>{`${singlePost.likes.length} likes`}</p>
+            </div>
           <div className="description">
             <NavLink to="" className="description_user_name">
               <p>{singlePost.user.username}</p>
@@ -160,17 +245,35 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery }) => {
               {isThereAnyComments()}
             </span>
           </div>
-          <div>{number_of_all_comments && correspondingComments()}</div>
+          <div>{number_of_all_comments ? correspondingComments() : null}</div>
           <div>
-            <input className='comment-input-bar' placeholder='Add a comment...' value={inputComment} onChange={(event) => { setinputComment(event.target.value) }}>
-            </input>
-            <button className='comment-submit-btn' disabled={!inputComment} onClick={(event) => handleCommentSubmit()}>
+            <input
+              className="comment-input-bar"
+              placeholder="Add a comment..."
+              value={inputComment}
+              onChange={(event) => {
+                setinputComment(event.target.value);
+              }}
+            ></input>
+            <button
+              className="comment-submit-btn"
+              disabled={!inputComment}
+              onClick={(event) => handleCommentSubmit()}
+            >
               Post
             </button>
           </div>
           {postDetailModal && (
-            <Modal onClose={() => setPostDetailModal(false)}>
-              <PostDetailPage setPostDetailModal={setPostDetailModal} singlePostId={singlePostId} comments={items} inputComment={inputComment} setinputComment={setinputComment} />
+
+            <Modal type='edit' onClose={() => setPostDetailModal(false)}>
+              <PostDetailPage
+                setPostDetailModal={setPostDetailModal}
+                singlePostId={singlePost.id}
+                comments={items}
+                inputComment={inputComment}
+                setinputComment={setinputComment}
+              />
+
             </Modal>
           )}
         </div>
@@ -187,7 +290,7 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery }) => {
             />
           </div>
           {postDetailModal && (
-            <Modal onClose={() => setPostDetailModal(false)}>
+            <Modal type='edit' onClose={() => setPostDetailModal(false)}>
               <PostDetailPage
                 setPostDetailModal={setPostDetailModal}
                 singlePostId={singlePostId}

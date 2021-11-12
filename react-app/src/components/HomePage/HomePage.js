@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SinglePostCard from "../SinglePostCard/SinglePostCard";
 import { getPosts } from "../../store/posts";
@@ -9,10 +9,13 @@ const HomePage = () => {
   const postLists = Object.values(postsObjs).reverse();
   const photoFeed = true;
   const userGallery = false;
+  const [updateLikes, setUpdateLikes] = useState(true)
 
   useEffect(() => {
     despatch(getPosts());
-  }, [despatch]);
+  }, [despatch, updateLikes]);
+
+
 
   return (
     <>
@@ -25,6 +28,8 @@ const HomePage = () => {
               singlePostId={post.id}
               photoFeed={photoFeed}
               userGallery={userGallery}
+              setUpdateLikes={setUpdateLikes}
+              updateLikes={updateLikes}
             />
           ))}
         </div>

@@ -6,8 +6,6 @@ import ProfileButton from "./ProfileButton";
 import FollowRequests from '../FollowRequests';
 import "./NavBar.css";
 import { Modal } from "../../context/Modal";
-// import { AiOutlinePlusSquare } from "react-icons/ai";
-// import CreateEditPostPage from "../CreateEditPostPage/CreateEditPostPage";
 import CreatePostPage from "../CreatePostPage/CreatePostPage";
 
 
@@ -40,7 +38,7 @@ const NavBar = ({confirmBoolean, setConfirmBoolean}) => {
           />
 
           {showCreatePostModal && (
-            <Modal onClose={() => setShowCreatePostModal(false)}>
+            <Modal type="create" onClose={() => setShowCreatePostModal(false)}>
               <CreatePostPage
                 setShowCreatePostModal={setShowCreatePostModal}
               />
