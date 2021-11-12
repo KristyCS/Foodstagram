@@ -54,32 +54,32 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
   };
 
   const handleLikes = async (e) => {
-    const id = Number(e.currentTarget.id)
+    const id = Number(e.currentTarget.id);
     if (id > 0) {
-     await fetch(`/api/likes/${id}`, {
+      await fetch(`/api/likes/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: id
+          id: id,
         }),
-      })
-      setUpdateLikes(!updateLikes)
-      return
+      });
+      setUpdateLikes(!updateLikes);
+      return;
     }
     await fetch(`/api/likes`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         user_id: user.id,
-        post_id: singlePost.id
-      })
-    })
-    setUpdateLikes(!updateLikes)
-    return
+        post_id: singlePost.id,
+      }),
+    });
+    setUpdateLikes(!updateLikes);
+    return;
   };
 
   const correspondingComments = () => {
@@ -108,7 +108,7 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
         const commentId = Object.keys(items);
         const firstComment = items[commentId[0]];
         if (!firstComment) {
-          return null
+          return null;
         }
         if (firstComment.content.length > 50) {
         }
@@ -203,7 +203,6 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
     history.push(`/users/dashboard/${username}`);
   };
 
-
   return (
     <div className="single_post_container">
       <div className="single_post_user">
@@ -231,7 +230,10 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
         <p>{`${singlePost.likes.length} likes`}</p>
       </div>
       <div className="description">
-        <NavLink to="" className="description_user_name">
+        <NavLink
+          to={`/users/dashboard/${singlePost.user.username}`}
+          className="description_user_name"
+        >
           <p>{singlePost.user.username}</p>
         </NavLink>
         <p className="description_content">{singlePost.description}</p>
@@ -260,8 +262,7 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
         </button>
       </div>
       {postDetailModal && (
-
-        <Modal type='edit'onClose={() => setPostDetailModal(false)}>
+        <Modal type="edit" onClose={() => setPostDetailModal(false)}>
           <PostDetailPage
             setPostDetailModal={setPostDetailModal}
             singlePostId={singlePost.id}
@@ -269,7 +270,6 @@ const SinglePostCard = ({ singlePost, setUpdateLikes, updateLikes }) => {
             inputComment={inputComment}
             setinputComment={setinputComment}
           />
-
         </Modal>
       )}
     </div>
