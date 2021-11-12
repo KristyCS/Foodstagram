@@ -10,10 +10,15 @@ import {
   IoChatbubbleOutline,
 } from "react-icons/io5";
 import "./SinglePostCard.css";
-import PostDetailPage from "../PostDetailPage/PostDetailPage"
+import PostDetailPage from "../PostDetailPage/PostDetailPage";
 
-
-const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, updateLikes }) => {
+const SinglePostCard = ({
+  singlePostId,
+  photoFeed,
+  userGallery,
+  setUpdateLikes,
+  updateLikes,
+}) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
@@ -23,7 +28,7 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
   const [showMore, setShowMore] = useState(false);
   const [inputComment, setinputComment] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
-  const [updateCommentLikes, setUpdateCommentLikes] = useState(false)
+  const [updateCommentLikes, setUpdateCommentLikes] = useState(false);
   const [items, setItems] = useState([]);
   const number_of_all_comments = singlePost.comments.length;
 
@@ -57,8 +62,8 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
   };
 
   const handleLikes = async (e) => {
-    e.stopPropagation()
-    const id = Number(e.currentTarget.id)
+    e.stopPropagation();
+    const id = Number(e.currentTarget.id);
     if (id > 0) {
       await fetch(`/api/likes/${id}`, {
         method: "DELETE",
@@ -226,8 +231,8 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
       </div>
       <div className="operation">
         {userLikes()}{" "}
-        <div className={`single_post_user_btn`} id={0} >
-          <IoChatbubbleOutline onClick={() => test} />
+        <div className={`single_post_user_btn`} id={0}>
+          <IoChatbubbleOutline onClick={() => setPostDetailModal(true)} />
         </div>
       </div>
       <div className="likes">
@@ -237,9 +242,12 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
         {/* <NavLink to="" className="description_user_name">
           <p>{singlePost.user.username}</p>
         </NavLink> */}
-        <p className="description_content"><NavLink to="" className="description_user_name">
-          {singlePost.user.username}
-        </NavLink>  {singlePost.description}</p>
+        <p className="description_content">
+          <NavLink to="" className="description_user_name">
+            {singlePost.user.username}
+          </NavLink>{" "}
+          {singlePost.description}
+        </p>
       </div>
       <div className="view_all_comments">
         <span onClick={() => setPostDetailModal(true)}>
@@ -265,8 +273,7 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
         </button>
       </div>
       {postDetailModal && (
-
-        <Modal type='edit' onClose={() => setPostDetailModal(false)}>
+        <Modal type="edit" onClose={() => setPostDetailModal(false)}>
           <PostDetailPage
             setPostDetailModal={setPostDetailModal}
             singlePostId={singlePost.id}
@@ -278,11 +285,10 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
             updateCommentLikes={updateCommentLikes}
             setUpdateCommentLikes={setUpdateCommentLikes}
           />
+        </Modal>
+      )}
 
-            </Modal>
-          )}
-
-{userGallery &&
+      {userGallery && (
         <div className="user_img_cont">
           <div className="user_img">
             <img
@@ -293,12 +299,16 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
           </div>
           <div class="gal-img-info" onClick={() => setPostDetailModal(true)}>
             <ul>
-              <li class="gal-img-likes"><i class="fas fa-heart" ></i> {singlePost.likes.length}</li>
-              <li class="gal-img-com"><i class="fas fa-comment"></i> {singlePost.comments.length}</li>
+              <li class="gal-img-likes">
+                <i class="fas fa-heart"></i> {singlePost.likes.length}
+              </li>
+              <li class="gal-img-com">
+                <i class="fas fa-comment"></i> {singlePost.comments.length}
+              </li>
             </ul>
           </div>
           {postDetailModal && (
-            <Modal type='edit' onClose={() => setPostDetailModal(false)}>
+            <Modal type="edit" onClose={() => setPostDetailModal(false)}>
               <PostDetailPage
                 setPostDetailModal={setPostDetailModal}
                 singlePostId={singlePostId}
@@ -309,11 +319,9 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
             </Modal>
           )}
         </div>
-      }
-        </div>
-  )}
-
-
-
+      )}
+    </div>
+  );
+};
 
 export default SinglePostCard;

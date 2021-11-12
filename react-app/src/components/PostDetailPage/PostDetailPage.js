@@ -278,10 +278,12 @@ function PostDetailPage({
             src={singlePost.user.profile_photo}
             alt=""
           />
-          <NavLink to={`/users/dashboard/${singlePost.user.username}`}>
+          {/* <NavLink to={`/users/dashboard/${singlePost.user.username}`}>
             {singlePost.user.username}
-          </NavLink>
-          <p className="">{singlePost.description}</p>
+          </NavLink> */}
+          <p className=""><NavLink to={`/users/dashboard/${singlePost.user.username}`}>
+            {singlePost.user.username}
+          </NavLink> {singlePost.description}</p>
         </div>
         <div className="detailed-comment-area">{commentLoader(comments)}</div>
         <div className="comment-input-container">
