@@ -67,7 +67,7 @@ button {
   flex-direction: row;
   align-items: center;
 }
-img{
+.story > img{
   width:80px;
   height: auto;
   border-radius: 50%;

@@ -9,6 +9,7 @@ const LandingPage = () => {
 
   const credential = "demo@demo.com";
   const password_demo = "password";
+  const credential2 = 'user@demo.com'
   return (
     <div className="landing-container">
       <div className="blank"></div>
@@ -16,7 +17,10 @@ const LandingPage = () => {
         <p className="home-link">Foodstagram</p>
         <LoginForm />
         <button onClick={() => dispatch(login(credential, password_demo))}>
-          Login As Demo User
+          Login As Demo User1
+        </button>
+        <button onClick={() => dispatch(login(credential2, password_demo))}>
+          Login As Demo User2
         </button>
         <div className="suggest-sign-up">
           <p>Don't have an account?</p>
