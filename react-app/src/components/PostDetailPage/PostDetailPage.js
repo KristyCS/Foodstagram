@@ -30,8 +30,8 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
 
   useEffect(() => {
     console.log("singlePost会render吗");
-    const newPhotoList=[]
-    for(let i=0; i< singlePost.photos.length;i++){
+    const newPhotoList = []
+    for (let i = 0; i < singlePost.photos.length; i++) {
       newPhotoList.push(singlePost.photos[i])
     }
     setPhotoList([...singlePost.photos]);
@@ -47,7 +47,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
   }, [singlePost]);
 
   useEffect(() => {
-    console.log(imageIdx,"$$$$$$");
+    console.log(imageIdx, "$$$$$$");
     setShowNxtImgIcon(true);
     setShowPreImgIcon(true);
     if (imageIdx === photoList.length - 1) {
@@ -64,13 +64,13 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
       const commentsArr = Object.values(comments)
       return (
 
-        commentsArr.map((comment,idx) => {
+        commentsArr.map((comment, idx) => {
           if (comment.user.id == user.id) {
 
             return (
               <li key={idx} className='single-comment'>
                 <div className='comment-container'>
-                  <img className='comment-pfp' src={`${comment.user.profile_photo}`} alt=""/>
+                  <img className='comment-pfp' src={`${comment.user.profile_photo ? comment.user.profile_photo : "https://res.cloudinary.com/lpriya/image/upload/v1636533183/Foodstagram/default_dp_dcd3ao.png"}`} alt="" />
                   <div>
                     <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
                     &nbsp;&nbsp;{comment.content}
@@ -85,7 +85,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
           return (
             <li className='single-comment'>
               <div className='comment-container'>
-                <img className='comment-pfp' src={`${comment.user.profile_photo}`} alt=""/>
+                <img className='comment-pfp' src={`${comment.user.profile_photo}`} alt="" />
                 <div>
                   <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
                   &nbsp;&nbsp;{comment.content}
