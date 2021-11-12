@@ -213,16 +213,18 @@ const SinglePostCard = ({
   };
 
   return (
-    <div className="single_post_container">
-      <div className="single_post_user">
-        <img
-          src={singlePost.user.profile_photo}
-          alt="profile_photo"
-          className="profile_photo"
-        />
-        <p className="user_name">{singlePost.user.username}</p>
-      </div>
-      <div className="main_post_image">
+<>
+      {photoFeed &&
+        <div className="single_post_container">
+          <div className="single_post_user">
+            <img
+              src={singlePost.user.profile_photo}
+              alt="profile_photo"
+              className="profile_photo"
+            />
+            <p className="user_name">{singlePost.user.username}</p>
+          </div>
+          <div className="main_post_image">
         <img
           src={singlePost.photos[imageIndex].photo_url}
           alt="display_image"
@@ -239,9 +241,7 @@ const SinglePostCard = ({
         <p>{`${singlePost.likes.length} likes`}</p>
       </div>
       <div className="description">
-        {/* <NavLink to="" className="description_user_name">
-          <p>{singlePost.user.username}</p>
-        </NavLink> */}
+
         <p className="description_content">
           <NavLink to="" className="description_user_name">
             {singlePost.user.username}
@@ -286,9 +286,12 @@ const SinglePostCard = ({
             setUpdateCommentLikes={setUpdateCommentLikes}
           />
         </Modal>
-      )}
 
-      {userGallery && (
+      )}
+      </div>
+      }
+
+      {userGallery &&
         <div className="user_img_cont">
           <div className="user_img">
             <img
@@ -297,13 +300,13 @@ const SinglePostCard = ({
               className="u-g-i"
             />
           </div>
-          <div class="gal-img-info" onClick={() => setPostDetailModal(true)}>
+          <div className="gal-img-info" onClick={() => setPostDetailModal(true)}>
             <ul>
-              <li class="gal-img-likes">
-                <i class="fas fa-heart"></i> {singlePost.likes.length}
+              <li className="gal-img-likes">
+                <i className="fas fa-heart"></i> {singlePost.likes.length}
               </li>
-              <li class="gal-img-com">
-                <i class="fas fa-comment"></i> {singlePost.comments.length}
+              <li className="gal-img-com">
+                <i className="fas fa-comment"></i> {singlePost.comments.length}
               </li>
             </ul>
           </div>
@@ -311,17 +314,25 @@ const SinglePostCard = ({
             <Modal type="edit" onClose={() => setPostDetailModal(false)}>
               <PostDetailPage
                 setPostDetailModal={setPostDetailModal}
-                singlePostId={singlePostId}
+                singlePostId={singlePost.id}
                 comments={items}
                 inputComment={inputComment}
                 setinputComment={setinputComment}
+                updateLikes={updateLikes}
+                setUpdateLikes={setUpdateLikes}
+                updateCommentLikes={updateCommentLikes}
+                setUpdateCommentLikes={setUpdateCommentLikes}
               />
             </Modal>
           )}
         </div>
-      )}
-    </div>
-  );
-};
+
+
+}
+</>
+  )
+
+}
+
 
 export default SinglePostCard;

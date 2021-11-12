@@ -17,10 +17,11 @@ function CreateNewPostPage({
   const [src, setSrc] = useState([]);
   const user = useSelector((state) => state.session.user);
 
-  const checks = [];
+  const checks = [true];
   for (const image in existImages) {
-    checks.push(true);
+    if (image) checks.push(true);
   }
+
   const [existImageCheckIn, setExistImageCheckIn] = useState(checks);
 
   const editPostHandler = (e) => {

@@ -88,5 +88,14 @@
     "full_name": "Edinéia,Gomes",
     "profile_photo": "https://randomuser.me/api/portraits/women/46.jpg",
     "private": true
+  },
+  {
+    "full_name": "Jessica, Marcus",
+    "email": "user@demo.com",
+    "username": "cooldemouser",
+    "about": "Im here to one up the other demo user.",
+    "hashed_password": "pbkdf2:sha256:260000$JNeVPb7u9GTfHoOI$bf57066dae3a04341f4bbcb7fc6ec0b6ca7d36c3b6a3ce853495f9058cee6997",
+    "profile_photo": "https://randomuser.me/api/portraits/women/37.jpg",
+    "private": false
   }
 ]

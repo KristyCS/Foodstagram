@@ -41,7 +41,6 @@ function PostDetailPage({
   };
 
   useEffect(() => {
-    console.log("singlePost会render吗");
     const newPhotoList = [];
     for (let i = 0; i < singlePost.photos.length; i++) {
       newPhotoList.push(singlePost.photos[i]);
@@ -56,10 +55,9 @@ function PostDetailPage({
     if (imageIdx === 0) {
       setShowPreImgIcon(false);
     }
-  }, [singlePost, imageIdx]);
+  }, [singlePost]);
 
   useEffect(() => {
-    console.log(imageIdx, "$$$$$$");
     setShowNxtImgIcon(true);
     setShowPreImgIcon(true);
     if (imageIdx === photoList.length - 1) {
@@ -73,7 +71,6 @@ function PostDetailPage({
   const handleLikes = async (e, comment_id) => {
     e.stopPropagation();
     const id = Number(e.currentTarget.id);
-    console.log(id);
     if (id > 0) {
       await fetch(`/api/likes/${id}`, {
         method: "DELETE",
@@ -104,7 +101,6 @@ function PostDetailPage({
   };
 
   const userLikes = (comment) => {
-    console.log(comment);
     if (comment.likes) {
       for (const like of comment.likes) {
         if (like.user_id === user.id)
@@ -144,7 +140,7 @@ function PostDetailPage({
               <div className="comment-container">
                 <img
                   className="comment-pfp"
-                  src={`${comment.user.profile_photo}`}
+                  src={`${comment.user.profile_photo ? comment.user.profile_photo : "https://res.cloudinary.com/lpriya/image/upload/v1636533183/Foodstagram/default_dp_dcd3ao.png"}`}
                   alt=""
                 />
                 <div>
@@ -171,7 +167,7 @@ function PostDetailPage({
           );
         }
         return (
-          <li className="single-comment">
+          <li key={idx} className="single-comment">
             <div className="comment-container">
               <img
                 className="comment-pfp"
