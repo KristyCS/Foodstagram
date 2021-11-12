@@ -8,7 +8,6 @@ import "./NavBar.css";
 import { Modal } from "../../context/Modal";
 import CreatePostPage from "../CreatePostPage/CreatePostPage";
 
-
 const NavBar = ({confirmBoolean, setConfirmBoolean}) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);

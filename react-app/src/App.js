@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import LoginForm from "./components/auth/LoginForm";
+import LandingPage from "./components/LandingPage/LandingPage";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/Navigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
@@ -30,13 +30,13 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar
+      {/* <NavBar
         confirmBoolean={confirmBoolean}
         setConfirmBoolean={setConfirmBoolean}
-      />
+      /> */}
       <Switch>
         <Route path="/login" exact={true}>
-          <LoginForm />
+          <LandingPage />
         </Route>
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
@@ -45,16 +45,32 @@ function App() {
           <SinglePostDetails />
         </Route>
         <ProtectedRoute path="/users" exact={true}>
+          <NavBar
+            confirmBoolean={confirmBoolean}
+            setConfirmBoolean={setConfirmBoolean}
+          />
           <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true}>
+          <NavBar
+            confirmBoolean={confirmBoolean}
+            setConfirmBoolean={setConfirmBoolean}
+          />
           <User />
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true}>
+          <NavBar
+            confirmBoolean={confirmBoolean}
+            setConfirmBoolean={setConfirmBoolean}
+          />
           <HomePage />
         </ProtectedRoute>
         <Route path="/users/dashboard/:username" exact={true}>
-          <UserProfile confirmBoolean={confirmBoolean}/>
+          <NavBar
+            confirmBoolean={confirmBoolean}
+            setConfirmBoolean={setConfirmBoolean}
+          />
+          <UserProfile confirmBoolean={confirmBoolean} />
         </Route>
       </Switch>
     </BrowserRouter>
