@@ -45,7 +45,7 @@ const LandingPage = () => {
           <img
             onClick={() => (window.location = "https://github.com/Changh341")}
             src="https://avatars.githubusercontent.com/u/83061284?v=4"
-            alt="Author1"
+            alt="Chang"
           />
           <img
             onClick={() =>
