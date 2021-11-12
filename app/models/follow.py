@@ -4,8 +4,8 @@ class Follow(db.Model):
     __tablename__ = 'follows'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    follower_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    follower_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
 
     def to_dict(self):
