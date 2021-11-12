@@ -286,9 +286,14 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
             <img
               src={singlePost.photos[imageIndex].photo_url}
               alt="display_image"
-              className="display_image"
-              onClick={() => setPostDetailModal(true)}
+              className="u-g-i"
             />
+          </div>
+          <div class="gal-img-info" onClick={() => setPostDetailModal(true)}>
+            <ul>
+              <li class="gal-img-likes"><i class="fas fa-heart" ></i> {singlePost.likes.length}</li>
+              <li class="gal-img-com"><i class="fas fa-comment"></i> {singlePost.comments.length}</li>
+            </ul>
           </div>
           {postDetailModal && (
             <Modal type='edit' onClose={() => setPostDetailModal(false)}>
