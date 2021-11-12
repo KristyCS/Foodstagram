@@ -106,3 +106,15 @@ cursor: default;
   align-items: center;
   justify-content: left;
 }
+
+.user_img_cont {
+  display: flex;
+  padding-bottom: 3%;
+  padding-right: 3%;
+  cursor: pointer;
+}
+
+.u-g-i {
+  width: 300px;
+  height: 300px;
+}

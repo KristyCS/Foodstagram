@@ -285,7 +285,7 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
             <img
               src={singlePost.photos[imageIndex].photo_url}
               alt="display_image"
-              className="display_image"
+              className="u-g-i"
               onClick={() => setPostDetailModal(true)}
             />
           </div>
