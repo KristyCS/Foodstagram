@@ -226,15 +226,15 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
       </div>
       <div className="operation">
         {userLikes()}{" "}
-        <div className={`single_post_user_btn`} id={0} >
+        {/* <div className={`single_post_user_btn`} id={0} >
           <IoChatbubbleOutline onClick={() => test} />
-        </div>
+        </div> */}
       </div>
       <div className="likes">
         <p>{`${singlePost.likes.length} likes`}</p>
       </div>
       <div className="description">
-        <NavLink to="" className="description_user_name">
+        <NavLink  to={`/users/dashboard/${singlePost.user.username}`} className="description_user_name">
           <p>{singlePost.user.username}</p>
         </NavLink>
         <p className="description_content">{singlePost.description}</p>

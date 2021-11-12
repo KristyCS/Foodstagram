@@ -56,7 +56,7 @@ function PostDetailPage({
     if (imageIdx === 0) {
       setShowPreImgIcon(false);
     }
-  }, [singlePost, imageIdx]);
+  }, [singlePost]);
 
   useEffect(() => {
     console.log(imageIdx, "$$$$$$");
