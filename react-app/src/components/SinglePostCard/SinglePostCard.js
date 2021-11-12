@@ -6,7 +6,9 @@ import { Modal } from "../../context/Modal";
 import { ImHeart, ImBubble2 } from "react-icons/im";
 import "./SinglePostCard.css";
 import PostDetailPage from "../PostDetailPage/PostDetailPage"
-const SinglePostCard = ({ singlePostId }) => {
+
+
+const SinglePostCard = ({ singlePostId, photoFeed, userGallery }) => {
   const dispatch = useDispatch();
   const history = useHistory()
   const user = useSelector((state) => state.session.user);
@@ -122,54 +124,82 @@ const SinglePostCard = ({ singlePostId }) => {
 
 
   return (
-    <div className="single_post_container">
-      <div className="single_post_user">
-        <img
-          src={singlePost.user.profile_photo}
-          alt="profile_photo"
-          className="profile_photo"
-        />
-        <p className="user_name">{singlePost.user.username}</p>
-      </div>
-      <div className="main_post_image">
-        <img
-          src={singlePost.photos[imageIndex].photo_url}
-          alt="display_image"
-          className="display_image"
-        />
-      </div>
-      <div className="operation">
-        <ImHeart /> <ImBubble2 onClick={() => test} />
-        {/* <img src={Like} alt="empty heart"className="empty_heart"/> */}
-      </div>
-      <div className="likes">
-        <p>3 likes</p>
-      </div>
-      <div className="description">
-        <NavLink to="" className="description_user_name">
-          <p>{singlePost.user.username}</p>
-        </NavLink>
-        <p className="description_content">{singlePost.description}</p>
-      </div>
-      <div className="view_all_comments">
-        <span onClick={() => setPostDetailModal(true)}>
-          {isThereAnyComments()}
-        </span>
-      </div>
-      <div>{number_of_all_comments && correspondingComments()}</div>
-      <div>
-        <input className='comment-input-bar' placeholder='Add a comment...' value={inputComment} onChange={(event) => { setinputComment(event.target.value) }}>
-        </input>
-        <button className='comment-submit-btn' disabled={!inputComment} onClick={(event) => handleCommentSubmit()}>
-          Post
-        </button>
-      </div>
-      {postDetailModal && (
-        <Modal onClose={() => setPostDetailModal(false)}>
-          <PostDetailPage setPostDetailModal={setPostDetailModal} singlePostId={singlePostId} comments={items} inputComment={inputComment} setinputComment={setinputComment} />
-        </Modal>
-      )}
-    </div>
+    <>
+      {photoFeed &&
+        <div className="single_post_container">
+            <div className="single_post_user">
+              <img
+                src={singlePost.user.profile_photo}
+                alt="profile_photo"
+                className="profile_photo"
+              />
+              <p className="user_name">{singlePost.user.username}</p>
+            </div>
+          <div className="main_post_image">
+            <img
+              src={singlePost.photos[imageIndex].photo_url}
+              alt="display_image"
+              className="display_image"
+            />
+          </div>
+          <div className="operation">
+            <ImHeart /> <ImBubble2 onClick={() => test} />
+            {/* <img src={Like} alt="empty heart"className="empty_heart"/> */}
+          </div>
+          <div className="likes">
+            <p>3 likes</p>
+          </div>
+          <div className="description">
+            <NavLink to="" className="description_user_name">
+              <p>{singlePost.user.username}</p>
+            </NavLink>
+            <p className="description_content">{singlePost.description}</p>
+          </div>
+          <div className="view_all_comments">
+            <span onClick={() => setPostDetailModal(true)}>
+              {isThereAnyComments()}
+            </span>
+          </div>
+          <div>{number_of_all_comments && correspondingComments()}</div>
+          <div>
+            <input className='comment-input-bar' placeholder='Add a comment...' value={inputComment} onChange={(event) => { setinputComment(event.target.value) }}>
+            </input>
+            <button className='comment-submit-btn' disabled={!inputComment} onClick={(event) => handleCommentSubmit()}>
+              Post
+            </button>
+          </div>
+          {postDetailModal && (
+            <Modal onClose={() => setPostDetailModal(false)}>
+              <PostDetailPage setPostDetailModal={setPostDetailModal} singlePostId={singlePostId} comments={items} inputComment={inputComment} setinputComment={setinputComment} />
+            </Modal>
+          )}
+        </div>
+      }
+
+      {userGallery &&
+        <div className="user_img_cont">
+          <div className="user_img">
+            <img
+              src={singlePost.photos[imageIndex].photo_url}
+              alt="display_image"
+              className="display_image"
+              onClick={() => setPostDetailModal(true)}
+            />
+          </div>
+          {postDetailModal && (
+            <Modal onClose={() => setPostDetailModal(false)}>
+              <PostDetailPage
+                setPostDetailModal={setPostDetailModal}
+                singlePostId={singlePostId}
+                comments={items}
+                inputComment={inputComment}
+                setinputComment={setinputComment}
+              />
+            </Modal>
+          )}
+        </div>
+      }
+    </>
   );
 };
 
