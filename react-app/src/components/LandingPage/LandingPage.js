@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
-import { login } from "../../store/session";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import {  useDispatch } from "react-redux";
 import LoginForm from "../auth/LoginForm";
 import SignUpForm from "../auth/SignUpForm";
+import {login} from "../../store/session"
 import "./LandingPage.css";
 const LandingPage = () => {
   const dispatch = useDispatch();

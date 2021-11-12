@@ -7,6 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  scrollbar-width: none;
 }
 
 #modal-background {
@@ -40,6 +41,9 @@
 }
 #edit {
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: 40px;
   left: 200px;
   right: 200px;
