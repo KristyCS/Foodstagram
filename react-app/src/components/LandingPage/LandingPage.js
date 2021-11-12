@@ -5,20 +5,22 @@ import { useSelector, useDispatch } from "react-redux";
 import LoginForm from "../auth/LoginForm";
 import SignUpForm from "../auth/SignUpForm";
 import "./LandingPage.css";
+
+
 const LandingPage = () => {
   const dispatch = useDispatch();
   const credential = "demo@demo.com";
   const password_demo = "password";
   const credential2 = "user@demo.com";
   const [signUp, setSignUp] = useState(false);
-  const [login, setLogin] = useState(true);
+  const [loginStatus, setLoginStatus] = useState(true);
   return (
     <div className="landing-container">
       <div className="blank"></div>
       <div className="login">
         <p className="home-link">Foodstagram</p>
         {signUp && <SignUpForm />}
-        {login &&( <>
+        {loginStatus &&( <>
         <LoginForm />
         <button onClick={() => dispatch(login(credential, password_demo))}>
           Login As Demo User1
@@ -32,7 +34,7 @@ const LandingPage = () => {
             className="sign-up"
             onClick={() => {
               setSignUp(true);
-              setLogin(false);
+              setLoginStatus(false);
             }}
           >
             Sign Up
