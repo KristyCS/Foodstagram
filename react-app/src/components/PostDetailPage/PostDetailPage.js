@@ -24,7 +24,7 @@ function PostDetailPage({
   updateLikes,
   setUpdateLikes,
   updateCommentLikes,
-  setUpdateCommentLikes
+  setUpdateCommentLikes,
 }) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -85,7 +85,7 @@ function PostDetailPage({
         }),
       });
       setUpdateLikes(!updateLikes);
-      setUpdateCommentLikes(!updateCommentLikes)
+      setUpdateCommentLikes(!updateCommentLikes);
       return;
     }
     await fetch(`/api/likes`, {
@@ -99,12 +99,12 @@ function PostDetailPage({
       }),
     });
     setUpdateLikes(!updateLikes);
-    setUpdateCommentLikes(!updateCommentLikes)
+    setUpdateCommentLikes(!updateCommentLikes);
     return;
   };
 
   const userLikes = (comment) => {
-    console.log(comment)
+    console.log(comment);
     if (comment.likes) {
       for (const like of comment.likes) {
         if (like.user_id === user.id)
