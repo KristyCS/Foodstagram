@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-import { Modal } from "../../context/Modal"
+import { Modal } from "../../context/Modal";
 import EditPostPage from "../EditPostPage/EditPostPage";
 import {
   IoArrowForwardCircleOutline,
@@ -13,7 +13,13 @@ import { GrEdit } from "react-icons/gr";
 import "./PostDetailPage.css";
 import { createComment, destroyComment } from "../../store/posts";
 
-function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComment, setinputComment }) {
+function PostDetailPage({
+  setPostDetailModal,
+  singlePostId,
+  comments,
+  inputComment,
+  setinputComment,
+}) {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
@@ -30,9 +36,9 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
 
   useEffect(() => {
     console.log("singlePost会render吗");
-    const newPhotoList=[]
-    for(let i=0; i< singlePost.photos.length;i++){
-      newPhotoList.push(singlePost.photos[i])
+    const newPhotoList = [];
+    for (let i = 0; i < singlePost.photos.length; i++) {
+      newPhotoList.push(singlePost.photos[i]);
     }
     setPhotoList([...singlePost.photos]);
     setImageIdx(0);
@@ -47,7 +53,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
   }, [singlePost]);
 
   useEffect(() => {
-    console.log(imageIdx,"$$$$$$");
+    console.log(imageIdx, "$$$$$$");
     setShowNxtImgIcon(true);
     setShowPreImgIcon(true);
     if (imageIdx === photoList.length - 1) {
@@ -58,67 +64,86 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
     }
   }, [imageIdx, photoList.length]);
 
-
   const commentLoader = (comments) => {
     if (Object.keys(comments).length) {
-      const commentsArr = Object.values(comments)
-      return (
-
-        commentsArr.map((comment,idx) => {
-          if (comment.user.id == user.id) {
-
-            return (
-              <li key={idx} className='single-comment'>
-                <div className='comment-container'>
-                  <img className='comment-pfp' src={`${comment.user.profile_photo}`} alt=""/>
-                  <div>
-                    <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
-                    &nbsp;&nbsp;{comment.content}
-                  </div>
-                </div>
-                <div>
-                </div>
-                <button className='comments-delete-btn' onClick={(event) => { handleDelete(comment.id, comment.post.id) }}>Delete</button>
-              </li>
-            )
-          }
+      const commentsArr = Object.values(comments);
+      return commentsArr.map((comment, idx) => {
+        if (comment.user.id == user.id) {
           return (
-            <li className='single-comment'>
-              <div className='comment-container'>
-                <img className='comment-pfp' src={`${comment.user.profile_photo}`} alt=""/>
+            <li key={idx} className="single-comment">
+              <div className="comment-container">
+                <img
+                  className="comment-pfp"
+                  src={`${comment.user.profile_photo}`}
+                  alt=""
+                />
                 <div>
-                  <span className='usernames-link' onClick={(event) => toProfile(comment.user.username)}>{comment.user.username}</span>
+                  <span
+                    className="usernames-link"
+                    onClick={(event) => toProfile(comment.user.username)}
+                  >
+                    {comment.user.username}
+                  </span>
                   &nbsp;&nbsp;{comment.content}
                 </div>
               </div>
+              <div></div>
+              <button
+                className="comments-delete-btn"
+                onClick={(event) => {
+                  handleDelete(comment.id, comment.post.id);
+                }}
+              >
+                Delete
+              </button>
             </li>
-          )
-        })
-      )
+          );
+        }
+        return (
+          <li className="single-comment">
+            <div className="comment-container">
+              <img
+                className="comment-pfp"
+                src={`${comment.user.profile_photo}`}
+                alt=""
+              />
+              <div>
+                <span
+                  className="usernames-link"
+                  onClick={(event) => toProfile(comment.user.username)}
+                >
+                  {comment.user.username}
+                </span>
+                &nbsp;&nbsp;{comment.content}
+              </div>
+            </div>
+          </li>
+        );
+      });
     }
-  }
+  };
   const handleSubmit = async (event) => {
     const payload = {
       user_id: user.id,
       post_id: singlePost.id,
-      content: inputComment
+      content: inputComment,
     };
-    dispatch(createComment(payload))
-    setinputComment('')
-    return null
-  }
+    dispatch(createComment(payload));
+    setinputComment("");
+    return null;
+  };
   const handleDelete = async (commentId, postId) => {
     const payload = {
       commentId,
-      postId
-    }
-    dispatch(destroyComment(payload))
-    return null
-  }
+      postId,
+    };
+    dispatch(destroyComment(payload));
+    return null;
+  };
 
   const toProfile = (username) => {
-    history.push(`/users/dashboard/${username}`)
-  }
+    history.push(`/users/dashboard/${username}`);
+  };
 
   return (
     <div className="post_detail_container">
@@ -154,7 +179,9 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
             src={singlePost.user.profile_photo}
             alt=""
           />
-          <NavLink to="">{singlePost.user.username}</NavLink>
+          <NavLink to={`/users/dashboard/${singlePost.user.username}`}>
+            {singlePost.user.username}
+          </NavLink>
           <p> {"  ·  "} </p>
           <p>following</p>
           {singlePost.user.id === user.id && (
@@ -164,7 +191,7 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
             </>
           )}
           {showEditPostModal && (
-            <Modal type='edit' onClose={() => setShowEditPostModal(false)}>
+            <Modal type="edit" onClose={() => setShowEditPostModal(false)}>
               <EditPostPage
                 setPostDetailModal={setPostDetailModal}
                 setShowEditPostModal={setShowEditPostModal}
@@ -179,16 +206,28 @@ function PostDetailPage({ setPostDetailModal, singlePostId, comments, inputComme
             src={singlePost.user.profile_photo}
             alt=""
           />
-          <NavLink to="">{singlePost.user.username}</NavLink>
+          <NavLink to={`/users/dashboard/${singlePost.user.username}`}>
+            {singlePost.user.username}
+          </NavLink>
           <p className="">{singlePost.description}</p>
         </div>
-        <div className='detailed-comment-area'>
-          {commentLoader(comments)}
-        </div>
+        <div className="detailed-comment-area">{commentLoader(comments)}</div>
         <div className="comment-input-container">
-          <input className='comment-input-bar' placeholder='Add a comment...' value={inputComment} onChange={(event) => { setinputComment(event.target.value) }}>
-          </input>
-          <button className='comment-submit-btn' disabled={!inputComment} onClick={(event) => handleSubmit()}>Post</button>
+          <input
+            className="comment-input-bar"
+            placeholder="Add a comment..."
+            value={inputComment}
+            onChange={(event) => {
+              setinputComment(event.target.value);
+            }}
+          ></input>
+          <button
+            className="comment-submit-btn"
+            disabled={!inputComment}
+            onClick={(event) => handleSubmit()}
+          >
+            Post
+          </button>
         </div>
       </div>
     </div>
