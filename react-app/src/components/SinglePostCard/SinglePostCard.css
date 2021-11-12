@@ -112,9 +112,35 @@ cursor: default;
   padding-bottom: 3%;
   padding-right: 3%;
   cursor: pointer;
+  position: relative;
 }
 
 .u-g-i {
   width: 300px;
   height: 300px;
+}
+
+.gal-img-info {
+  display: none;
+  width: 300px;
+  height: 300px;
+}
+
+.gal-img-info li {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.gal-img-likes {
+  margin-right: 30px;
+}
+
+.user_img_cont:hover .gal-img-info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  position: absolute;
 }
