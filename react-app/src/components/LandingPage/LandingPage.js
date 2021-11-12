@@ -8,34 +8,37 @@ const LandingPage = () => {
   const credential = "demo@demo.com";
   const password_demo = "password";
   const credential2 = "user@demo.com";
-  const [signUp, setSignUp] = useState(false);
-  const [login, setLogin] = useState(true);
+  const [openSignUp, setOpenSignUp] = useState(false);
+  const [openLogin, setOpenLogin] = useState(true);
   return (
     <div className="landing-container">
       <div className="blank"></div>
       <div className="login">
         <p className="home-link">Foodstagram</p>
-        {signUp && <SignUpForm />}
-        {login &&( <>
-        <LoginForm />
-        <button onClick={() => dispatch(login(credential, password_demo))}>
-          Login As Demo User1
-        </button>
-        <button onClick={() => dispatch(login(credential2, password_demo))}>
-          Login As Demo User2
-        </button>
-        <div className="suggest-sign-up">
-          <p>Don't have an account?</p>
-          <p
-            className="sign-up"
-            onClick={() => {
-              setSignUp(true);
-              setLogin(false);
-            }}
-          >
-            Sign Up
-          </p>
-        </div></>)}
+        {openSignUp && <SignUpForm />}
+        {openLogin && (
+          <>
+            <LoginForm />
+            <button onClick={() => dispatch(login(credential, password_demo))}>
+              Login As Demo User1
+            </button>
+            <button onClick={() => dispatch(login(credential2, password_demo))}>
+              Login As Demo User2
+            </button>
+            <div className="suggest-sign-up">
+              <p>Don't have an account?</p>
+              <p
+                className="sign-up"
+                onClick={() => {
+                  setOpenSignUp(true);
+                  setOpenLogin(false);
+                }}
+              >
+                Sign Up
+              </p>
+            </div>
+          </>
+        )}
         <div className="story">
           <img
             onClick={() => (window.location = "https://github.com/Changh341")}
@@ -46,7 +49,7 @@ const LandingPage = () => {
             onClick={() =>
               (window.location = "https://github.com/LakshmiPriyaPrakash")
             }
-            src="https://avatars.githubusercontent.com/u/69326826?v=4"
+            src="https://media.discordapp.net/attachments/904858208127057970/908825913418981476/me.jpg"
             alt="Author2"
           />
           <img
