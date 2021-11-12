@@ -236,7 +236,7 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
             <p>{`${singlePost.likes.length} likes`}</p>
           </div>
           <div className="description">
-            <NavLink to="" className="description_user_name">
+            <NavLink  to={`/users/dashboard/${singlePost.user.username}`} className="description_user_name">
               <p>{singlePost.user.username}</p>
             </NavLink>
             <p className="description_content">{singlePost.description}</p>
