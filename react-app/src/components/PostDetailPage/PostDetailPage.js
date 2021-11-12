@@ -144,7 +144,7 @@ function PostDetailPage({
               <div className="comment-container">
                 <img
                   className="comment-pfp"
-                  src={`${comment.user.profile_photo}`}
+                  src={`${comment.user.profile_photo ? comment.user.profile_photo : "https://res.cloudinary.com/lpriya/image/upload/v1636533183/Foodstagram/default_dp_dcd3ao.png"}`}
                   alt=""
                 />
                 <div>
