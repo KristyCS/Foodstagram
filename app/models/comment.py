@@ -20,7 +20,8 @@ class Comment(db.Model):
             'id': self.id,
             'user': self.user.to_simple_dict(),
             'post': self.post.to_simple_dict(),
-            'content': self.content
+            'content': self.content,
+            'likes': [like.to_simple_dict() for like in self.likes]
         }
 
     def to_simple_dict(self):

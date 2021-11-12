@@ -18,11 +18,12 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
-  const [imageIndex, setImageIndex] = useState(0);
+  const [imageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [inputComment, setinputComment] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
+  const [updateCommentLikes, setUpdateCommentLikes] = useState(false)
   const [items, setItems] = useState([]);
   const number_of_all_comments = singlePost.comments.length;
 
@@ -33,7 +34,7 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
         setItems(result);
         setIsLoaded(true);
       });
-  }, [number_of_all_comments, singlePost.id]);
+  }, [number_of_all_comments, singlePost.id, updateCommentLikes]);
 
   const userLikes = () => {
     for (const like of singlePost.likes) {
@@ -272,14 +273,14 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
             setinputComment={setinputComment}
             updateLikes={updateLikes}
             setUpdateLikes={setUpdateLikes}
+            updateCommentLikes={updateCommentLikes}
+            setUpdateCommentLikes={setUpdateCommentLikes}
           />
 
             </Modal>
           )}
-        </div>
-      }
 
-      {userGallery &&
+{userGallery &&
         <div className="user_img_cont">
           <div className="user_img">
             <img
@@ -302,8 +303,10 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
           )}
         </div>
       }
-    </>
-  );
-};
+        </div>
+  )}
+
+
+
 
 export default SinglePostCard;

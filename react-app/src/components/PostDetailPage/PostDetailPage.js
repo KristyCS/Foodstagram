@@ -23,6 +23,8 @@ function PostDetailPage({
   setinputComment,
   updateLikes,
   setUpdateLikes,
+  updateCommentLikes,
+  setUpdateCommentLikes
 }) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -54,7 +56,7 @@ function PostDetailPage({
     if (imageIdx === 0) {
       setShowPreImgIcon(false);
     }
-  }, [singlePost]);
+  }, [singlePost, imageIdx]);
 
   useEffect(() => {
     console.log(imageIdx, "$$$$$$");
@@ -68,9 +70,10 @@ function PostDetailPage({
     }
   }, [imageIdx, photoList.length]);
 
-  const handleLikes = async (e) => {
+  const handleLikes = async (e, comment_id) => {
     e.stopPropagation();
     const id = Number(e.currentTarget.id);
+    console.log(id);
     if (id > 0) {
       await fetch(`/api/likes/${id}`, {
         method: "DELETE",
@@ -82,6 +85,7 @@ function PostDetailPage({
         }),
       });
       setUpdateLikes(!updateLikes);
+      setUpdateCommentLikes(!updateCommentLikes)
       return;
     }
     await fetch(`/api/likes`, {
@@ -91,22 +95,26 @@ function PostDetailPage({
       },
       body: JSON.stringify({
         user_id: user.id,
-        comment_id: singlePost.id,
+        comment_id: comment_id,
       }),
     });
     setUpdateLikes(!updateLikes);
+    setUpdateCommentLikes(!updateCommentLikes)
     return;
   };
 
-  const userLikes = () => {
-    if (singlePost.comments.likes) {
-      for (const like of singlePost.comments.likes) {
+  const userLikes = (comment) => {
+    console.log(comment)
+    if (comment.likes) {
+      for (const like of comment.likes) {
         if (like.user_id === user.id)
           return (
             <div
               className={`single_post_user_btn liked`}
               id={`${like.id}`}
-              onClick={handleLikes}
+              onClick={(e) => {
+                handleLikes(e, comment.id);
+              }}
             >
               <IoHeartSharp />
             </div>
@@ -114,7 +122,13 @@ function PostDetailPage({
       }
     }
     return (
-      <div className={`single_post_user_btn`} id={0} onClick={handleLikes}>
+      <div
+        className={`single_post_user_btn`}
+        id={0}
+        onClick={(e) => {
+          handleLikes(e, comment.id);
+        }}
+      >
         <IoHeartOutline />
       </div>
     );
@@ -124,7 +138,7 @@ function PostDetailPage({
     if (Object.keys(comments).length) {
       const commentsArr = Object.values(comments);
       return commentsArr.map((comment, idx) => {
-        if (comment.user.id == user.id) {
+        if (comment.user.id === user.id) {
           return (
             <li key={idx} className="single-comment">
               <div className="comment-container">
@@ -142,7 +156,7 @@ function PostDetailPage({
                   </span>
                   &nbsp;&nbsp;{comment.content}
                 </div>
-                {userLikes()}
+                {userLikes(comment)}
               </div>
               <div></div>
               <button
@@ -173,7 +187,7 @@ function PostDetailPage({
                 </span>
                 &nbsp;&nbsp;{comment.content}
               </div>
-              {userLikes()}
+              {userLikes(comment)}
             </div>
           </li>
         );
