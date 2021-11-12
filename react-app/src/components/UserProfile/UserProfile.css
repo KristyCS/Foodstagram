@@ -3,6 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 1px solid gray;
 }
 
 .dis-pic-cont {
@@ -31,3 +32,9 @@
     display: flex;
 }
 
+.user-gallery-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+}

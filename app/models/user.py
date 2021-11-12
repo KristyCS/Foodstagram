@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(100), nullable=True)
     about = db.Column(db.String(),nullable=True)
-    profile_photo = db.Column(db.String(), nullable=True)
+    profile_photo = db.Column(db.String(), nullable=True, default="https://res.cloudinary.com/lpriya/image/upload/v1636533183/Foodstagram/default_dp_dcd3ao.png")
     private = db.Column(db.Boolean(),nullable = False, default= False)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
