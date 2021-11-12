@@ -30,8 +30,12 @@
   flex-direction: row;
   gap: 10px;
 }
-.description_user_name > p {
+.description_user_name  {
   font-weight: 900;
+}
+
+.description_content {
+  padding: 10px;
 }
 
 .view_all_comments{
@@ -141,4 +145,20 @@ cursor: default;
   background-color: rgba(0, 0, 0, 0.3);
   color: white;
   position: absolute;
+}
+
+.likes > p {
+  padding: 10px;
+}
+
+.view_all_comments {
+  padding: 10px;
+}
+
+.view_all_comments_container {
+  padding: 10px;
+}
+
+.comment-input-bar {
+  padding: 10px;
 }

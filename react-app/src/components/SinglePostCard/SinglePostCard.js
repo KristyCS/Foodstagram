@@ -117,7 +117,7 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
         if (firstComment.content.length > 50) {
         }
         return (
-          <div>
+          <div className="view_all_comments_container">
             {!showMore && hideShowComment(false, firstComment)}
             {showMore && hideShowComment(true, firstComment)}
           </div>
@@ -234,10 +234,12 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
         <p>{`${singlePost.likes.length} likes`}</p>
       </div>
       <div className="description">
-        <NavLink to="" className="description_user_name">
+        {/* <NavLink to="" className="description_user_name">
           <p>{singlePost.user.username}</p>
-        </NavLink>
-        <p className="description_content">{singlePost.description}</p>
+        </NavLink> */}
+        <p className="description_content"><NavLink to="" className="description_user_name">
+          {singlePost.user.username}
+        </NavLink>  {singlePost.description}</p>
       </div>
       <div className="view_all_comments">
         <span onClick={() => setPostDetailModal(true)}>
