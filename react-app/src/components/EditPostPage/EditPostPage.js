@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editPost } from "../../store/posts";
 import "./EditPostPage.css";
@@ -11,7 +11,7 @@ function CreateNewPostPage({
   const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
 
   const [description, setDescription] = useState(singlePost.description);
-  const [existImages, setExistImages] = useState(singlePost.photos);
+  const [existImages] = useState(singlePost.photos);
   const [newAddedImages, setNewAddedImages] = useState([]);
   const [errors, setErrors] = useState([]);
   const [src, setSrc] = useState([]);
