@@ -51,7 +51,7 @@
 }
 .usernames-link:hover {
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .comment-input-bar {
