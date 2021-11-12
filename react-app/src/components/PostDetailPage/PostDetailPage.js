@@ -6,6 +6,8 @@ import EditPostPage from "../EditPostPage/EditPostPage";
 import {
   IoArrowForwardCircleOutline,
   IoArrowBackCircleOutline,
+  IoHeartOutline,
+  IoHeartSharp,
 } from "react-icons/io5";
 import { deletePost } from "../../store/posts";
 import { RiDeleteBin5Line } from "react-icons/ri";
@@ -19,6 +21,10 @@ function PostDetailPage({
   comments,
   inputComment,
   setinputComment,
+  updateLikes,
+  setUpdateLikes,
+  updateCommentLikes,
+  setUpdateCommentLikes
 }) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -50,7 +56,7 @@ function PostDetailPage({
     if (imageIdx === 0) {
       setShowPreImgIcon(false);
     }
-  }, [singlePost]);
+  }, [singlePost, imageIdx]);
 
   useEffect(() => {
     console.log(imageIdx, "$$$$$$");
@@ -64,11 +70,75 @@ function PostDetailPage({
     }
   }, [imageIdx, photoList.length]);
 
+  const handleLikes = async (e, comment_id) => {
+    e.stopPropagation();
+    const id = Number(e.currentTarget.id);
+    console.log(id);
+    if (id > 0) {
+      await fetch(`/api/likes/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      });
+      setUpdateLikes(!updateLikes);
+      setUpdateCommentLikes(!updateCommentLikes)
+      return;
+    }
+    await fetch(`/api/likes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        comment_id: comment_id,
+      }),
+    });
+    setUpdateLikes(!updateLikes);
+    setUpdateCommentLikes(!updateCommentLikes)
+    return;
+  };
+
+  const userLikes = (comment) => {
+    console.log(comment)
+    if (comment.likes) {
+      for (const like of comment.likes) {
+        if (like.user_id === user.id)
+          return (
+            <div
+              className={`single_post_user_btn liked`}
+              id={`${like.id}`}
+              onClick={(e) => {
+                handleLikes(e, comment.id);
+              }}
+            >
+              <IoHeartSharp />
+            </div>
+          );
+      }
+    }
+    return (
+      <div
+        className={`single_post_user_btn`}
+        id={0}
+        onClick={(e) => {
+          handleLikes(e, comment.id);
+        }}
+      >
+        <IoHeartOutline />
+      </div>
+    );
+  };
+
   const commentLoader = (comments) => {
     if (Object.keys(comments).length) {
       const commentsArr = Object.values(comments);
       return commentsArr.map((comment, idx) => {
-        if (comment.user.id == user.id) {
+        if (comment.user.id === user.id) {
           return (
             <li key={idx} className="single-comment">
               <div className="comment-container">
@@ -86,6 +156,7 @@ function PostDetailPage({
                   </span>
                   &nbsp;&nbsp;{comment.content}
                 </div>
+                {userLikes(comment)}
               </div>
               <div></div>
               <button
@@ -116,6 +187,7 @@ function PostDetailPage({
                 </span>
                 &nbsp;&nbsp;{comment.content}
               </div>
+              {userLikes(comment)}
             </div>
           </li>
         );

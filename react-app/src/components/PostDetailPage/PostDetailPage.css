@@ -10,7 +10,7 @@
   height: 100%;
   display: flex;
   align-items: center;
-  position: relative; 
+  position: relative;
   object-fit: cover;
 }
 
@@ -78,8 +78,8 @@
 .detailed-comment-area {
   overflow-y: auto;
   scrollbar-width: thin;
-  max-height: 400px; 
-  
+  max-height: 400px;
+
 }
 
 .single-comment {
@@ -111,4 +111,9 @@
 .comment-input-container{
   margin-bottom: 0;
   padding-bottom: 0;
+}
+
+.single_comment_like {
+  font-size: 40px;
+  color: aqua;
 }

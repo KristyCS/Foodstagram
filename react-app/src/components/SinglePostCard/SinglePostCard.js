@@ -18,11 +18,12 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const singlePost = useSelector((state) => state.posts.allPosts[singlePostId]);
-  const [imageIndex, setImageIndex] = useState(0);
+  const [imageIndex] = useState(0);
   const [postDetailModal, setPostDetailModal] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [inputComment, setinputComment] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
+  const [updateCommentLikes, setUpdateCommentLikes] = useState(false)
   const [items, setItems] = useState([]);
   const number_of_all_comments = singlePost.comments.length;
 
@@ -33,7 +34,7 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
         setItems(result);
         setIsLoaded(true);
       });
-  }, [number_of_all_comments, singlePost.id]);
+  }, [number_of_all_comments, singlePost.id, updateCommentLikes]);
 
   const userLikes = () => {
     for (const like of singlePost.likes) {
@@ -56,7 +57,8 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
   };
 
   const handleLikes = async (e) => {
-    const id = Number(e.currentTarget.id);
+    e.stopPropagation()
+    const id = Number(e.currentTarget.id)
     if (id > 0) {
       await fetch(`/api/likes/${id}`, {
         method: "DELETE",
@@ -206,79 +208,79 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
   };
 
   return (
-    <>
-      {photoFeed &&
-        <div className="single_post_container">
-            <div className="single_post_user">
-              <img
-                src={singlePost.user.profile_photo}
-                alt="profile_photo"
-                className="profile_photo"
-              />
-              <p className="user_name">{singlePost.user.username}</p>
-            </div>
-          <div className="main_post_image">
-            <img
-              src={singlePost.photos[imageIndex].photo_url}
-              alt="display_image"
-              className="display_image"
-            />
-          </div>
-          <div className="operation">
-                {userLikes()}{" "}
-              <div className={`single_post_user_btn`} id={0} onClick={handleLikes}>
-                <IoChatbubbleOutline onClick={() => test} />
-              </div>
-            </div>
-            <div className="likes">
-              <p>{`${singlePost.likes.length} likes`}</p>
-            </div>
-          <div className="description">
-            <NavLink  to={`/users/dashboard/${singlePost.user.username}`} className="description_user_name">
-              <p>{singlePost.user.username}</p>
-            </NavLink>
-            <p className="description_content">{singlePost.description}</p>
-          </div>
-          <div className="view_all_comments">
-            <span onClick={() => setPostDetailModal(true)}>
-              {isThereAnyComments()}
-            </span>
-          </div>
-          <div>{number_of_all_comments ? correspondingComments() : null}</div>
-          <div>
-            <input
-              className="comment-input-bar"
-              placeholder="Add a comment..."
-              value={inputComment}
-              onChange={(event) => {
-                setinputComment(event.target.value);
-              }}
-            ></input>
-            <button
-              className="comment-submit-btn"
-              disabled={!inputComment}
-              onClick={(event) => handleCommentSubmit()}
-            >
-              Post
-            </button>
-          </div>
-          {postDetailModal && (
+    <div className="single_post_container">
+      <div className="single_post_user">
+        <img
+          src={singlePost.user.profile_photo}
+          alt="profile_photo"
+          className="profile_photo"
+        />
+        <p className="user_name">{singlePost.user.username}</p>
+      </div>
+      <div className="main_post_image">
+        <img
+          src={singlePost.photos[imageIndex].photo_url}
+          alt="display_image"
+          className="display_image"
+        />
+      </div>
+      <div className="operation">
+        {userLikes()}{" "}
+        <div className={`single_post_user_btn`} id={0} >
+          <IoChatbubbleOutline onClick={() => test} />
+        </div>
+      </div>
+      <div className="likes">
+        <p>{`${singlePost.likes.length} likes`}</p>
+      </div>
+      <div className="description">
+        <NavLink to="" className="description_user_name">
+          <p>{singlePost.user.username}</p>
+        </NavLink>
+        <p className="description_content">{singlePost.description}</p>
+      </div>
+      <div className="view_all_comments">
+        <span onClick={() => setPostDetailModal(true)}>
+          {isThereAnyComments()}
+        </span>
+      </div>
+      <div>{number_of_all_comments ? correspondingComments() : null}</div>
+      <div>
+        <input
+          className="comment-input-bar"
+          placeholder="Add a comment..."
+          value={inputComment}
+          onChange={(event) => {
+            setinputComment(event.target.value);
+          }}
+        ></input>
+        <button
+          className="comment-submit-btn"
+          disabled={!inputComment}
+          onClick={(event) => handleCommentSubmit()}
+        >
+          Post
+        </button>
+      </div>
+      {postDetailModal && (
 
-            <Modal type='edit' onClose={() => setPostDetailModal(false)}>
-              <PostDetailPage
-                setPostDetailModal={setPostDetailModal}
-                singlePostId={singlePost.id}
-                comments={items}
-                inputComment={inputComment}
-                setinputComment={setinputComment}
-              />
+        <Modal type='edit' onClose={() => setPostDetailModal(false)}>
+          <PostDetailPage
+            setPostDetailModal={setPostDetailModal}
+            singlePostId={singlePost.id}
+            comments={items}
+            inputComment={inputComment}
+            setinputComment={setinputComment}
+            updateLikes={updateLikes}
+            setUpdateLikes={setUpdateLikes}
+            updateCommentLikes={updateCommentLikes}
+            setUpdateCommentLikes={setUpdateCommentLikes}
+          />
 
             </Modal>
           )}
-        </div>
-      }
 
-      {userGallery &&
+{userGallery &&
         <div className="user_img_cont">
           <div className="user_img">
             <img
@@ -301,8 +303,10 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
           )}
         </div>
       }
-    </>
-  );
-};
+        </div>
+  )}
+
+
+
 
 export default SinglePostCard;
