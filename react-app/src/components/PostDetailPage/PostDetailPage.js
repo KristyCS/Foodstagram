@@ -100,19 +100,19 @@ function PostDetailPage({
 
   const userLikes = () => {
     if (singlePost.comments.likes) {
-    for (const like of singlePost.comments.likes) {
-      if (like.user_id === user.id)
-        return (
-          <div
-            className={`single_post_user_btn liked`}
-            id={`${like.id}`}
-            onClick={handleLikes}
-          >
-            <IoHeartSharp />
-          </div>
-        );
+      for (const like of singlePost.comments.likes) {
+        if (like.user_id === user.id)
+          return (
+            <div
+              className={`single_post_user_btn liked`}
+              id={`${like.id}`}
+              onClick={handleLikes}
+            >
+              <IoHeartSharp />
+            </div>
+          );
+      }
     }
-  }
     return (
       <div className={`single_post_user_btn`} id={0} onClick={handleLikes}>
         <IoHeartOutline />
