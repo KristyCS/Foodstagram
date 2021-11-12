@@ -8,11 +8,14 @@ import "./NavBar.css";
 import { Modal } from "../../context/Modal";
 import CreatePostPage from "../CreatePostPage/CreatePostPage";
 
-const NavBar = ({confirmBoolean, setConfirmBoolean}) => {
+
+const NavBar = ({ confirmBoolean, setConfirmBoolean }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const credential = "demo@demo.com";
   const password = "password";
+  const credential2 = 'user@demo.com'
+  const password2 = 'password';
   const [showCreatePostModal, setShowCreatePostModal] = useState(false);
 
   let sessionLinks;
@@ -81,6 +84,12 @@ const NavBar = ({confirmBoolean, setConfirmBoolean}) => {
           onClick={() => dispatch(login(credential, password))}
         >
           Demo User
+        </div>
+        <div
+          id="demo-btn"
+          onClick={() => dispatch(login(credential2, password2))}
+        >
+          Cooler Demo User
         </div>
       </>
     );
