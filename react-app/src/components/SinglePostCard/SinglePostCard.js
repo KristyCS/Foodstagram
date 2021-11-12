@@ -56,7 +56,7 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
   };
 
   const handleLikes = async (e) => {
-    const id = Number(e.currentTarget.id)
+    const id = Number(e.currentTarget.id);
     if (id > 0) {
       await fetch(`/api/likes/${id}`, {
         method: "DELETE",
@@ -64,24 +64,24 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: id
+          id: id,
         }),
-      })
-      setUpdateLikes(!updateLikes)
-      return
+      });
+      setUpdateLikes(!updateLikes);
+      return;
     }
     await fetch(`/api/likes`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         user_id: user.id,
-        post_id: singlePost.id
-      })
-    })
-    setUpdateLikes(!updateLikes)
-    return
+        post_id: singlePost.id,
+      }),
+    });
+    setUpdateLikes(!updateLikes);
+    return;
   };
 
   const correspondingComments = () => {
@@ -110,7 +110,7 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
         const commentId = Object.keys(items);
         const firstComment = items[commentId[0]];
         if (!firstComment) {
-          return null
+          return null;
         }
         if (firstComment.content.length > 50) {
         }
@@ -205,7 +205,6 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
     history.push(`/users/dashboard/${username}`);
   };
 
-
   return (
     <>
       {photoFeed &&
@@ -235,7 +234,7 @@ const SinglePostCard = ({ singlePostId, photoFeed, userGallery, setUpdateLikes, 
               <p>{`${singlePost.likes.length} likes`}</p>
             </div>
           <div className="description">
-            <NavLink to="" className="description_user_name">
+            <NavLink  to={`/users/dashboard/${singlePost.user.username}`} className="description_user_name">
               <p>{singlePost.user.username}</p>
             </NavLink>
             <p className="description_content">{singlePost.description}</p>
