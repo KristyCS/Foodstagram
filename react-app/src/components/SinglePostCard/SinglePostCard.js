@@ -243,7 +243,7 @@ const SinglePostCard = ({
       <div className="description">
 
         <p className="description_content">
-          <NavLink to="" className="description_user_name">
+          <NavLink  to={`/users/dashboard/${singlePost.user.username}`} className="description_user_name">
             {singlePost.user.username}
           </NavLink>{" "}
           {singlePost.description}
