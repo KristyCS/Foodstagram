@@ -30,7 +30,7 @@
   flex-direction: row;
   gap: 10px;
 }
-.description_user_name  {
+.description_user_name {
   font-weight: 900;
 }
 
@@ -38,16 +38,14 @@
   padding: 10px;
 }
 
-.view_all_comments{
-    color:#8e8e8e;
-    cursor: pointer;
+.view_all_comments {
+  color: #8e8e8e;
+  cursor: pointer;
 }
-
 
 .usernames-link {
   font-weight: bold;
   font-size: 15px;
-
 }
 .usernames-link:hover {
   cursor: pointer;
@@ -60,19 +58,19 @@
 
 .comment-submit-btn {
   background-color: transparent;
-  color: #2D66E9;
+  color: #2d66e9;
   border: none;
-margin-left: 8px;
-font-weight: bolder;
-cursor: pointer;
+  margin-left: 8px;
+  font-weight: bolder;
+  cursor: pointer;
 }
 .comment-submit-btn:disabled {
   font-weight: bolder;
-background-color: transparent;
-color: #81A6FC;
-border: none;
-margin-left: 8px;
-cursor: default;
+  background-color: transparent;
+  color: #81a6fc;
+  border: none;
+  margin-left: 8px;
+  cursor: default;
 }
 .more-less-btn {
   background-color: transparent;
@@ -89,6 +87,7 @@ cursor: default;
   margin: 5px;
   width: 30px;
   height: 30px;
+  cursor: pointer;
 }
 
 .single_post_user_btn:hover {
@@ -138,7 +137,7 @@ cursor: default;
   margin-right: 30px;
 }
 
-.user_img_cont:hover .gal-img-info{
+.user_img_cont:hover .gal-img-info {
   display: flex;
   justify-content: center;
   align-items: center;
