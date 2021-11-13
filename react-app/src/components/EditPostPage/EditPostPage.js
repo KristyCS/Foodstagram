@@ -17,9 +17,9 @@ function CreateNewPostPage({
   const [src, setSrc] = useState([]);
   const user = useSelector((state) => state.session.user);
 
-  const checks = [true];
+  const checks = [];
   for (const image in existImages) {
-    if (image) checks.push(true);
+    checks.push(true);
   }
 
   const [existImageCheckIn, setExistImageCheckIn] = useState(checks);
@@ -29,6 +29,7 @@ function CreateNewPostPage({
     if (!(existImageCheckIn.includes(true) || newAddedImages.length > 0)) {
       setErrors(["Please choose at least one photo."]);
     } else {
+      setErrors(["no error"]);
       const payload = {
         userId: user.id,
         postId: singlePost.id,
