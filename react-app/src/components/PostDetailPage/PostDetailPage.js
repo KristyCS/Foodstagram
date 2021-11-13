@@ -274,10 +274,7 @@ function PostDetailPage({
             src={singlePost.user.profile_photo}
             alt=""
           />
-          {/* <NavLink to={`/users/dashboard/${singlePost.user.username}`}>
-            {singlePost.user.username}
-          </NavLink> */}
-          <p className=""><NavLink to={`/users/dashboard/${singlePost.user.username}`}>
+          <p><NavLink to={`/users/dashboard/${singlePost.user.username}`}>
             {singlePost.user.username}
           </NavLink> {singlePost.description}</p>
         </div>
