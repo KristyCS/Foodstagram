@@ -68,6 +68,18 @@ function PostDetailPage({
     }
   }, [imageIdx, photoList.length]);
 
+  console.log(singlePost);
+
+  const userFollows = () => {
+    if (singlePost.user.id === user.id) return "";
+    if (user.following) {
+      for (const selectedUser of user.following) {
+        if (selectedUser.user_id === singlePost.user.id) return "Following";
+      }
+    }
+    return <a href={`/users/dashboard/${singlePost.user.username}`}>Follow</a>;
+  };
+
   const handleLikes = async (e, comment_id) => {
     e.stopPropagation();
     const id = Number(e.currentTarget.id);
@@ -140,7 +152,11 @@ function PostDetailPage({
               <div className="comment-container">
                 <img
                   className="comment-pfp"
-                  src={`${comment.user.profile_photo ? comment.user.profile_photo : "https://res.cloudinary.com/lpriya/image/upload/v1636533183/Foodstagram/default_dp_dcd3ao.png"}`}
+                  src={`${
+                    comment.user.profile_photo
+                      ? comment.user.profile_photo
+                      : "https://res.cloudinary.com/lpriya/image/upload/v1636533183/Foodstagram/default_dp_dcd3ao.png"
+                  }`}
                   alt=""
                 />
                 <div>
@@ -251,7 +267,7 @@ function PostDetailPage({
             {singlePost.user.username}
           </NavLink>
           <p> {"  ·  "} </p>
-          <p>following</p>
+          <p>{userFollows()}</p>
           {singlePost.user.id === user.id && (
             <>
               <GrEdit onClick={() => setShowEditPostModal(true)} />
@@ -277,9 +293,12 @@ function PostDetailPage({
           {/* <NavLink to={`/users/dashboard/${singlePost.user.username}`}>
             {singlePost.user.username}
           </NavLink> */}
-          <p className=""><NavLink to={`/users/dashboard/${singlePost.user.username}`}>
-            {singlePost.user.username}
-          </NavLink> {singlePost.description}</p>
+          <p className="">
+            <NavLink to={`/users/dashboard/${singlePost.user.username}`}>
+              {singlePost.user.username}
+            </NavLink>{" "}
+            {singlePost.description}
+          </p>
         </div>
         <div className="detailed-comment-area">{commentLoader(comments)}</div>
         <div className="comment-input-container">
