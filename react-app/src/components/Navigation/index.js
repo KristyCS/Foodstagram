@@ -22,7 +22,7 @@ const NavBar = ({ confirmBoolean, setConfirmBoolean }) => {
 
   if (user) {
     sessionLinks = (
-      <>
+      <div className="nav-container-wrapper">
         <div>
           <NavLink
             className="home-link"
@@ -54,7 +54,7 @@ const NavBar = ({ confirmBoolean, setConfirmBoolean }) => {
           />
         </div>
         <ProfileButton />
-      </>
+      </div>
     );
   } else {
     sessionLinks = (
