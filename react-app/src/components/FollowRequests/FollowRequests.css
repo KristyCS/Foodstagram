@@ -9,19 +9,38 @@
 
 }
 
+.req-list {
+    margin: 20px;
+    border-bottom: 1px solid black;
+}
+
 .f-l-d {
     display: flex;
 }
 
 #conf-btn {
     margin: 10px;
-    margin-left: 30px;
+    margin-left: 50px;
     cursor: pointer;
+    border: none;
+    background-color: rgb(84, 178, 241);
+    border-radius: 5px;
+    padding: 6px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 #del-btn {
     margin: 10px;
     cursor: pointer;
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 6px;
+    font-weight: bold;
+    background-color: white;
+    font-size: 14px;
 }
 
 .no-list {

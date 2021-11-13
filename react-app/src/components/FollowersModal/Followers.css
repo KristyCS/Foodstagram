@@ -43,7 +43,8 @@
     margin-bottom: 7px;
 }
 
-#del-btn {
+#remv-btn {
+    margin: 10px;
     margin-left: 50px;
     border: 1px solid black;
     cursor: pointer;
