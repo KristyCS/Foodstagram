@@ -21,6 +21,7 @@ function CreateNewPostPage({
   for (const image in existImages) {
     checks.push(true);
   }
+
   const [existImageCheckIn, setExistImageCheckIn] = useState(checks);
 
   const editPostHandler = (e) => {
@@ -28,6 +29,7 @@ function CreateNewPostPage({
     if (!(existImageCheckIn.includes(true) || newAddedImages.length > 0)) {
       setErrors(["Please choose at least one photo."]);
     } else {
+      setErrors(["no error"]);
       const payload = {
         userId: user.id,
         postId: singlePost.id,
