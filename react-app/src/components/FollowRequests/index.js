@@ -98,7 +98,7 @@ function FollowRequests({confirmBoolean, setConfirmBoolean}) {
           <ul id="follow-dropdown">
             {!requests.length && <li className="no-list">No pending requests</li> }
               {requests.map((follower, idx) => (
-                    <li key={idx} className="follow-list">
+                    <li key={idx} className="req-list">
                       <div className="f-l-d">
                          <NavLink to={`/users/dashboard/${follower.username}`}>
                             <div className="f-l-c">

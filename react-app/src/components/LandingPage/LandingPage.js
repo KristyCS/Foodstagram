@@ -4,6 +4,8 @@ import LoginForm from "../auth/LoginForm";
 import SignUpForm from "../auth/SignUpForm";
 import {login} from "../../store/session"
 import "./LandingPage.css";
+
+
 const LandingPage = () => {
   const dispatch = useDispatch();
   const credential = "demo@demo.com";
@@ -21,10 +23,10 @@ const LandingPage = () => {
           <>
             <LoginForm />
             <button onClick={() => dispatch(login(credential, password_demo))}>
-              Login As Demo User1
+              Demo User 1
             </button>
             <button onClick={() => dispatch(login(credential2, password_demo))}>
-              Login As Demo User2
+              Demo User 2
             </button>
             <div className="suggest-sign-up">
               <p>Don't have an account?</p>

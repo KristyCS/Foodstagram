@@ -118,7 +118,7 @@ const FollowButton = ({selectedUserId, setRerender, rerender}) => {
         //checks if the logged in user has requested to follow a user
         if(user.username === inRequests[0].username) {
             return buttonType = (
-                 <button className="edit-btn" onClick={() =>
+                 <button className="req-btn" onClick={() =>
                     setunfollowId(selectedUserId)
                 }>Requested</button>
              )
