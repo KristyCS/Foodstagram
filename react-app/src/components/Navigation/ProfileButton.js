@@ -34,28 +34,12 @@ function ProfileButton() {
     history.push("/");
   };
 
-  let profileDisplay;
-  if(user.profile_photo) {
-    profileDisplay = (
-      <>
-        <img id = "prof-pic" src = {user.profile_photo} alt="user dp small"/>
-      </>
-    )
-  } else {
-    profileDisplay = (
-      <>
-        <img id = "prof-pic"
-        src = "https://res.cloudinary.com/lpriya/image/upload/v1636533183/Foodstagram/default_dp_dcd3ao.png"
-        alt="user dp small"
-        />
-      </>
-    )
-  }
+ 
 
   return (
       <div id="profile-div">
         <div id="profile-button" onClick={openMenu}>
-          { profileDisplay }
+          <img id = "prof-pic" src = {user.profile_photo} alt="user dp small"/>
         </div>
         {showMenu && (
           <ul id="profile-dropdown">
