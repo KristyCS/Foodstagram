@@ -65,13 +65,13 @@ function App() {
           />
           <HomePage />
         </ProtectedRoute>
-        <Route path="/users/dashboard/:username" exact={true}>
+        <ProtectedRoute path="/users/dashboard/:username" exact={true}>
           <NavBar
             confirmBoolean={confirmBoolean}
             setConfirmBoolean={setConfirmBoolean}
           />
           <UserProfile confirmBoolean={confirmBoolean} />
-        </Route>
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );

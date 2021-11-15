@@ -66,7 +66,7 @@ function Followers({ username, setShowModal, setRerender, rerender }) {
                                         </div>
                                     </NavLink>
                                     {(user.username === username) &&
-                                                <button id="del-btn" onClick={() =>
+                                                <button id="remv-btn" onClick={() =>
                                                     {setdeleteReqId(follower.id)}}>
                                                         Remove
                                                 </button>

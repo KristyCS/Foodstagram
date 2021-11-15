@@ -7,6 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  scrollbar-width: none;
 }
 
 #modal-background {
@@ -40,13 +41,14 @@
 }
 #edit {
   position: absolute;
-  top: 40px;
-  left: 200px;
-  right: 200px;
-  bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: white;
   outline: none;
-  padding: 20px;
+  padding: 15px;
+  height: 650px;
+  width: 1200px;
   border-radius: 5px;
 }
 #modal-close {

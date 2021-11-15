@@ -24,7 +24,7 @@ function PostDetailPage({
   updateLikes,
   setUpdateLikes,
   updateCommentLikes,
-  setUpdateCommentLikes
+  setUpdateCommentLikes,
 }) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -41,7 +41,6 @@ function PostDetailPage({
   };
 
   useEffect(() => {
-    console.log("singlePost会render吗");
     const newPhotoList = [];
     for (let i = 0; i < singlePost.photos.length; i++) {
       newPhotoList.push(singlePost.photos[i]);
@@ -59,7 +58,6 @@ function PostDetailPage({
   }, [singlePost]);
 
   useEffect(() => {
-    console.log(imageIdx, "$$$$$$");
     setShowNxtImgIcon(true);
     setShowPreImgIcon(true);
     if (imageIdx === photoList.length - 1) {
@@ -70,10 +68,21 @@ function PostDetailPage({
     }
   }, [imageIdx, photoList.length]);
 
+  console.log(singlePost);
+
+  const userFollows = () => {
+    if (singlePost.user.id === user.id) return "";
+    if (user.following) {
+      for (const selectedUser of user.following) {
+        if (selectedUser.user_id === singlePost.user.id) return "Following";
+      }
+    }
+    return <a href={`/users/dashboard/${singlePost.user.username}`}>Follow</a>;
+  };
+
   const handleLikes = async (e, comment_id) => {
     e.stopPropagation();
     const id = Number(e.currentTarget.id);
-    console.log(id);
     if (id > 0) {
       await fetch(`/api/likes/${id}`, {
         method: "DELETE",
@@ -85,7 +94,7 @@ function PostDetailPage({
         }),
       });
       setUpdateLikes(!updateLikes);
-      setUpdateCommentLikes(!updateCommentLikes)
+      setUpdateCommentLikes(!updateCommentLikes);
       return;
     }
     await fetch(`/api/likes`, {
@@ -99,12 +108,11 @@ function PostDetailPage({
       }),
     });
     setUpdateLikes(!updateLikes);
-    setUpdateCommentLikes(!updateCommentLikes)
+    setUpdateCommentLikes(!updateCommentLikes);
     return;
   };
 
   const userLikes = (comment) => {
-    console.log(comment)
     if (comment.likes) {
       for (const like of comment.likes) {
         if (like.user_id === user.id)
@@ -144,7 +152,11 @@ function PostDetailPage({
               <div className="comment-container">
                 <img
                   className="comment-pfp"
-                  src={`${comment.user.profile_photo ? comment.user.profile_photo : "https://res.cloudinary.com/lpriya/image/upload/v1636533183/Foodstagram/default_dp_dcd3ao.png"}`}
+                  src={`${
+                    comment.user.profile_photo
+                      ? comment.user.profile_photo
+                      : "https://res.cloudinary.com/lpriya/image/upload/v1636533183/Foodstagram/default_dp_dcd3ao.png"
+                  }`}
                   alt=""
                 />
                 <div>
@@ -171,7 +183,7 @@ function PostDetailPage({
           );
         }
         return (
-          <li className="single-comment">
+          <li key={idx} className="single-comment">
             <div className="comment-container">
               <img
                 className="comment-pfp"
@@ -255,7 +267,7 @@ function PostDetailPage({
             {singlePost.user.username}
           </NavLink>
           <p> {"  ·  "} </p>
-          <p>following</p>
+          <p>{userFollows()}</p>
           {singlePost.user.id === user.id && (
             <>
               <GrEdit onClick={() => setShowEditPostModal(true)} />
@@ -278,10 +290,15 @@ function PostDetailPage({
             src={singlePost.user.profile_photo}
             alt=""
           />
-          <NavLink to={`/users/dashboard/${singlePost.user.username}`}>
+          {/* <NavLink to={`/users/dashboard/${singlePost.user.username}`}>
             {singlePost.user.username}
-          </NavLink>
-          <p className="">{singlePost.description}</p>
+          </NavLink> */}
+          <p className="">
+            <NavLink to={`/users/dashboard/${singlePost.user.username}`}>
+              {singlePost.user.username}
+            </NavLink>{" "}
+            {singlePost.description}
+          </p>
         </div>
         <div className="detailed-comment-area">{commentLoader(comments)}</div>
         <div className="comment-input-container">

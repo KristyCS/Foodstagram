@@ -9,6 +9,7 @@
 
 .dis-pic-cont {
   margin: 50px;
+  margin-left: -200px;
 }
 
 #dis-pic {
@@ -41,3 +42,5 @@
     flex-wrap: wrap;
     width: 60%;
 }
+
+

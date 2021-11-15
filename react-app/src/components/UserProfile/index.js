@@ -27,23 +27,6 @@ const UserProfile = ({ confirmBoolean }) => {
         dispatch(getPosts());
     }, [dispatch]);
 
-    let profileDisplay;
-    if(selectedUser.profile_photo) {
-        profileDisplay = (
-        <>
-            <img id = "dis-pic" src = {selectedUser.profile_photo} alt="user dp"/>
-        </>
-        )
-    } else {
-        profileDisplay = (
-        <>
-            <img id = "dis-pic"
-            src = "https://res.cloudinary.com/lpriya/image/upload/v1636533183/Foodstagram/default_dp_dcd3ao.png"
-            alt="user dp"
-            />
-        </>
-        )
-    }
 
 
     useEffect(() => {
@@ -87,7 +70,7 @@ const UserProfile = ({ confirmBoolean }) => {
         <div className="prof-pg">
             <div className = "prof-cont">
                 <div className = "dis-pic-cont">
-                    { profileDisplay }
+                    <img id = "dis-pic" src = {selectedUser.profile_photo} alt="user dp"/>
                 </div>
                 <div className = "prof-details">
                     <div className="name-fol">

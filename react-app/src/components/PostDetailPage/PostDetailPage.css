@@ -1,25 +1,34 @@
 .post_detail_container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 100%;
   grid-template-areas: "image post";
-  gap: 8px;
+  gap: 10px;
+  height: 100%;
 }
 .images_container {
   grid-area: image;
-  width: 100%;
-  height: 100%;
   display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
   align-items: center;
   position: relative;
   object-fit: cover;
+  background-color: black;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .post_info {
   grid-area: post;
   display: flex;
   flex-direction: column;
-  height:100%;
-  margin:0;
+  height: 100%;
+  margin: 0;
 }
 
 .user_info {
@@ -36,12 +45,13 @@
 .profile_image {
   border-radius: 50%;
   width: 30px;
-  height:auto;
+  height: auto;
 }
 
 .images_review {
-  max-width: 100%;
-  max-height: 100%;
+  height: 100%;
+  width: 800px;
+  object-fit: cover;
   z-index: 0;
 }
 
@@ -51,18 +61,31 @@
   z-index: 10;
 }
 .nxtArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: white;
   position: absolute;
+  background-color: none;
+  width: 50px;
+  height: 50px;
   right: 0;
-  background-color: rgb(247, 247, 247);
-  border-radius: 50%;
 }
 .preArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: white;
   position: absolute;
+  background-color: none;
+  width: 50px;
+  height: 50px;
   left: 0;
-  background-color: rgb(247, 247, 247);
-  border-radius: 50%;
+
 }
-.description_info{
+.description_info {
   display: flex;
   flex-direction: row;
   padding: 5px;
@@ -71,15 +94,19 @@
   gap: 8px;
   font-weight: bolder;
 }
-.description_info > p{
-  font-weight:normal
+.description_info > p {
+  font-weight: normal;
 }
 
 .detailed-comment-area {
-  overflow-y: auto;
-  scrollbar-width: thin;
-  max-height: 400px;
+  overflow: auto;
+  height: 95%;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 
+.detailed-comment-area::-webkit-scrollbar {
+  display: none;
 }
 
 .single-comment {
@@ -88,7 +115,7 @@
 }
 
 .comments-delete-btn {
-  color: #FF3A41;
+  color: #ff3a41;
   background-color: transparent;
   border: none;
   font-weight: bold;
@@ -105,15 +132,27 @@
 
 .comment-container {
   display: flex;
-
+  height: 100%;
 }
 
-.comment-input-container{
+.comment-input-container {
   margin-bottom: 0;
   padding-bottom: 0;
+  height: 50px;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.comment-input-bar {
+  width: 90%;
+  height: 100%;
+  outline: none;
+  border: none;
 }
 
 .single_comment_like {
+  position: absolute;
+  bottom: 0;
+  display: flex;
   font-size: 40px;
   color: aqua;
 }
