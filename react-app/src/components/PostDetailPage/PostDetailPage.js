@@ -68,8 +68,6 @@ function PostDetailPage({
     }
   }, [imageIdx, photoList.length]);
 
-  console.log(singlePost);
-
   const userFollows = () => {
     if (singlePost.user.id === user.id) return "";
     if (user.following) {
