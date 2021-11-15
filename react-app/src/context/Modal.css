@@ -44,13 +44,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 40px;
-  left: 200px;
-  right: 200px;
-  bottom: 40px;
   background-color: white;
   outline: none;
-  padding: 20px;
+  padding: 15px;
+  height: 650px;
+  width: 1200px;
   border-radius: 5px;
 }
 #modal-close {
