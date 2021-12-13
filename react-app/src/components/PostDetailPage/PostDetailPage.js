@@ -273,7 +273,7 @@ function PostDetailPage({
             </>
           )}
           {showEditPostModal && (
-            <Modal type="edit" onClose={() => setShowEditPostModal(false)}>
+            <Modal onClose={() => setShowEditPostModal(false)}>
               <EditPostPage
                 setPostDetailModal={setPostDetailModal}
                 setShowEditPostModal={setShowEditPostModal}
