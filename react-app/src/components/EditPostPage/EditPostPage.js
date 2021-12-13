@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editPost } from "../../store/posts";
 import "./EditPostPage.css";
-function CreateNewPostPage({
+function EditPostPage({
   setShowEditPostModal,
   setPostDetailModal,
   singlePostId,
@@ -52,13 +52,13 @@ function CreateNewPostPage({
   };
 
   return (
-    <div className="createPostForm">
+    <div className="createPostForm-container">
       <h3>Edit Post</h3>
       <div className="view_image">
-        <div className="existing_images wrap">
-          <h4>Existing Photos</h4>
+        <h4>Existing Photos</h4>
+        <div className="create-post-image-container">
           {existImages.map((image, idx) => (
-            <div key={idx}>
+            <div className="create-post-single-image-container" key={idx}>
               <img className="small" src={image.photo_url} alt={idx} />
               <input
                 id={idx}
@@ -70,17 +70,17 @@ function CreateNewPostPage({
             </div>
           ))}
         </div>
-        <div className="new_images wrap">
-          <h4>New photos</h4>
+        <h4>New photos</h4>
+        <div className="create-post-image-container">
           {newAddedImages.map((image, idx) => (
-            <div key={idx}>
+            <div className="create-post-single-image-container" key={idx}>
               <p>{image.id}</p>
               <img className="small" key={idx} src={src[idx]} alt="" />
             </div>
           ))}
         </div>
       </div>
-      <form onSubmit={editPostHandler}>
+      <form className="createPostForm" onSubmit={editPostHandler}>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
@@ -113,4 +113,4 @@ function CreateNewPostPage({
   );
 }
 
-export default CreateNewPostPage;
+export default EditPostPage;

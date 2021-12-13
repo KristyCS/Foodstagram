@@ -8,3 +8,9 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
+.view_image{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}

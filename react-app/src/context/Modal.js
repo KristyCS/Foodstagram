@@ -31,7 +31,7 @@ export function Modal({ type,onClose, children }) {
   return ReactDOM.createPortal(
     <div id="modal">
       <div id="modal-background" />
-      <div id={type==="create"? "create" :type==="edit"? "edit":"modal-content"}>
+      <div id={type==="edit"? "edit":"modal-content"}>
         {children}
         <span id="modal-close" onClick={onClose}>X</span>
       </div>
