@@ -22,14 +22,14 @@ function CreateNewPostPage({ setShowCreatePostModal }) {
   };
 
   return (
-    <div className="createPostForm">
+    <div className="createPostForm-container">
       <h3> Create new post</h3>
-      {images.map((image, idx) => (
-        <div key={idx}>
+      <div className="create-post-image-container">{images.map((image, idx) => (
+        <div className="create-post-single-image-container" key={idx}>
           <img className="small" key={idx} src={src[idx]} alt={src[idx]} />
         </div>
-      ))}
-      <form onSubmit={createPostHandler}>
+      ))}</div>
+      <form className="createPostForm" onSubmit={createPostHandler}>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
