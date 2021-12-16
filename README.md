@@ -145,9 +145,19 @@ Foodstagram is a full stack food photo sharing app cloned from Instagram that is
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Signup for a new account, or login to a pre existing account. 
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+<img src="https://i.imgur.com/ASeEG40.png" alt="" width="680" height="250">
+
+Post a new image to your account.
+
+<img src="https://i.imgur.com/ASeEG40.png" alt="" width="680" height="250">
+
+Feel free to like or comment on a followers images
+
+<img src="https://i.imgur.com/ASeEG40.png" alt="" width="680" height="250">
+
+_For more examples, please refer to the [Documentation](https://github.com/KristyCS/Foodstagram/wiki)_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -187,9 +197,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Afton Slone Jr - [@AftonSlone](https://twitter.com/AftonSlone) - [Linkedin](https://www.linkedin.com/in/afton-slone/)
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://foodstagram-aa.herokuapp.com/login](https://foodstagram-aa.herokuapp.com/login)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
