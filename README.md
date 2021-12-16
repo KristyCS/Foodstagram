@@ -147,15 +147,18 @@ Foodstagram is a full stack food photo sharing app cloned from Instagram that is
 
 Signup for a new account, or login to a pre existing account. 
 
-<img src="https://i.imgur.com/ASeEG40.png" alt="" width="680" height="250">
+<img src="https://i.imgur.com/0PM1Sgb.png" alt="" width="900" height="450">
+
 
 Post a new image to your account.
 
-<img src="https://i.imgur.com/ASeEG40.png" alt="" width="680" height="250">
+<img src="https://i.imgur.com/6RJyuYm.png" alt="" width="500" height="600">
 
 Feel free to like or comment on a followers images
 
-<img src="https://i.imgur.com/ASeEG40.png" alt="" width="680" height="250">
+<img src="https://i.imgur.com/R7ITidH.png" alt="" width="500" height="750">
+
+
 
 _For more examples, please refer to the [Documentation](https://github.com/KristyCS/Foodstagram/wiki)_
 
