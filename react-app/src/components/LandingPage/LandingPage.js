@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import {  useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import LoginForm from "../auth/LoginForm";
 import SignUpForm from "../auth/SignUpForm";
-import {login} from "../../store/session"
+import { login } from "../../store/session"
 import "./LandingPage.css";
 
 
@@ -22,10 +22,10 @@ const LandingPage = () => {
         {openLogin && (
           <>
             <LoginForm />
-            <button onClick={() => dispatch(login(credential, password_demo))}>
+            <button className='splash-main-btns' onClick={() => dispatch(login(credential, password_demo))}>
               Demo User 1
             </button>
-            <button onClick={() => dispatch(login(credential2, password_demo))}>
+            <button className='splash-main-btns' onClick={() => dispatch(login(credential2, password_demo))}>
               Demo User 2
             </button>
             <div className="suggest-sign-up">
