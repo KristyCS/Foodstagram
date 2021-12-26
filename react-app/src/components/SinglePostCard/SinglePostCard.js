@@ -213,7 +213,7 @@ const SinglePostCard = ({
   };
 
   return (
-<>
+    <>
       {photoFeed &&
         <div className="single_post_container">
           <div className="single_post_user">
@@ -225,70 +225,70 @@ const SinglePostCard = ({
             <p className="user_name">{singlePost.user.username}</p>
           </div>
           <div className="main_post_image">
-        <img
-          src={singlePost.photos[imageIndex].photo_url}
-          alt="display_image"
-          className="display_image"
-        />
-      </div>
-      <div className="operation">
-        {userLikes()}{" "}
-        <div className={`single_post_user_btn`} id={0}>
-          <IoChatbubbleOutline onClick={() => setPostDetailModal(true)} />
+            <img
+              src={singlePost.photos[imageIndex].photo_url}
+              alt="display_image"
+              className="display_image"
+            />
+          </div>
+          <div className="operation">
+            {userLikes()}{" "}
+            <div className={`single_post_user_btn`} id={0}>
+              <IoChatbubbleOutline onClick={() => setPostDetailModal(true)} />
+            </div>
+          </div>
+          <div className="likes">
+            <p>{`${singlePost.likes.length} likes`}</p>
+          </div>
+          <div className="description">
+
+            <p className="description_content">
+              <NavLink to={`/users/dashboard/${singlePost.user.username}`} className="description_user_name">
+                {singlePost.user.username}
+              </NavLink>{" "}
+              {singlePost.description}
+            </p>
+          </div>
+          <div className="view_all_comments">
+            <span onClick={() => setPostDetailModal(true)}>
+              {isThereAnyComments()}
+            </span>
+          </div>
+          <div>{number_of_all_comments ? correspondingComments() : null}</div>
+          <div>
+            <input
+              className="comment-input-bar"
+              placeholder="Add a comment..."
+              value={inputComment}
+              onChange={(event) => {
+                setinputComment(event.target.value);
+              }}
+            ></input>
+            <button
+              className="comment-submit-btn"
+              disabled={!inputComment}
+              onClick={(event) => handleCommentSubmit()}
+            >
+              Post
+            </button>
+          </div>
+          {postDetailModal && (
+            <Modal type="edit" onClose={() => setPostDetailModal(false)}>
+              <PostDetailPage
+                setPostDetailModal={setPostDetailModal}
+                singlePostId={singlePost.id}
+                comments={items}
+                inputComment={inputComment}
+                setinputComment={setinputComment}
+                updateLikes={updateLikes}
+                setUpdateLikes={setUpdateLikes}
+                updateCommentLikes={updateCommentLikes}
+                setUpdateCommentLikes={setUpdateCommentLikes}
+              />
+            </Modal>
+
+          )}
         </div>
-      </div>
-      <div className="likes">
-        <p>{`${singlePost.likes.length} likes`}</p>
-      </div>
-      <div className="description">
-
-        <p className="description_content">
-          <NavLink  to={`/users/dashboard/${singlePost.user.username}`} className="description_user_name">
-            {singlePost.user.username}
-          </NavLink>{" "}
-          {singlePost.description}
-        </p>
-      </div>
-      <div className="view_all_comments">
-        <span onClick={() => setPostDetailModal(true)}>
-          {isThereAnyComments()}
-        </span>
-      </div>
-      <div>{number_of_all_comments ? correspondingComments() : null}</div>
-      <div>
-        <input
-          className="comment-input-bar"
-          placeholder="Add a comment..."
-          value={inputComment}
-          onChange={(event) => {
-            setinputComment(event.target.value);
-          }}
-        ></input>
-        <button
-          className="comment-submit-btn"
-          disabled={!inputComment}
-          onClick={(event) => handleCommentSubmit()}
-        >
-          Post
-        </button>
-      </div>
-      {postDetailModal && (
-        <Modal type="edit" onClose={() => setPostDetailModal(false)}>
-          <PostDetailPage
-            setPostDetailModal={setPostDetailModal}
-            singlePostId={singlePost.id}
-            comments={items}
-            inputComment={inputComment}
-            setinputComment={setinputComment}
-            updateLikes={updateLikes}
-            setUpdateLikes={setUpdateLikes}
-            updateCommentLikes={updateCommentLikes}
-            setUpdateCommentLikes={setUpdateCommentLikes}
-          />
-        </Modal>
-
-      )}
-      </div>
       }
 
       {userGallery &&
@@ -328,8 +328,8 @@ const SinglePostCard = ({
         </div>
 
 
-}
-</>
+      }
+    </>
   )
 
 }

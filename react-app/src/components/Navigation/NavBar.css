@@ -22,7 +22,9 @@
 }
 .plus-btn {
   font-size: 30px;
+  cursor: pointer;
 }
+
 
 .home-link {
   font-family: "Lobster Two", cursive;

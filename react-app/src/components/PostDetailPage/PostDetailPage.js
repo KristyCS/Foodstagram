@@ -150,14 +150,13 @@ function PostDetailPage({
               <div className="comment-container">
                 <img
                   className="comment-pfp"
-                  src={`${
-                    comment.user.profile_photo
-                      ? comment.user.profile_photo
-                      : "https://res.cloudinary.com/lpriya/image/upload/v1636533183/Foodstagram/default_dp_dcd3ao.png"
-                  }`}
+                  src={`${comment.user.profile_photo
+                    ? comment.user.profile_photo
+                    : "https://res.cloudinary.com/lpriya/image/upload/v1636533183/Foodstagram/default_dp_dcd3ao.png"
+                    }`}
                   alt=""
                 />
-                <div>
+                <div className="single-comment-div">
                   <span
                     className="usernames-link"
                     onClick={(event) => toProfile(comment.user.username)}
@@ -166,17 +165,17 @@ function PostDetailPage({
                   </span>
                   &nbsp;&nbsp;{comment.content}
                 </div>
-                {userLikes(comment)}
+                <div className="likes-div">
+                  <button
+                    className="comments-delete-btn"
+                    onClick={(event) => {
+                      handleDelete(comment.id, comment.post.id);
+                    }}
+                  >
+                    X
+                  </button>
+                </div>
               </div>
-              <div></div>
-              <button
-                className="comments-delete-btn"
-                onClick={(event) => {
-                  handleDelete(comment.id, comment.post.id);
-                }}
-              >
-                Delete
-              </button>
             </li>
           );
         }
@@ -188,7 +187,7 @@ function PostDetailPage({
                 src={`${comment.user.profile_photo}`}
                 alt=""
               />
-              <div>
+              <div className="single-comment-div">
                 <span
                   className="usernames-link"
                   onClick={(event) => toProfile(comment.user.username)}
@@ -197,7 +196,9 @@ function PostDetailPage({
                 </span>
                 &nbsp;&nbsp;{comment.content}
               </div>
-              {userLikes(comment)}
+              <div className="likes-div">
+                {userLikes(comment)}
+              </div>
             </div>
           </li>
         );

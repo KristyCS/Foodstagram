@@ -10,7 +10,7 @@ const LoginForm = () => {
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 
-  
+
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
@@ -57,7 +57,7 @@ const LoginForm = () => {
             onChange={updatePassword}
           />
         </div>
-        <button type="submit">Login</button>
+        <button className='splash-main-btns' type="submit">Login</button>
       </form>
 
     </>
