@@ -201,6 +201,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ## Contact
 
 Afton Slone Jr - [@AftonSlone](https://twitter.com/AftonSlone) - [Linkedin](https://www.linkedin.com/in/afton-slone/)
+Hao Chang - [Linkedin](https://www.linkedin.com/in/hao-chang-459128b1/)
 
 Project Link: [https://foodstagram-aa.herokuapp.com/login](https://foodstagram-aa.herokuapp.com/login)
 

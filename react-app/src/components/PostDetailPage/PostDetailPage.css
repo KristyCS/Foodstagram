@@ -112,6 +112,20 @@ img {
 .single-comment {
   margin-top: 10px;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.single-comment-div{
+  width: 90%;
+
+}
+
+.likes-div{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 10%;
 }
 
 .comments-delete-btn {
@@ -119,7 +133,6 @@ img {
   background-color: transparent;
   border: none;
   font-weight: bold;
-  margin-left: 40px;
   cursor: pointer;
 }
 

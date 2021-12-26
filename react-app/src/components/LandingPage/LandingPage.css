@@ -58,13 +58,19 @@ input {
 .suggest-sign-up{
   display: flex;
   flex-direction: row;
+  align-items: center;
+  width: 320px;
+  height: 25px;
 }
 .sign-up{
-  color: #0095f6
+  color: #0095f6;
+  border: 1px solid white;
+  margin-left: 10px;
 }
 .sign-up:hover{
-  font-weight:bolder;
-  border:1px #0095f6 solid
+  border:1px #0095f6 solid;
+  cursor: pointer;
+  padding: 2px;
 }
 
 .story{
@@ -76,4 +82,9 @@ input {
   width:80px;
   height: auto;
   border-radius: 50%;
+  cursor: pointer;
+}
+
+.splash-main-btns{
+  cursor: pointer;
 }
