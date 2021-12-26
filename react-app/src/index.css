@@ -1,6 +1,15 @@
 /* TODO Add site wide styles */
-body {
+* {
   background-color: rgb(252, 252, 252);
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+button:hover{
+  cursor:pointer;
+}
+
+a:hover{
+  cursor:pointer;
 }
